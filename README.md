@@ -890,37 +890,96 @@ The ETH 1.73x amplification factor relative to BTC is not accidental. Three rein
 - **Institutional ETF price floor.** Spot ETH ETF inflows create a persistent price support that dampens extreme downside but does not constrain upside, producing an asymmetric reaction profile that amplifies BTC-aligned moves.
 - **DeFi collateral liquidation cascade.** When BTC drops sharply, DeFi protocols that use ETH as collateral begin issuing margin calls, forcing ETH sales that are independent of the ETH futures positioning. This creates a mechanical amplification of BTC drawdowns at the 2--4 hour horizon.
 
-### 12.2 SOL Deep Study --- Incomplete
+### 12.2 SOL Deep Study --- Two Distinct Mechanics
+
+The initial framing of this section assumed SOL behavior was an amplified version of BTC dynamics. The extended study invalidates that assumption. SOL operates through a fundamentally different mechanical regime.
 
 #### 12.2.1 SOL as a Memecoin Gas Token
 
 The most structurally important fact about SOL is that approximately 92% of Solana DEX trading volume is attributable to memecoin activity. SOL is not, in practice, primarily a Layer 1 infrastructure token traded on fundamentals; it is the gas token for a casino, and its price dynamics are heavily influenced by the activity level of that casino.
 
-This creates a liquidity profile qualitatively different from BTC or ETH. SOL's aggregate futures open interest is approximately 6.1x thinner than BTC's, meaning that the same absolute dollar flow produces 6.1x the price impact. SOL systematically overshoots in both directions.
+This creates a liquidity profile qualitatively different from BTC or ETH. SOL's aggregate futures open interest is approximately 6.1x thinner than BTC's, meaning that the same absolute dollar flow produces 6.1x the price impact. SOL systematically overshoots in both directions. The retail composition is approximately 94%---there is no institutional floor analogous to BTC's hedge-driven suppression.
 
-#### 12.2.2 OI Behavior After Flushes
+#### 12.2.2 The Core Mechanical Difference: OI Momentum vs. Barrel Loading
+
+The most consequential finding from the extended SOL study is that **SOL moves start differently than BTC moves**.
+
+On BTC, the Barrel Principle applies: silence precedes the move. OI compresses, price range narrows, fuel accumulates---then a trigger fires the cascade. The "quiet before the move" pattern has approximately 71% coverage on BTC major moves.
+
+On SOL, the same pattern has 14% coverage. SOL moves do **not** start from silence.
+
+Instead, SOL operates on an **OI Momentum** mechanic: open interest accelerates before the move begins. The market does not load quietly; it announces its direction through OI growth, and the move is the continuation of that growth rather than its consequence.
+
+| Mechanic | BTC | SOL |
+|----------|-----|-----|
+| Pre-move OI behavior | Compresses (silence) | Accelerates (OI $> 1\%$/4h) |
+| "Quiet before move" coverage | ~71% | 14% |
+| OI growing $> 1\%$/4h before big move | Moderate | **88% coverage** |
+| Trigger type | External spark into loaded barrel | OI continuation / ignition |
+
+This is not a parametric difference---it is a structural one. Applying BTC-derived barrel detection to SOL produces false negatives on 86% of qualifying moves.
+
+#### 12.2.3 OI Behavior After Flushes
 
 On BTC and ETH, open interest recovers after a flush event (sharp OI decline $> 3\%$ in 12 hours) within 24--48 hours as new participants reopen positions. On SOL, this recovery does not occur. In 54% of qualifying SOL flush events, open interest continues declining for the subsequent 48 hours rather than recovering. The participants who were liquidated or stopped out do not return.
 
 The behavioral interpretation is consistent with the memecoin gas token nature of SOL: when the memecoin casino activity drops, capital permanently exits the SOL futures market rather than seeking re-entry. The flush is not a capitulation event signaling exhausted sellers; it is a signal of ecosystem disengagement.
 
-#### 12.2.3 Asymmetric BTC Correlation
+#### 12.2.4 Asymmetric BTC Correlation
 
 SOL tracks BTC downside reliably but does not track BTC upside. During BTC rally periods, SOL open interest bleeds---participants sell futures exposure while price rises rather than adding to positions as they would on a conventional beta-amplification asset. The asymmetry suggests that SOL futures participants use drawdowns as exit opportunities (distribution) rather than accumulation opportunities.
 
 This is consistent with the empirical finding that SOL pumps are 100% futures-driven. Spot and on-chain activity does not lead the move; centralized futures positioning is the primary price driver during SOL upside, reflecting distribution to incoming retail participants rather than genuine demand accumulation.
 
-#### 12.2.4 Mean-Reversion Regime Dependence
+Notably, BTC is **not** an early warning signal for SOL crashes: only 1% of SOL crash events have BTC leading the decline. BTC direction functions as a regime driver, not a trade signal.
 
-Mean-reversion strategies on SOL exhibit a sharp regime dependency. On quiet days---operationally defined as low network fee environment with low absolute OI level---mean-reversion models produce a profit factor of approximately 2.0. When the memecoin casino is active (elevated on-chain fees, high absolute OI growth), the same mean-reversion models produce a profit factor below 1.0, indicating negative expected value.
+#### 12.2.5 Validated SOL Models
 
-This regime dependency is not present to the same degree on BTC or ETH. It reflects the fact that the primary source of noise in SOL price formation is external to the futures market (memecoin activity on Solana DEX), and therefore invisible in the data sources analyzed in this study.
+##### LONG side: Solved
 
-#### 12.2.5 Honest Assessment of SOL Coverage
+Two models pass out-of-sample validation on the LONG side:
 
-The futures-data-based analysis captures approximately 7.5% of SOL price movement in terms of directional explainability, compared to 65% capture on BTC. This is not a modeling failure---it is a data limitation. An estimated 76% of SOL price moves have no statistically significant precursor in the futures positioning, OI, or price data examined.
+**SM1 --- OI Ignition:** OI growth exceeding $2\%$ per 4 hours with price confirmation. This model captures 99% of UP move events. Out-of-sample profit factor: 1.28. The coverage is high because OI momentum is the defining feature of SOL pumps, not a filter on top of them.
 
-The most likely source of this unexplained variance is on-chain activity: pump.fun hourly new token launches, whale wallet activity on the Solana chain, DEX flow imbalances, and social sentiment driving retail participation in memecoin seasons. SOL remains undertrained from a modeling perspective, and this study treats that as an honest structural limitation rather than a result to be minimized.
+**SM7 --- Squeeze Signature:** OI spike combined with declining avgLong (retail distribution while price rises). This pattern identifies institutional distribution being absorbed by incoming retail. Out-of-sample profit factor: 1.77.
+
+##### SHORT side: Structurally Limited
+
+The SHORT side presents a qualitatively harder problem. Three empirical facts constrain it:
+
+1. **80% of crashes start with OI still growing**, not at OI peak. The peak is not a reliable trigger.
+2. **Prior pump $> 3\%$ in 7 days is present in 97% of crashes**---a necessary condition, but not sufficient for entry timing.
+3. **BTC provides no early warning**: only 1% of SOL crashes are preceded by BTC leading the decline.
+
+The best SHORT model identified is **SS2 (OI Peak + High Divergence, 24-hour window)**. Out-of-sample profit factor: 1.63. However, this model covers only 25% of DOWN moves. The remaining 75% of DOWN moves are driven by external triggers---memecoin ecosystem collapse, whale exits, macro dislocations---that produce no detectable precursor in futures positioning or OI data.
+
+This is not an optimization problem. 75% of SOL crashes are not predictable from futures data.
+
+#### 12.2.6 Regime Cycling
+
+SOL cycles through three regime types across calendar months:
+
+| Regime | Frequency | Characteristic |
+|--------|-----------|----------------|
+| Mean-Reversion | 44% of months | Range-bound, OI stable |
+| Momentum | 33% of months | OI accelerating, directional |
+| Dead | 22% of months | Low OI, low volatility, no signal |
+
+BTC's directional trend is the primary driver of which regime SOL enters. When BTC is trending, SOL enters Momentum mode. When BTC is ranging, SOL cycles between Mean-Reversion and Dead.
+
+Mean-reversion strategies on SOL work exclusively in the Mean-Reversion regime (profit factor approximately 2.0 in that regime; below 1.0 in Momentum). Without regime classification as a prerequisite filter, mean-reversion on SOL produces negative expected value in aggregate.
+
+#### 12.2.7 Honest Assessment of SOL Coverage
+
+The futures-data-based analysis captures approximately 20--25% of SOL price dynamics, revised upward from the preliminary 7.5% estimate following the LONG model validation. The total movement across the 547-day study period was 29,021%; the validated models capture approximately 0.26% of that movement in realized PnL.
+
+The remaining 75--80% of SOL dynamics are driven by on-chain ecosystem activity: pump.fun token launches, Solana whale wallet flows, DEX flow imbalances, and memecoin season cycles. These signals are invisible in futures data and represent the prerequisite data requirement for any materially higher SOL coverage.
+
+**Summary characterization:**
+
+- SOL LONG: **solved** within futures data constraints (OI Momentum framework, 88% precursor coverage)
+- SOL SHORT: **structurally limited** (25% coverage maximum from futures data; 75% driven by external triggers)
+- Full SOL model: requires on-chain data integration (pump.fun, Solana DEX flows, whale wallets)
 
 ### 12.3 Three Market Archetypes (Updated Summary)
 
@@ -928,13 +987,13 @@ The deep studies refine and extend the market type classification introduced in 
 
 | Property | BTC | ETH | SOL |
 |----------|-----|-----|-----|
-| **Archetype** | Institutional Hedge Market | Yield Platform / BTC Amplifier | Memecoin Casino |
-| **Positioning data** | Informative (leading) | Structural noise (reactive) | Partially informative (speed only) |
-| **Primary signal** | avgLong extremes | BTC signal × OI confirmation | avgLong drop speed; BTC amplification |
-| **Best strategy** | 8 native BTC models | Use BTC signals, trade ETH | Mean-reversion (quiet regime only) |
-| **Validated PF** | 3.53 (733d, full OOS) | 6.26 (186d, preliminary) | 2.0 (quiet regime only, preliminary) |
-| **Capture rate** | 65% | ~55% | 7.5% |
-| **Needs for full coverage** | Current data sufficient | ETH-specific OI models | On-chain data (pump.fun, DEX flow) |
+| **Archetype** | Institutional Hedge Market | Yield Platform / BTC Amplifier | Memecoin Casino / OI Momentum |
+| **Positioning data** | Informative (leading) | Structural noise (reactive) | Partially informative (OI momentum) |
+| **Primary signal** | avgLong extremes | BTC signal × OI confirmation | OI acceleration ($> 1\%$/4h) |
+| **Best strategy** | 8 native BTC models | Use BTC signals, trade ETH | SM1/SM7 LONG; SHORT structurally limited |
+| **Validated PF** | 3.53 (733d, full OOS) | 6.26 (186d, preliminary) | SM1: 1.28; SM7: 1.77; SS2 SHORT: 1.63 |
+| **Capture rate** | 65% | ~55% | ~20--25% (LONG solved; SHORT 25% max) |
+| **Needs for full coverage** | Current data sufficient | ETH-specific OI models | On-chain data (pump.fun, DEX flow, whale wallets) |
 
 The defining property that separates BTC from the others is not size, liquidity, or age---it is the presence of institutional short-hedging demand. BTC futures are used to hedge broad crypto portfolio exposure. ETH and SOL are not. This creates a structural suppression of BTC long positioning that generates the dynamic range required for positioning data to carry directional information.
 
@@ -972,7 +1031,7 @@ The system's structural ceiling is defined by the 9% irreducible direction error
 
 Cross-asset analysis reveals that the positioning-based framework does not translate uniformly across major perpetuals. BTC, ETH, and SOL constitute three structurally distinct market types: BTC is a *Positioning Market* where institutional hedging demand makes avgLong a leading directional indicator; ETH is an *OI Flow / Mean-Reversion Market* where the primary signal is open interest divergence from price rather than positioning level; and SOL is a *Cascade/Momentum Market* where high beta (1.91x) inverts mean-reversion signals and makes drop speed the dominant predictive variable. The root cause of this divergence is BTC's unique role as the primary hedge instrument for institutional crypto portfolios---a structural property that has no direct analog on ETH or SOL. Preliminary evidence indicates that cross-asset signals (ETH underperformance vs. BTC, SOL positioning extremes with BTC neutral) generate exploitable edges with win rates exceeding 70%, suggesting that multi-asset portfolio construction on a unified positioning framework is a viable extension of this research.
 
-The deep asset studies in Section 12 introduce an important asymmetry in research completeness. The BTC system is fully characterized: 733-day full-period analysis, eight validated models, complete out-of-sample validation. The ETH system is substantially characterized, with the primary discovery that ETH is best traded as a BTC amplifier ($+1{,}237\%$ vs. $+222\%$ for native ETH signals) rather than as an independent positioning market. SOL, however, remains genuinely incomplete. The futures-based analysis captures only 7.5% of SOL price movement---compared to 65% for BTC---and the missing 76\% of variance is most likely attributable to on-chain activity invisible in the datasets used here. Honest characterization of this limitation is more valuable than a false completeness claim.
+The deep asset studies in Section 12 introduce an important asymmetry in research completeness. The BTC system is fully characterized: 733-day full-period analysis, eight validated models, complete out-of-sample validation. The ETH system is substantially characterized, with the primary discovery that ETH is best traded as a BTC amplifier ($+1{,}237\%$ vs. $+222\%$ for native ETH signals) rather than as an independent positioning market. SOL is substantially more characterized than initially assessed: the extended study identifies OI Momentum as the governing mechanic (88% coverage on LONG moves), validates two LONG models (SM1 PF 1.28, SM7 PF 1.77), and conclusively establishes that the SHORT side is structurally limited to 25% coverage from futures data. The revised capture estimate is 20--25% (up from the preliminary 7.5%). The remaining 75--80% of SOL dynamics require on-chain data integration to address.
 
 ### Future Work
 
