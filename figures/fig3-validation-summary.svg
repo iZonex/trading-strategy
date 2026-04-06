@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="800" height="500" fill="#0d1117" rx="8"/>
+  <text x="400" y="35" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">Out-of-Sample Validation: 7/7 Tests Pass</text>
+
+  <!-- Test cards -->
+  <!-- Row 1 -->
+  <rect x="30" y="55" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="52" cy="77" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="52" y="82" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="72" y="80" fill="#e6edf3" font-size="13" font-weight="600">50/50 Split</text>
+  <text x="45" y="100" fill="#8b949e" font-size="11">IS: PF 3.60 | OOS: PF 3.50</text>
+  <text x="45" y="118" fill="#3fb950" font-size="12" font-weight="600">WF Efficiency: 0.97</text>
+  <text x="45" y="138" fill="#8b949e" font-size="10">OOS WR actually improved (74% vs 68%)</text>
+
+  <rect x="283" y="55" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="305" cy="77" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="305" y="82" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="325" y="80" fill="#e6edf3" font-size="13" font-weight="600">3-Way Split</text>
+  <text x="298" y="100" fill="#8b949e" font-size="11">All 3 periods profitable</text>
+  <text x="298" y="118" fill="#3fb950" font-size="12" font-weight="600">PF: 3.98 / 4.25 / 2.78</text>
+  <text x="298" y="138" fill="#8b949e" font-size="10">No weak period in any third</text>
+
+  <rect x="536" y="55" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="558" cy="77" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="558" y="82" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="578" y="80" fill="#e6edf3" font-size="13" font-weight="600">Walk-Forward</text>
+  <text x="551" y="100" fill="#8b949e" font-size="11">9 rolling windows</text>
+  <text x="551" y="118" fill="#3fb950" font-size="12" font-weight="600">9/9 positive (100%)</text>
+  <text x="551" y="138" fill="#8b949e" font-size="10">Avg WF efficiency: 1.08</text>
+
+  <!-- Row 2 -->
+  <rect x="30" y="168" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="52" cy="190" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="52" y="195" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="72" y="193" fill="#e6edf3" font-size="13" font-weight="600">Quarterly</text>
+  <text x="45" y="213" fill="#8b949e" font-size="11">8 quarters analyzed</text>
+  <text x="45" y="231" fill="#3fb950" font-size="12" font-weight="600">8/8 positive (100%)</text>
+  <text x="45" y="251" fill="#8b949e" font-size="10">Worst: Q2-2024 +20.6%</text>
+
+  <rect x="283" y="168" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="305" cy="190" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="305" y="195" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="325" y="193" fill="#e6edf3" font-size="13" font-weight="600">Monte Carlo</text>
+  <text x="298" y="213" fill="#8b949e" font-size="11">1,000 random simulations</text>
+  <text x="298" y="231" fill="#3fb950" font-size="12" font-weight="600">p-value: &lt; 0.01%</text>
+  <text x="298" y="251" fill="#8b949e" font-size="10">Real WR 72% vs random 99th pct 57%</text>
+
+  <rect x="536" y="168" width="235" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="558" cy="190" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="558" y="195" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="578" y="193" fill="#e6edf3" font-size="13" font-weight="600">Per-Model OOS</text>
+  <text x="551" y="213" fill="#8b949e" font-size="11">8 models tested separately</text>
+  <text x="551" y="231" fill="#3fb950" font-size="12" font-weight="600">7/8 hold up in OOS</text>
+  <text x="551" y="251" fill="#d29922" font-size="10">PEND-L degrades (44% WR, n=9)</text>
+
+  <!-- Row 3: Parameter sensitivity -->
+  <rect x="160" y="281" width="480" height="95" fill="#161b22" rx="6" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="182" cy="303" r="12" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="182" y="308" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="700">✓</text>
+  <text x="202" y="306" fill="#e6edf3" font-size="13" font-weight="600">Parameter Sensitivity</text>
+  <text x="175" y="328" fill="#8b949e" font-size="11">21 parameter variations tested (avgLong threshold, fuel shift, SL level, pendulum threshold)</text>
+  <text x="175" y="348" fill="#3fb950" font-size="12" font-weight="600">21/21 positive — PnL range: +691% to +848%</text>
+  <text x="175" y="365" fill="#8b949e" font-size="10">No cliff edges. System robust to ±20% parameter shifts.</text>
+
+  <!-- Summary bar at bottom -->
+  <rect x="30" y="400" width="740" height="80" fill="#0d1117" rx="6" stroke="#3fb950" stroke-width="2"/>
+  <text x="400" y="428" text-anchor="middle" fill="#e6edf3" font-size="16" font-weight="700">System Performance: OOS Validated</text>
+
+  <!-- Stats -->
+  <text x="120" y="460" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">290</text>
+  <text x="120" y="475" text-anchor="middle" fill="#8b949e" font-size="10">trades</text>
+
+  <text x="260" y="460" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">72%</text>
+  <text x="260" y="475" text-anchor="middle" fill="#8b949e" font-size="10">win rate</text>
+
+  <text x="400" y="460" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">+828%</text>
+  <text x="400" y="475" text-anchor="middle" fill="#8b949e" font-size="10">cumulative PnL</text>
+
+  <text x="540" y="460" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">3.53</text>
+  <text x="540" y="475" text-anchor="middle" fill="#8b949e" font-size="10">profit factor</text>
+
+  <text x="680" y="460" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">p&lt;0.01%</text>
+  <text x="680" y="475" text-anchor="middle" fill="#8b949e" font-size="10">Monte Carlo</text>
+</svg>

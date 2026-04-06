@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="800" height="420" fill="#0d1117" rx="8"/>
+  <text x="400" y="35" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">Five Market Participants &amp; Their Roles</text>
+
+  <!-- Pyramid layers -->
+  <!-- Smart Money (top) -->
+  <polygon points="400,60 310,130 490,130" fill="#1a73e8" fill-opacity="0.25" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="400" y="105" text-anchor="middle" fill="#58a6ff" font-size="13" font-weight="700">SMART MONEY</text>
+  <text x="400" y="120" text-anchor="middle" fill="#8b949e" font-size="10">Informed, patient, execution-constrained</text>
+
+  <!-- Slow Money -->
+  <polygon points="310,130 250,190 550,190 490,130" fill="#a371f7" fill-opacity="0.2" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="400" y="163" text-anchor="middle" fill="#a371f7" font-size="13" font-weight="700">SLOW MONEY (ETFs, Funds)</text>
+  <text x="400" y="180" text-anchor="middle" fill="#8b949e" font-size="10">Large, slow, mandate-driven. Execution Alpha problem.</text>
+
+  <!-- Market Makers -->
+  <polygon points="250,190 200,245 600,245 550,190" fill="#3fb950" fill-opacity="0.2" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="400" y="220" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="700">MARKET MAKERS</text>
+  <text x="400" y="237" text-anchor="middle" fill="#8b949e" font-size="10">Provide liquidity, profit from spread, hedge delta-neutral</text>
+
+  <!-- Small Money -->
+  <polygon points="200,245 155,295 645,295 600,245" fill="#d29922" fill-opacity="0.2" stroke="#d29922" stroke-width="1.5"/>
+  <text x="400" y="273" text-anchor="middle" fill="#d29922" font-size="13" font-weight="700">SMALL MONEY</text>
+  <text x="400" y="290" text-anchor="middle" fill="#8b949e" font-size="10">Semi-informed, follows smart money with delay</text>
+
+  <!-- Retail (bottom, widest) -->
+  <polygon points="155,295 115,345 685,345 645,295" fill="#f85149" fill-opacity="0.2" stroke="#f85149" stroke-width="1.5"/>
+  <text x="400" y="323" text-anchor="middle" fill="#f85149" font-size="13" font-weight="700">RETAIL</text>
+  <text x="400" y="340" text-anchor="middle" fill="#8b949e" font-size="10">Noise traders, contrarian indicator, provides liquidation fuel</text>
+
+  <!-- Annotations -->
+  <line x1="495" y1="95" x2="620" y2="80" stroke="#30363d" stroke-width="1"/>
+  <text x="625" y="75" fill="#58a6ff" font-size="11">topTraderLong</text>
+  <text x="625" y="90" fill="#8b949e" font-size="10">(Binance top 20%)</text>
+
+  <line x1="650" y1="320" x2="700" y2="360" stroke="#30363d" stroke-width="1"/>
+  <text x="625" y="375" fill="#f85149" font-size="11">globalLong</text>
+  <text x="625" y="390" fill="#8b949e" font-size="10">(Binance all accounts)</text>
+
+  <!-- Divergence arrow -->
+  <line x1="80" y1="95" x2="80" y2="340" stroke="#d29922" stroke-width="2" marker-start="url(#arrowUp)" marker-end="url(#arrowDown)"/>
+  <text x="65" y="220" text-anchor="middle" fill="#d29922" font-size="12" font-weight="600" transform="rotate(-90, 65, 220)">DIVERGENCE = SIGNAL</text>
+
+  <defs>
+    <marker id="arrowUp" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 10 L 5 0 L 10 10 z" fill="#d29922"/>
+    </marker>
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 5 10 L 10 0 z" fill="#d29922"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="410" text-anchor="middle" fill="#484f58" font-size="11">When top traders and retail diverge (div = globalLong − topTraderLong), cascade is imminent</text>
+</svg>

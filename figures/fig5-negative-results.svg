@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="800" height="480" fill="#0d1117" rx="8"/>
+  <text x="400" y="35" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">What Doesn't Work: Rejected Hypotheses</text>
+  <text x="400" y="55" text-anchor="middle" fill="#8b949e" font-size="12">Every hypothesis tested with statistical rigor on 733 days of data</text>
+
+  <!-- Grid of rejected items -->
+  <!-- Row 1 -->
+  <rect x="25" y="75" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="35" y="95" fill="#f85149" font-size="20">✗</text>
+  <text x="55" y="96" fill="#e6edf3" font-size="12" font-weight="600">Volume Divergence</text>
+  <text x="35" y="115" fill="#8b949e" font-size="10">Bearish div = actually bullish.</text>
+  <text x="35" y="130" fill="#8b949e" font-size="10">Classic TA fails on crypto.</text>
+  <text x="35" y="145" fill="#484f58" font-size="9">n=261, wrong direction</text>
+
+  <rect x="215" y="75" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="225" y="95" fill="#f85149" font-size="20">✗</text>
+  <text x="245" y="96" fill="#e6edf3" font-size="12" font-weight="600">Silence → Storm</text>
+  <text x="225" y="115" fill="#8b949e" font-size="10">50% big move rate = below</text>
+  <text x="225" y="130" fill="#8b949e" font-size="10">61% baseline. Myth.</text>
+  <text x="225" y="145" fill="#484f58" font-size="9">n=116, worse than random</text>
+
+  <rect x="405" y="75" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="415" y="95" fill="#f85149" font-size="20">✗</text>
+  <text x="435" y="96" fill="#e6edf3" font-size="12" font-weight="600">Funding Rate</text>
+  <text x="415" y="115" fill="#8b949e" font-size="10">85% positive (structural bias).</text>
+  <text x="415" y="130" fill="#8b949e" font-size="10">5-min positioning already better.</text>
+  <text x="415" y="145" fill="#484f58" font-size="9">n=2205, noise</text>
+
+  <rect x="595" y="75" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="605" y="95" fill="#f85149" font-size="20">✗</text>
+  <text x="625" y="96" fill="#e6edf3" font-size="12" font-weight="600">TWAP Detection</text>
+  <text x="605" y="115" fill="#8b949e" font-size="10">Impossible on 5-min bars.</text>
+  <text x="605" y="130" fill="#8b949e" font-size="10">Aggregation kills signal.</text>
+  <text x="605" y="145" fill="#484f58" font-size="9">Need tick data</text>
+
+  <!-- Row 2 -->
+  <rect x="25" y="170" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="35" y="190" fill="#f85149" font-size="20">✗</text>
+  <text x="55" y="191" fill="#e6edf3" font-size="12" font-weight="600">Macro Calendar</text>
+  <text x="35" y="210" fill="#8b949e" font-size="10">FOMC/CPI/NFP: no correlation</text>
+  <text x="35" y="225" fill="#8b949e" font-size="10">with SL hits. Removes winners.</text>
+  <text x="35" y="240" fill="#484f58" font-size="9">Tested all major events</text>
+
+  <rect x="215" y="170" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="225" y="190" fill="#f85149" font-size="20">✗</text>
+  <text x="245" y="191" fill="#e6edf3" font-size="12" font-weight="600">Multi-Wave Loading</text>
+  <text x="225" y="210" fill="#8b949e" font-size="10">Triple spike = 1.55% move.</text>
+  <text x="225" y="225" fill="#8b949e" font-size="10">Single spike = 2.08%. Reversed.</text>
+  <text x="225" y="240" fill="#484f58" font-size="9">n=20 triple, hypothesis rejected</text>
+
+  <rect x="405" y="170" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="415" y="190" fill="#f85149" font-size="20">✗</text>
+  <text x="435" y="191" fill="#e6edf3" font-size="12" font-weight="600">London Kill Zone</text>
+  <text x="415" y="210" fill="#8b949e" font-size="10">Boost x1.02 over pre-zone.</text>
+  <text x="415" y="225" fill="#8b949e" font-size="10">Forex concept, not crypto.</text>
+  <text x="415" y="240" fill="#484f58" font-size="9">Quietest crypto session</text>
+
+  <rect x="595" y="170" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="605" y="190" fill="#f85149" font-size="20">✗</text>
+  <text x="625" y="191" fill="#e6edf3" font-size="12" font-weight="600">Taker Extremes</text>
+  <text x="605" y="210" fill="#8b949e" font-size="10">4h extremes: too rare, coin flip.</text>
+  <text x="605" y="225" fill="#8b949e" font-size="10">Aggressive waves: 50/50.</text>
+  <text x="605" y="240" fill="#484f58" font-size="9">n=1681, zero edge</text>
+
+  <!-- Row 3 -->
+  <rect x="25" y="265" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="35" y="285" fill="#f85149" font-size="20">✗</text>
+  <text x="55" y="286" fill="#e6edf3" font-size="12" font-weight="600">OI Acceleration</text>
+  <text x="35" y="305" fill="#8b949e" font-size="10">2nd derivative = baseline rate.</text>
+  <text x="35" y="320" fill="#8b949e" font-size="10">"Bubble detection" = noise.</text>
+  <text x="35" y="335" fill="#484f58" font-size="9">61% = baseline 61%</text>
+
+  <rect x="215" y="265" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="225" y="285" fill="#f85149" font-size="20">✗</text>
+  <text x="245" y="286" fill="#e6edf3" font-size="12" font-weight="600">Weekend Filter</text>
+  <text x="225" y="305" fill="#8b949e" font-size="10">Weekend PF 3.55 &gt; weekday 2.49.</text>
+  <text x="225" y="320" fill="#8b949e" font-size="10">Skipping weekends = harmful.</text>
+  <text x="225" y="335" fill="#484f58" font-size="9">Counter-intuitive but real</text>
+
+  <rect x="405" y="265" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="415" y="285" fill="#f85149" font-size="20">✗</text>
+  <text x="435" y="286" fill="#e6edf3" font-size="12" font-weight="600">Session Filter (global)</text>
+  <text x="415" y="305" fill="#8b949e" font-size="10">06-12 UTC "best" = wrong.</text>
+  <text x="415" y="320" fill="#8b949e" font-size="10">Removed trades were better.</text>
+  <text x="415" y="335" fill="#484f58" font-size="9">PF 1.72 kept vs 2.20 removed</text>
+
+  <rect x="595" y="265" width="180" height="80" fill="#161b22" rx="5" stroke="#f85149" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="605" y="285" fill="#f85149" font-size="20">✗</text>
+  <text x="625" y="286" fill="#e6edf3" font-size="12" font-weight="600">Cum. Delta Divergence</text>
+  <text x="605" y="305" fill="#8b949e" font-size="10">Price↑ + delta↓ = actually</text>
+  <text x="605" y="320" fill="#8b949e" font-size="10">bullish continuation. Wrong.</text>
+  <text x="605" y="335" fill="#484f58" font-size="9">n=84, inverted signal</text>
+
+  <!-- Bottom message -->
+  <rect x="100" y="370" width="600" height="90" fill="#161b22" rx="6" stroke="#d29922" stroke-width="1.5"/>
+  <text x="400" y="400" text-anchor="middle" fill="#d29922" font-size="14" font-weight="700">Why Negative Results Matter</text>
+  <text x="400" y="422" text-anchor="middle" fill="#8b949e" font-size="11">Each rejected hypothesis narrows the search space and increases confidence in what DOES work.</text>
+  <text x="400" y="440" text-anchor="middle" fill="#8b949e" font-size="11">Volume is concurrent, not leading. TA is lagging. Positioning is the primary edge on crypto futures.</text>
+</svg>
