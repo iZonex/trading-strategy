@@ -120,11 +120,8 @@ The research proceeded in distinct phases:
 
 The guiding philosophy was *understand mechanics first, build models second*. No lagging indicators were permitted. Every model must answer six questions: WHO acts, WHY they act, WHAT happens, HOW it unfolds, WHEN to enter, and WHERE (which regime).
 
-```
 ![BTC Price & Positioning Timeline](figures/fig7-price-positioning.svg)
 *Figure 1: BTC price (gold), avgLong (blue), top trader (purple), and retail (red) positioning over 733 days. Blue zone = BULL (<48%), red zone = BEAR (>65%). Trade entries marked with arrows.*
-Prompt: "A wide financial chart spanning April 2024 to April 2026 showing BTC/USDT price as a candlestick chart on top, with a line overlay of avgLong percentage (ranging 40-80%) on a secondary axis. Three horizontal shaded zones: green below 48% labeled BULL, gray 48-65% labeled DEAD, red above 65% labeled BEAR. Clean, minimal, dark background, no decorations, professional quantitative finance style."
-```
 
 ---
 
@@ -182,11 +179,8 @@ From 733 days of bar-by-bar study, we distilled the following mechanical rules w
 | Top traders lead crossings | 67% of cases | -- | Smart money crosses positioning levels before retail |
 | Retail leads bounces | 82% of cases | -- | Retail panic precedes mechanical reversals |
 
-```
 ![Fuel-Cascade Mechanism](figures/fig2-fuel-cascade.svg)
 *Figure 2: The four-phase fuel-cascade mechanism. Entry during Phase 2 (silence), exit at Phase 4 when avgLong shifts ~13pp.*
-Prompt: "A diagram showing the fuel-cascade cycle for BTC futures. Left panel: avgLong rising from 55% to 72% over several days (fuel loading), with small cartoon figures labeled 'retail' buying. Middle panel: a trigger event (small red arrow) causing a price drop, with cascading red bars showing forced liquidations. Right panel: avgLong shifting back down 13pp as fuel is consumed. Clean schematic style, arrows showing causality, dark background, financial chart aesthetic."
-```
 
 ---
 
@@ -353,14 +347,11 @@ P(t) \text{ near 12-hour low}
 
 **Performance:** 23 trades, WR 78%, PF 12.85, PnL +47.1%.
 
-```
 ![Market Regime Zones](figures/fig1-market-zones.svg)
 *Figure 3: The eight models mapped to market regime zones by avgLong percentage.*
 
 ![Five Market Participants](figures/fig4-participants.svg)
 *Figure 3b: Five market participant types and their roles in the positioning ecosystem.*
-Prompt: "A horizontal bar chart showing avgLong percentage from 30% to 80% on the x-axis. Three colored zones: green (BULL, <48%), gray (DEAD, 48-65%), red (BEAR, >65%). Eight model names positioned at their operating zones with arrows showing trade direction: PB14-L at 40-48% pointing up, FLIQ-L spanning the full range pointing up, PEND-L and PEND-S in the dead zone with opposing arrows, PB14-S and DIST in the 56-68% range pointing down, PB12 and PB2 in the >65% range pointing down. Clean, schematic, dark background."
-```
 
 ---
 
@@ -435,7 +426,6 @@ The 54% timing errors are not caused by sharp spikes but by slow drift (average 
 
 SL hits show **no correlation with macro events**: SL rate near scheduled events (FOMC, CPI, NFP) = 24% vs. far from events = 26%.
 
-```
 ![Equity Curve](figures/fig6-equity-curve.svg)
 *Figure 4: Cumulative PnL equity curve. Green dots = winning trades, red dots = losing trades. 290 trades, +828%.*
 
@@ -444,8 +434,6 @@ SL hits show **no correlation with macro events**: SL rate near scheduled events
 
 ![Quarterly PnL](figures/fig9-quarterly-pnl.svg)
 *Figure 4c: Quarterly PnL decomposition — all 8 quarters positive.*
-Prompt: "A line chart showing cumulative PnL percentage over time from April 2024 to April 2026. The line starts at 0%, generally trends upward with some drawdowns, reaching approximately +828% by end. Key drawdown periods highlighted with red shading (deepest around -40%). Quarterly divisions marked with vertical dashed lines, each quarter labeled with its PnL contribution. Background grid, dark theme, clean professional style."
-```
 
 ---
 
@@ -554,11 +542,8 @@ Of 290 trades, 27 (9.3%) are fundamentally wrong about direction. At the moment 
 
 This 9% error rate represents the irreducible noise floor of positioning-based directional prediction. These are events where the positioning configuration *correctly* identifies fuel, but the trigger fires in the wrong direction or does not fire at all.
 
-```
 ![Negative Results](figures/fig5-negative-results.svg)
 *Figure 5: Twelve rejected hypotheses — each tested with statistical rigor on 733 days of data.*
-Prompt: "A pie chart showing the breakdown of dead zone (avgLong 48-65%) market moves by category: Pendulum 23% (green), Distribution 8% (blue), OI Events 3% (cyan), External Events 26% (red), Mixed/Noise 40% (gray). Each slice labeled with percentage and category name. Clean, minimal, dark background, professional style."
-```
 
 ---
 
@@ -605,7 +590,7 @@ Nine rolling windows (180-day train, 90-day test). **All 9 windows positive.** W
 
 Procedure: 100,000 random permutations of trade PnL sequence.
 
-$$p\text{-value} = \frac{\#\{\text{random PnL} \geq \text{actual PnL}\}}{100{,}000} = 0.00\%$$
+`p-value = count(random PnL ≥ actual PnL) / 100,000 = 0 / 100,000 = 0.00%`
 
 Zero of 100,000 random permutations matched or exceeded actual performance, yielding $p < 0.01\%$.
 
@@ -650,11 +635,8 @@ The models are **not directly portable** to ETH or SOL. The absolute levels of $
 3. **Positioning data becomes unreliable.** If Binance introduces delays, reduces granularity, or discontinues the data feed.
 4. **Adversarial adaptation.** If enough participants trade on the same positioning signals, the edge erodes through crowding.
 
-```
 ![Validation Summary](figures/fig3-validation-summary.svg)
 *Figure 6: Out-of-sample validation dashboard — all 7 tests pass.*
-Prompt: "A grouped bar chart showing 9 rolling windows on the x-axis (W1 through W9). Each window has two bars: blue for in-sample PF and orange for out-of-sample PF. All OOS bars are positive (above 1.0 baseline). A horizontal dashed line at PF=1.0 (break-even). Clean labels, dark background, quantitative finance style."
-```
 
 ---
 
