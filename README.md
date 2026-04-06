@@ -1019,7 +1019,50 @@ This is the fundamental reason why BTC is the most tractable of the three assets
 
 ---
 
-## 13. Conclusion
+## 13. Honesty Check: Look-Ahead Bias Audit
+
+### 13.1 The SOL Collapse
+
+During SOL research, we discovered that multiple signals exhibited severe look-ahead bias:
+
+| Signal | Biased WR | Real-time WR | Bias |
+|---|---|---|---|
+| Daily low reversal | 93% | 54% | -39pp |
+| Pump exhaustion SHORT | 66% | 48% | -18pp |
+| OI squeeze $100M | 74% | 51% | -23pp |
+
+Root cause: "daily low" and "pump peak" are hindsight concepts — only identifiable after the fact. In real-time, "new low for the day so far" triggers 13.7 times per day on SOL, producing no meaningful edge.
+
+### 13.2 BTC and ETH: Verified Clean
+
+Full real-time simulation audit:
+- BTC 8-model system: claimed +828%, verified +812% (2% gap from dataset windowing)
+- ETH via BTC signals: claimed +1,237%, verified +1,140% (8% gap)
+- All entry conditions use only bars[0..i] (past data)
+- All exit conditions computable in real-time
+- 10 specific trades individually verified bar-by-bar
+- OOS outperforms IS (+565% vs +246%)
+
+Why BTC signals are bias-free: avgLong < 48%, div < -5%, OI changes — all observable at the current bar. No future price information needed.
+
+### 13.3 Lessons
+
+1. Any signal referencing "daily low", "local peak", "pump top" = potential look-ahead bias
+2. WR > 80% on volatile assets = red flag requiring real-time verification
+3. Real-time observable conditions (positioning levels, OI changes) are inherently bias-free
+4. Hindsight structural anchors (support/resistance from completed patterns) require careful handling
+
+### 13.4 Corrected Performance Summary
+
+| Asset | Verified PnL | Method | Status |
+|---|---|---|---|
+| BTC | +812% | 8 positioning models | Clean, OOS validated |
+| ETH | +1,140% | BTC signals → ETH execution | Clean |
+| SOL | ~55% WR max | Futures data insufficient | Needs on-chain data |
+
+---
+
+## 14. Conclusion
 
 We have demonstrated that crowd positioning data---specifically, the long/short account ratios of top traders and retail participants on Binance Futures---provides a statistically significant and mechanically grounded edge for directional trading on BTC perpetual futures. The edge derives not from pattern recognition or indicator optimization, but from understanding the *mechanical consequences* of asymmetric positioning: when one side is overloaded, forced liquidations create predictable cascade dynamics.
 
