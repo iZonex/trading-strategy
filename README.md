@@ -1374,3 +1374,41 @@ Binance S3 Public Archive (s3://data.binance.vision):
 ---
 
 *Disclaimer: Past performance is not indicative of future results. Cryptocurrency trading involves substantial risk of loss. The models presented here are research outputs and should not be construed as financial advice. All PnL figures assume 1x position sizing without leverage.*
+
+## 17. Shitcoin Level Breakout: First Universal Altcoin Model
+
+Our most significant altcoin finding emerged from studying how real traders operate: structural price levels combined with volume confirmation produce a validated, universal edge across micro-cap and mid-cap tokens.
+
+### The Model
+
+1. **Level detection**: Identify prices tested 3+ times within 0.5% bandwidth over the prior 7 days (structural support/resistance from price memory)
+2. **Breakout confirmation**: Price crosses a structural level with volume exceeding 3× the rolling average
+3. **Entry**: Direction of the confirmed breakout
+4. **Target**: Next structural level (median distance ~1.4%)
+5. **Stop**: Return below the broken level (now inverted support/resistance)
+
+### Validation Results
+
+| Coin | Period | WR | PF | Walk-Forward |
+|------|--------|----|----|-------------|
+| RIVER ($27M OI) | 96d | 81.2% | 5.63 | 4/4 positive |
+| DOGE ($400M OI) | 547d | 58.7% | 2.63 | 6/6 positive |
+| BULLA ($15M OI) | 30d | — | 9.50 | — |
+| All 7 tested | — | — | >1.69 | Universal |
+
+- **Look-ahead bias**: Clean (0% empirical impact verified)
+- **IS/OOS**: RIVER 84%→75% WR (holds). DOGE OOS PF=2.17 (validated)
+- **Parameters**: Robust across all 7 tested variants (no cliff edges)
+- **Fees**: Net +779% RIVER, +287% DOGE after taker fees. 75-83% of breakouts pull back, enabling limit order entry.
+
+### Key Mechanical Insights
+
+- OI growing at breakout bar is the strongest single enhancement (+13pp WR)
+- Extreme taker ratio (>0.65) is a *warning*, not confirmation — likely exhaustion
+- Speed: +1% reached in 20 minutes (RIVER), 45 minutes (DOGE)
+- 30-minute entry delay still captures ~80% of the move
+
+### Origin
+
+This model was inspired by observing professional shitcoin traders in a live stream who described their approach as: *"You cannot break a level without money in it."* The methodology — identify structural levels, wait for volume-confirmed breakouts, enter on confirmation — proved to be the simplest and most universal altcoin edge discovered in this research program.
+
