@@ -1041,6 +1041,8 @@ DOGE retail participants exhibit a textbook "hold losers, sell winners" (disposi
 
 The positioning range between $P_{25}$ and $P_{75}$ accounts for approximately 50\% of all trading days. Seven independent angles were tested across this normal zone: volume extremes, taker buy/sell imbalance, funding rate direction, time-of-week patterns, price level proximity, dollar OI magnitude, and cross-asset BTC divergence. All seven yield win rates near 50\% and profit factors near 1.0. The normal zone is structurally uninformative; no signal survives.
 
+**Note (Test 256).** Subsequent analysis (Test 256) revealed that DOGE's contrarian signal, while statistically valid, represents 'gravitational reversion' — extreme crowding mechanically reverts — rather than a true trading mechanic with identifiable WHO/WHAT/WHY participants. The 'top trader' vs 'retail' split on Binance shows 95-98% agreement across ALL assets, including BTC, indicating these are labels of account size, not trading sophistication.
+
 **The liquidity farming hypothesis:**
 
 The mechanism explaining the PF 17 vs. PF 1.0 asymmetry between extreme and normal positioning zones is consistent with a liquidity farming model. On an illiquid asset such as DOGE, normal-zone positioning implies that stop-losses and liquidation levels are distributed roughly equally on both sides of the current price. Market makers have no directional incentive; price can be pushed in either direction to collect liquidity. At extreme positioning (e.g., $P_{10}$ retail long), the overwhelming majority of liquidation fuel is concentrated on one side --- the crowded long side. The mechanical path of least resistance is the cascade against the crowd. This concentration makes direction predictable, producing the observed PF 17. The same mechanism underlies BTC cascade models, but DOGE's lower liquidity and higher retail dominance amplify the effect, yielding higher per-trade profit factors at the cost of a smaller eligible universe (extreme-zone days represent approximately 15\% of the total period).
@@ -1084,10 +1086,13 @@ Why BTC signals are bias-free: avgLong < 48%, div < -5%, OI changes — all obse
 
 | Asset | Verified PnL | Method | Status |
 |---|---|---|---|
-| BTC | +812% | 8 positioning models | Clean |
-| ETH | +1,140% | BTC signals → ETH | Clean |
-| DOGE | +274% OOS | Contrarian retail extremes | Clean, OOS validated |
-| SOL | ~55% WR | Futures data insufficient | Needs on-chain |
+| BTC | +812% | 8 positioning models | Clean — REAL mechanics |
+| ETH | +1,140% | BTC signals → ETH | Clean — BTC amplifier |
+| DOGE | +274% OOS | Contrarian retail extremes | Clean, OOS validated — statistical gravity (not mechanics) |
+| SOL | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
+| AVAX | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
+| LINK | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
+| XRP | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
 
 ---
 
@@ -1104,6 +1109,8 @@ The system's structural ceiling is defined by the 9% irreducible direction error
 Cross-asset analysis reveals that the positioning-based framework does not translate uniformly across major perpetuals. BTC, ETH, SOL, and DOGE constitute four structurally distinct market types: BTC is a *Positioning Market* where institutional hedging demand makes avgLong a leading directional indicator; ETH is an *OI Flow / Mean-Reversion Market* where the primary signal is open interest divergence from price rather than positioning level; SOL is a *Cascade/Momentum Market* where high beta (1.91x) inverts mean-reversion signals and makes drop speed the dominant predictive variable; and DOGE is a *Contrarian Retail Market* where a persistent disposition-effect bias among retail participants produces positioning extremes that mechanically revert with PF exceeding 17 out-of-sample. The root cause of this divergence is BTC's unique role as the primary hedge instrument for institutional crypto portfolios---a structural property that has no direct analog on ETH or SOL. DOGE operates through a different but equally mechanical principle: retail behavioral asymmetry (holding losers, selling winners) concentrates liquidation fuel on one side at positioning extremes, enabling direction prediction via what we term the *liquidity farming hypothesis*. Preliminary evidence indicates that cross-asset signals (ETH underperformance vs. BTC, SOL positioning extremes with BTC neutral) generate exploitable edges with win rates exceeding 70%, suggesting that multi-asset portfolio construction on a unified positioning framework is a viable extension of this research.
 
 The deep asset studies in Section 12 introduce an important asymmetry in research completeness. The BTC system is fully characterized: 733-day full-period analysis, eight validated models, complete out-of-sample validation. The ETH system is substantially characterized, with the primary discovery that ETH is best traded as a BTC amplifier ($+1{,}237\%$ vs. $+222\%$ for native ETH signals) rather than as an independent positioning market. DOGE is a third fully validated tradeable asset: retail positioning extremes (below $P_{10}$ or above $P_{90}$) produce out-of-sample profit factors of 17--20, with bootstrap $p = 0.000$, across three independent models. The normal zone ($P_{25}$--$P_{75}$, approximately 50\% of days) is confirmed noise across all seven tested angles. SOL is substantially more characterized than initially assessed: the extended study identifies OI Momentum as the governing mechanic (88% coverage on LONG moves), validates two LONG models (SM1 PF 1.28, SM7 PF 1.77), and conclusively establishes that the SHORT side is structurally limited to 25% coverage from futures data. The revised capture estimate is 20--25% (up from the preliminary 7.5%). The remaining 75--80% of SOL dynamics require on-chain data integration to address.
+
+**The Fundamental Limitation.** Our most important finding may be negative: altcoins do not possess independent trading mechanics detectable from futures positioning data. After removing BTC correlation, zero informational signal survives on any of the seven assets studied. The 'top trader' category on Binance is not smart money — it correlates 95-98% with retail across all assets. BTC's edge exists not because its positioning data is more informative (top trader predictive WR = 50% on BTC too), but because BTC's $7B+ open interest creates sufficient depth for cascade mechanics to physically manifest: liquidation chains propagate, market makers withdraw from orderbooks, and forced selling creates predictable price patterns. Altcoins with $100-500M OI lack this depth — moves are BTC beta amplification plus idiosyncratic OI noise, with no structured participant behavior. The honest conclusion: the only real positioning edge in cryptocurrency futures is BTC's cascade mechanics, amplifiable through ETH's correlated beta.
 
 ### Future Work
 
