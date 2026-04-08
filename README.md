@@ -619,14 +619,16 @@ Seven of eight models hold up in OOS. PEND-L degrades from 59% to 53%, approachi
 
 This demonstrates that the system is not fragile to exact parameter values---the edge derives from the mechanical structure, not from precise threshold tuning.
 
-### 8.2 Cross-Asset Validation (Preliminary)
+### 8.2 Cross-Asset Validation (Revised April 2026)
 
-| Asset | avgLong offset | div structure | FLIQ-L applicable? |
-|-------|---------------|---------------|-------------------|
-| ETH | +10pp shift | Structurally different | Yes |
-| SOL | +16pp shift | Structurally different | Yes |
+| Asset | avgLong offset | Beta vs BTC | Direction agree (>1% moves) | BTC signals applicable? |
+|-------|---------------|-------------|---------------------------|----------------------|
+| ETH | +17pp shift | 1.21x | 96% | Yes — +981% verified |
+| SOL | +16pp shift | 1.38x | 96% | Yes — +256% verified |
 
-The models are **not directly portable** to ETH or SOL. The absolute levels of $\text{avgLong}$ are shifted (ETH runs ~10pp higher, SOL ~16pp higher), and the divergence dynamics between top and retail differ. FLIQ-L is the only universal model---forced liquidation bounces follow the same mechanics regardless of asset.
+**Correction:** The models **are directly portable** to ETH and SOL via BTC signal → alt execution. Earlier claim of non-portability was incorrect. PB14-S achieves WR 82% on both ETH and SOL when applied cross-asset. Key requirement: **regime alignment** — the alt must also be in a corresponding positioning zone (see Section 14.6).
+
+ETH avgLong offset is +17pp (not +10pp as originally stated). SOL confirmed at +16pp. Direction agreement between BTC and SOL/ETH reaches 96--100% on moves exceeding 1%, indicating that the three assets are mechanically coupled for significant moves.
 
 ### 8.3 Potential Invalidation Scenarios
 
@@ -792,7 +794,7 @@ The primary predictive signal for ETH is OI divergence: a situation where open i
 
 ### 11.5 Type 3: Cascade/Momentum Market (SOL)
 
-SOL perpetual futures represent the highest-beta environment in the major perpetuals universe, with a measured beta of approximately 1.91x relative to BTC. This amplification factor creates a qualitatively different market dynamic: cascades are larger in magnitude, reversals are sharper, and mean-reversion signals that function reliably on BTC and ETH frequently fail.
+SOL perpetual futures represent the highest-beta environment in the major perpetuals universe, with a measured beta of approximately 1.35--1.38x relative to BTC (revised from 1.91x; the original figure was computed on a cherry-picked high-volatility period). This amplification factor creates a qualitatively different market dynamic: cascades are larger in magnitude, reversals are sharper, and mean-reversion signals that function reliably on BTC and ETH frequently fail.
 
 The most counterintuitive finding is the OI flush interpretation inversion. On BTC and ETH, an OI flush of $> 3\%$ in 12 hours is a bullish mean-reversion signal (forced sellers have been liquidated). On SOL, the same OI flush is a *bearish continuation signal*: only 45% of qualifying events produce a bounce exceeding 1%, compared to the 62--78% rate observed on BTC/ETH.
 
@@ -837,8 +839,9 @@ The structural divergence between market types creates exploitable cross-asset r
 | System | Asset | Trades | WR | PnL | PF | Validation |
 |--------|-------|--------|-----|------|-----|------------|
 | BTC 8-model suite | BTC | 290 | 72% | +828% | 3.53 | OOS WF eff. 0.97, $p < 0.01\%$ |
-| ETH system (E1+E2+E5) | ETH | ~185 | ~89% | ~+410% | 9.1 | Preliminary, 186-day IS |
-| SOL system (speed + BTC amp.) | SOL | ~163 | ~70% | ~+290% | 4.2 | Preliminary, 186-day IS |
+| BTC 8-model + 72h wait | BTC | 232 | 80% | +867% | 3.71 | DD reduced -40% → -16% |
+| BTC signals → ETH exec | ETH | 191 | 69% | +981% | 4.75 | 547-day verified |
+| BTC signals → SOL exec | SOL | 191 | 59% | +256% | 1.71 | 547-day verified, regime alignment required |
 
 *Note: ETH and SOL systems are in early validation. BTC numbers represent the fully validated 733-day study. ETH/SOL validation against the extended 547-day dataset is in progress.*
 
@@ -864,7 +867,7 @@ Similarly, the hypothesis that ETH exhibits stronger multi-day momentum (i.e., r
 
 #### 12.1.2 ETH Is Primarily a BTC Amplifier
 
-The dominant driver of ETH price direction is BTC direction, not ETH-specific positioning. Empirically, ETH tracks BTC with a measured beta of approximately 1.73x at the 1--7 day horizon. When BTC produces a high-conviction directional signal, ETH amplifies that move by this factor.
+The dominant driver of ETH price direction is BTC direction, not ETH-specific positioning. Empirically, ETH tracks BTC with a measured beta of approximately 1.21x at the daily horizon (revised from 1.73x; downside beta is 1.40x, upside beta 1.17x, creating asymmetric amplification). When BTC produces a high-conviction directional signal, ETH amplifies that move by this factor.
 
 The secondary driver is ETH open interest confirmation. When BTC fires a long signal and ETH OI is simultaneously growing (indicating new capital entering ETH futures, not merely leverage repositioning), the combined win rate reaches 88%---substantially higher than the BTC-alone baseline.
 
@@ -1087,12 +1090,100 @@ Why BTC signals are bias-free: avgLong < 48%, div < -5%, OI changes — all obse
 | Asset | Verified PnL | Method | Status |
 |---|---|---|---|
 | BTC | +812% | 8 positioning models | Clean — REAL mechanics |
-| ETH | +1,140% | BTC signals → ETH | Clean — BTC amplifier |
+| ETH | +981% | BTC signals → ETH execution | Clean — BTC amplifier (beta 1.21x, not 1.73x) |
+| SOL | +256% | BTC signals → SOL execution | Tradeable — regime alignment required |
 | DOGE | +274% OOS | Contrarian retail extremes | Clean, OOS validated — statistical gravity (not mechanics) |
-| SOL | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
-| AVAX | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
-| LINK | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
-| XRP | not tradeable | Futures data insufficient | BTC beta + idiosyncratic OI noise |
+
+**Corrections from V1.0 (April 2026 audit):**
+
+- **SOL "not tradeable" was WRONG.** BTC signals executed on SOL produce +256% (WR 59%, PF 1.71). SOL underperforms BTC due to Win/Loss ratio asymmetry (+4.6% avg win vs -5.1% avg loss at x1), not absence of edge.
+- **ETH verified PnL revised** from +1,140% to +981%. ETH beta measured at 1.21x (daily), not 1.73x as originally stated.
+- **SOL beta** measured at 1.35--1.38x across all timeframes, not 1.91x. Direction agreement 96--100% on moves >1%.
+- **"BTC not early warning for SOL, only 1%"** was incorrect. BTC leads 45% of SOL crashes; direction agreement reaches 100% on BTC moves >3%.
+
+---
+
+## 14. Post-Publication Audit: Drawdown Analysis and Model Improvements
+
+### 14.1 Drawdown Origin
+
+The system's -40.1% maximum drawdown originates from **loss clustering**, not individual trade quality. Monte Carlo simulation (10,000 runs) confirms that DD of -45--48% is the **mathematically expected** outcome for WR 78%, SL 5%, at x3 leverage over 232 trades. The drawdown is not anomalous — it is an irreducible consequence of the system parameters.
+
+**Loss clustering mechanism:** After a stop-loss, the model re-enters the same market conditions within 12 hours. WR drops from 72% to **38%** on the trade immediately following an SL. After 2 consecutive SLs, WR drops to **26%**. The model is stateless — it does not know it was just stopped out on the identical setup.
+
+**Mechanical explanation:** An SL of -5% means price moved 5% against the predicted direction. The shorts (for PB14-L LONG entries) that were supposed to be squeezed are now **in profit**, with wider stop-losses and higher conviction. They are no longer squeezable fuel. The positioning level (avgLong) may remain unchanged, but the **quality** of positions has transformed from trapped (tight stops, squeezable) to confident (wide stops, not fuel).
+
+### 14.2 The 72-Hour Wait Rule
+
+Adding a 72-hour cooldown after any SL before re-entering:
+
+| Metric | Original | With 72h wait |
+|---|---|---|
+| Trades | 290 | 232 |
+| WR | 72% | **80%** |
+| PnL | +828% | **+867%** |
+| DD (x1) | -40.1% | **-16%** |
+| Max streak | 8 | 4 |
+
+PnL **increased** despite fewer trades because the removed re-entries had negative expected value (-0.88% average after 1 SL, -2.26% after 2 SLs).
+
+### 14.3 Signal Horizon
+
+Positioning signals (avgLong, divergence) predict direction on **7--14 day** horizons, not intraday:
+
+| Horizon | avgLong<48 avg return | Baseline | Edge |
+|---|---|---|---|
+| 1h | +0.014% | +0.001% | None |
+| 24h | +0.281% | +0.030% | Weak |
+| 7d | +1.514% | +0.203% | **Strong** |
+| 14d | +4.191% | +0.371% | **Very strong** |
+
+For deep oversold (avgLong < 42): 14d return = **+6.5%, 76% directional accuracy**, Sharpe-like 0.72.
+
+The 14-day return materializes **gradually** (+0.3--1.0%/day), not as a single spike. However, 59% of winning trades are spike-driven (one day contributes >50% of total return). The spike most commonly occurs on days 12--14.
+
+**Max adverse excursion:** Trades that ultimately win dip an average of -2.23% before recovering. 92% of winners never dip below -5%. Trades that dip below -5% have only 27% probability of recovery — confirming the 5% SL as a structurally correct boundary.
+
+### 14.4 Retail Speed as Quality Indicator (OOS Validated)
+
+Retail positioning velocity (|retLong change| over 24h) discriminates signal quality:
+
+| Retail speed | Trades | WR | Avg PnL |
+|---|---|---|---|
+| Slow (<2pp/24h) | 121 | **74%** | +4.13% |
+| Fast (5-10pp/24h) | 70 | **63%** | +1.37% |
+
+**OOS validation:** IS WR=68% vs OOS WR=56% for "bad combo" (retSpeed>5 + price 7d negative). IS WR=78% vs OOS WR=**92%** for "good combo" (retSpeed≤3 + price 7d positive). Pattern strengthens on unseen data.
+
+**Mechanical explanation:** Fast retail repositioning creates **temporal** positioning extremes that resemble structural fuel loading. The model reads these as squeeze setups, but the positions are reactive (entered in response to price), not trapped (accumulated over time with clustered stop-losses).
+
+### 14.5 Irreducible Drawdown and Leverage Limits
+
+Monte Carlo analysis of the improved model (WR 78%, avg win +4%, SL -5%):
+
+| Leverage | Median DD | P95 DD |
+|---|---|---|
+| x1 | -16% | -12% |
+| x2 | -31% | -23% |
+| x3 | -45% | -35% |
+| x5 | -65% | -55% |
+
+**Practical leverage limit: x2.** At x2, median DD of -31% is survivable. At x3, DD of -45% approaches margin call territory. To achieve DD<-20% at x3 requires WR>90%, which exceeds the structural ceiling of positioning-based systems.
+
+### 14.6 Cross-Asset Regime Alignment
+
+BTC positioning signals applied to ETH/SOL execution require **regime alignment** — the alt must also be in a corresponding positioning zone:
+
+| BTC signal + alt regime | SOL WR | SOL avg |
+|---|---|---|
+| Alt also oversold | **88%** | +4.07% |
+| Alt in dead zone | 51% | +0.94% |
+
+When BTC enters PB14-L zone (avgLong<48) with OI surge (>10%):
+- SOL avgLong < 68 (also oversold): WR **74%**
+- SOL avgLong ≥ 68 (neutral): WR **0%** (5/5 trades lost)
+
+**Mechanical explanation:** Alt needs its own positioning fuel to amplify a BTC squeeze. Without fuel, the alt follows BTC weakly or not at all. Cross-market confirmation (multiple assets oversold simultaneously) indicates a systemic squeeze rather than a BTC-specific event.
 
 ---
 
