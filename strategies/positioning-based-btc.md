@@ -786,11 +786,13 @@ The primary predictive signal for ETH is OI divergence: a situation where open i
 - **Optimal entry timing:** Waiting approximately 2 hours after the initial price decline for stabilization raises WR from 51% to 81%. Entering immediately at the first touch degrades performance substantially.
 - **Exit rule:** Fixed take-profit of 3% captures 89% of available bounce moves, with a median time-to-target of 6 hours.
 
-**Model E1 -- OI Absorption (tight parameters):** 100% WR on $n = 47$ events using strict entry conditions (OI growth $> 2\%$ into price drop $> -3\%$ with 2-hour stabilization wait).
+**Model E1 -- OI Absorption (tight parameters):** 100% WR on $n = 47$ events using strict entry conditions (OI growth $> 2\%$ into price drop $> -3\%$ with 2-hour stabilization wait). *Note: these were validated on 186-day IS only.*
 
-**Model E2 -- Panic Capitulation:** 99% WR on $n = 89$ events; fires when OI flushes sharply ($> 5\%$ in 4 hours) with concurrent price drop $> -5\%$ and RSI-equivalent below 25.
+**Model E2 -- Panic Capitulation:** 99% WR on $n = 89$ events; fires when OI flushes sharply ($> 5\%$ in 4 hours) with concurrent price drop $> -5\%$ and RSI-equivalent below 25. *Note: 186-day IS only.*
 
-**Why ETH is different:** Without structural short-hedging demand analogous to BTC, ETH positioning data reflects participant composition rather than mechanical positioning pressure. The informative signal shifts from the *level* of positioning to the *flow* of open interest relative to price direction.
+**Revised best approach (April 2026):** BTC positioning signals executed on ETH produce **+1128%** over 547 days (155 trades, WR 72%, avg 7.28%/trade). This outperforms native ETH-signal strategies and captures ETH's asymmetric beta (1.40x downside, 1.17x upside).
+
+**Why ETH amplifies BTC signals:** ETH beta = 1.21x (revised from 1.73x). The avgLong offset is +17pp (not +10pp as originally stated). ETH positioning correlates with BTC positioning at r=0.47 (avgLong) and r=0.66 (div), providing partial but useful cross-market confirmation.
 
 ### 11.5 Type 3: Cascade/Momentum Market (SOL)
 
@@ -806,7 +808,7 @@ The most counterintuitive finding is the OI flush interpretation inversion. On B
 - **BTC crash amplification signal:** When BTC drops more than 3% in 1 hour, entering LONG on SOL at the BTC low yields 66% WR ($n = 74$), exploiting the systematic overreaction in the higher-beta asset.
 - **avgLong level extremes:** SOL avgLong $> 75\%$ in conjunction with BTC neutral positioning predicts a SHORT move averaging $-3.7\%$ over 7 days.
 
-**Why SOL is different:** The 1.91x beta means that the same institutional positioning shift that causes a 2% BTC move generates a 3.8% SOL move. At this magnitude, cascades become self-sustaining through independent retail liquidation chains that were never present on BTC. The market spends more time in momentum regimes and less time in mean-reversion regimes, rendering standard bounce models unreliable.
+**Why SOL appears different (revised):** SOL beta is 1.35--1.38x (revised from 1.91x). SOL's higher ATR (2x BTC) creates the *appearance* of different mechanics, but direction agreement is 96--100% on significant BTC moves. BTC positioning signals executed on SOL produce +387% over 547 days (145 trades, WR 63%). SOL underperforms ETH as execution target due to asymmetric Win/Loss ratio: avg win +4.6% vs avg loss -5.1%. SOL positioning (avgLong < 68 when BTC oversold) serves as cross-market confirmation rather than standalone signal source (see Section 14.6).
 
 ### 11.6 Why the Three Types Diverge: BTC as Hedge Instrument
 
@@ -893,46 +895,54 @@ The ETH 1.73x amplification factor relative to BTC is not accidental. Three rein
 - **Institutional ETF price floor.** Spot ETH ETF inflows create a persistent price support that dampens extreme downside but does not constrain upside, producing an asymmetric reaction profile that amplifies BTC-aligned moves.
 - **DeFi collateral liquidation cascade.** When BTC drops sharply, DeFi protocols that use ETH as collateral begin issuing margin calls, forcing ETH sales that are independent of the ETH futures positioning. This creates a mechanical amplification of BTC drawdowns at the 2--4 hour horizon.
 
-### 12.2 SOL Deep Study --- Two Distinct Mechanics
+### 12.2 SOL Deep Study --- Revised Assessment
 
-The initial framing of this section assumed SOL behavior was an amplified version of BTC dynamics. The extended study invalidates that assumption. SOL operates through a fundamentally different mechanical regime.
+**Correction (April 2026):** The original framing claimed SOL operates through a "fundamentally different mechanical regime" with "OI Momentum" mechanics distinct from BTC's "Barrel Loading." Post-publication audit (Section 14, tests 303--307) invalidates this conclusion. SOL price direction agrees with BTC **96% of the time on moves >1%** and **100% on moves >3%**. SOL is a BTC amplifier (beta 1.35--1.38x), not an independent market.
+
+The original errors stemmed from: (1) testing SOL with SOL positioning data (noisy, narrow range) instead of BTC positioning; (2) the "silence before move" artifact---SOL's higher ATR (2x BTC) meant 1.5% range thresholds classified normal SOL noise as "no silence," producing false mechanical differences; (3) confirmation bias across 20+ SOL-specific tests (207--236) that sought to explain *why* SOL was different rather than testing *whether* it was different.
 
 #### 12.2.1 SOL as a Memecoin Gas Token
 
-The most structurally important fact about SOL is that approximately 92% of Solana DEX trading volume is attributable to memecoin activity. SOL is not, in practice, primarily a Layer 1 infrastructure token traded on fundamentals; it is the gas token for a casino, and its price dynamics are heavily influenced by the activity level of that casino.
+*The structural observations below remain valid---SOL's liquidity profile IS different from BTC.* However, this does not prevent BTC positioning signals from predicting SOL direction. The mechanism is simpler than originally theorized: BTC moves → SOL follows (amplified by beta). SOL-specific dynamics (memecoin activity, DEX flows) create **additional** noise on top of the BTC-correlated base, but do not override it.
 
-This creates a liquidity profile qualitatively different from BTC or ETH. SOL's aggregate futures open interest is approximately 6.1x thinner than BTC's, meaning that the same absolute dollar flow produces 6.1x the price impact. SOL systematically overshoots in both directions. The retail composition is approximately 94%---there is no institutional floor analogous to BTC's hedge-driven suppression.
+SOL's aggregate futures open interest is approximately 6.1x thinner than BTC's. This amplifies both signals and noise. The retail composition is approximately 94%. SOL positioning data (avgLong runs +16pp higher than BTC) has a narrower dynamic range, making it less informative as a standalone signal source---but SOL positioning serves as valuable **cross-market confirmation** when used alongside BTC signals (see Section 14.6).
 
-#### 12.2.2 The Core Mechanical Difference: OI Momentum vs. Barrel Loading
+#### 12.2.2 OI Momentum vs. Barrel Loading --- Revised
 
-The most consequential finding from the extended SOL study is that **SOL moves start differently than BTC moves**.
+**Correction:** The original "OI Momentum 88% vs Barrel 14%" finding was a **volatility artifact**, not a structural difference.
 
-On BTC, the Barrel Principle applies: silence precedes the move. OI compresses, price range narrows, fuel accumulates---then a trigger fires the cascade. The "quiet before the move" pattern has approximately 71% coverage on BTC major moves.
+The "silence before move" measure (price range < 1.5% in 4 hours) correctly identifies 72% of BTC moves. On SOL, it identifies only 14%---but this is because SOL's ATR is **2.03x BTC's ATR**. A 1.5% range is below SOL's normal noise floor. SOL does not "lack silence"---SOL's normal state is noisier, so the same threshold misclassifies normal SOL behavior as "no silence."
 
-On SOL, the same pattern has 14% coverage. SOL moves do **not** start from silence.
+The "OI Momentum 88%" figure was similarly inflated: OI growing >1%/4h before SOL moves covers 28% (not 88% as originally reported). The 88% figure likely included OI changes that were concurrent with the move rather than preceding it.
 
-Instead, SOL operates on an **OI Momentum** mechanic: open interest accelerates before the move begins. The market does not load quietly; it announces its direction through OI growth, and the move is the continuation of that growth rather than its consequence.
+**Revised table:**
 
 | Mechanic | BTC | SOL |
 |----------|-----|-----|
-| Pre-move OI behavior | Compresses (silence) | Accelerates (OI $> 1\%$/4h) |
-| "Quiet before move" coverage | ~71% | 14% |
-| OI growing $> 1\%$/4h before big move | Moderate | **88% coverage** |
-| Trigger type | External spark into loaded barrel | OI continuation / ignition |
+| Price silence <1.5%/4h | 72% of moves | 14% (**ATR artifact**, not different mechanic) |
+| OI growing >1%/4h pre-move | 24% | 28% (similar to BTC) |
+| Move overlap with BTC big move | --- | **53%** of SOL >5% moves coincide with BTC |
+| Direction agreement on big moves | --- | **97%** same direction as BTC |
 
-This is not a parametric difference---it is a structural one. Applying BTC-derived barrel detection to SOL produces false negatives on 86% of qualifying moves.
+The correct interpretation: SOL moves are **BTC moves amplified by 1.38x beta**, with additional SOL-specific noise on top. They do not start from a different mechanical basis.
 
-#### 12.2.3 OI Behavior After Flushes
+#### 12.2.3 OI Behavior After Flushes --- Revised
 
-On BTC and ETH, open interest recovers after a flush event (sharp OI decline $> 3\%$ in 12 hours) within 24--48 hours as new participants reopen positions. On SOL, this recovery does not occur. In 54% of qualifying SOL flush events, open interest continues declining for the subsequent 48 hours rather than recovering. The participants who were liquidated or stopped out do not return.
+**Correction:** The original claim that SOL OI flush = "bearish continuation" (45% bounce) was incorrect. Post-publication audit measured **78% bounce rate** on SOL after OI flush >3% (higher than BTC's 70%). Using BTC OI flush as signal for SOL bounce produces **79% hit rate with avg +4.23% bounce**---the strongest cross-asset signal identified.
 
-The behavioral interpretation is consistent with the memecoin gas token nature of SOL: when the memecoin casino activity drops, capital permanently exits the SOL futures market rather than seeking re-entry. The flush is not a capitulation event signaling exhausted sellers; it is a signal of ecosystem disengagement.
+The original 45% figure may have used a different threshold or time window. The corrected finding is that SOL OI flushes are **more** mean-reverting than BTC, not less, likely because SOL's higher beta produces deeper overshoots followed by sharper reversions.
 
-#### 12.2.4 Asymmetric BTC Correlation
+#### 12.2.4 BTC Correlation --- Revised
 
-SOL tracks BTC downside reliably but does not track BTC upside. During BTC rally periods, SOL open interest bleeds---participants sell futures exposure while price rises rather than adding to positions as they would on a conventional beta-amplification asset. The asymmetry suggests that SOL futures participants use drawdowns as exit opportunities (distribution) rather than accumulation opportunities.
+**Correction:** The original claim that "BTC is not an early warning signal for SOL crashes: only 1%" was incorrect.
 
-This is consistent with the empirical finding that SOL pumps are 100% futures-driven. Spot and on-chain activity does not lead the move; centralized futures positioning is the primary price driver during SOL upside, reflecting distribution to incoming retail participants rather than genuine demand accumulation.
+Measured on 547-day data:
+- BTC **led** SOL crashes (>3%) in **45%** of cases
+- Direction agreement on all 1h returns: **77%**
+- Direction agreement on BTC moves >1%: **94%**
+- Direction agreement on BTC moves >3%: **100%** (31/31)
+
+When BTC and SOL diverge (BTC up, SOL down --- 4.4% of days), 61% of divergence days show SOL OI dropping (capital rotation from SOL to BTC, confirmed as ETF-driven institutional flows during Nov--Dec 2024).
 
 Notably, BTC is **not** an early warning signal for SOL crashes: only 1% of SOL crash events have BTC leading the decline. BTC direction functions as a regime driver, not a trade signal.
 
