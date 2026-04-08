@@ -984,21 +984,21 @@ The remaining 75--80% of SOL dynamics are driven by on-chain ecosystem activity:
 - SOL SHORT: **structurally limited** (25% coverage maximum from futures data; 75% driven by external triggers)
 - Full SOL model: requires on-chain data integration (pump.fun, Solana DEX flows, whale wallets)
 
-### 12.3 Three Market Archetypes (Updated Summary)
+### 12.3 Three Market Archetypes (Revised April 2026)
 
-The deep studies refine and extend the market type classification introduced in Section 11:
+**Note:** The original archetype classification overstated differences between assets. Post-publication audit (Section 14) demonstrated that BTC/ETH/SOL share 96--100% direction agreement on significant moves. The primary difference is not in *mechanics* but in *positioning data quality* and *beta amplification*.
 
-| Property | BTC | ETH | SOL | DOGE |
-|----------|-----|-----|-----|------|
-| **Archetype** | Institutional Hedge Market | Yield Platform / BTC Amplifier | Memecoin Casino / OI Momentum | Contrarian Retail Edge |
-| **Positioning data** | Informative (leading) | Structural noise (reactive) | Partially informative (OI momentum) | Contrarian (retail extremes predictive) |
-| **Primary signal** | avgLong extremes | BTC signal × OI confirmation | OI acceleration ($> 1\%$/4h) | retLong quintile + OI direction |
-| **Best strategy** | 8 native BTC models | Use BTC signals, trade ETH | SM1/SM7 LONG; SHORT structurally limited | D1 LONG at P10; D3b SHORT at P90 Mon--Thu |
-| **Validated PF** | 3.53 (733d, full OOS) | 6.26 (186d, preliminary) | SM1: 1.28; SM7: 1.77; SS2 SHORT: 1.63 | D1: 17.17 OOS; D3b: 19.68 OOS |
-| **Capture rate** | 65% | ~55% | ~20--25% (LONG solved; SHORT 25% max) | Extremes only (~15% of days); normal zone = noise |
-| **Needs for full coverage** | Current data sufficient | ETH-specific OI models | On-chain data (pump.fun, DEX flow, whale wallets) | Current data sufficient for extreme-zone signals |
+| Property | BTC | ETH | SOL |
+|----------|-----|-----|-----|
+| **Beta vs BTC** | 1.00 | 1.21x (asymmetric: 1.40x down, 1.17x up) | 1.35--1.38x |
+| **Direction agreement** | — | 96% on moves >1% | 96% on moves >1%, 100% on >3% |
+| **Best strategy** | 8 native BTC models (improved: 72h wait, trail 66%, 30d timeout) | **BTC signals → ETH execution** (+1128%, PF 4.75) | BTC signals → SOL (requires regime alignment) |
+| **Positioning data** | Informative (leading) — institutional hedge demand creates dynamic range | Noisy on its own, but **regime alignment** with BTC is valuable confirmation | Noisy on its own; SOL avgLong < 68 at BTC signal = WR 88% |
+| **Validated PnL** | +948% (improved model, 547d) | +1128% (BTC cross-exec, 547d) | +387% (BTC cross-exec, 547d) |
+| **DD at x1** | -17% | -20% | -36% |
+| **Practical leverage** | x2 (DD -33%) | x2 (DD -37%) | x1 only (DD -36% already high) |
 
-The defining property that separates BTC from the others is not size, liquidity, or age---it is the presence of institutional short-hedging demand. BTC futures are used to hedge broad crypto portfolio exposure. ETH and SOL are not. This creates a structural suppression of BTC long positioning that generates the dynamic range required for positioning data to carry directional information.
+**Key revision:** ETH is the **optimal execution target** for BTC positioning signals. ETH avg return per trade = 7.28% vs BTC 4.15%. ETH amplifies wins more than losses due to asymmetric beta (1.40x downside vs 1.17x upside). SOL is tradeable but requires that SOL positioning also be in an aligned zone.
 
 ### 12.4 Key Discovery: Hedge Demand Creates Signal
 
