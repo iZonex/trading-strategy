@@ -526,7 +526,46 @@ This failure was expected: the models at the time lacked cycle position awarenes
 
 ---
 
-## 10. Open Questions
+## 10. Validation Results
+
+### 10.1 Formal Train/Test Split
+
+All filters were discovered on TRAIN (first 67% of data). TEST (last 33%) is purely out-of-sample.
+
+| | N | WR | PF | Total | DD |
+|---|---|----|----|-------|-----|
+| TRAIN (67%) | 151 | 74.8% | 3.82 | +618% | 19% |
+| **TEST (33%)** | **82** | **80.5%** | **3.86** | **+264%** | **21%** |
+
+**Walk-forward WR: 1.08** (test BETTER than train). **Walk-forward PF: 1.01** (identical).
+Test beats random P99. 10 of 11 coins show no degradation.
+
+Quality filter (vol ≥ 8x, bar ≥ 2%, OI ≥ 8%, wick < 20%): Train WR 82% → Test WR 82% (identical). PF drops from 54.8 to 4.7 (train was inflated by N=11; test PF 4.7 is realistic and still excellent).
+
+**Conclusion: no overfitting detected.**
+
+### 10.2 Execution Cost Analysis
+
+For each model: expected value per trade and break-even spread (above which model becomes unprofitable).
+
+| Model | EV/trade | Break-even spread | At 0.20% | Verdict |
+|-------|---------|-------------------|----------|---------|
+| M7 Continuation | +11.19% | 5.60% | +10.79% | Indestructible |
+| M1 Quality | +5.75% | 2.87% | +5.35% | Survives anything |
+| M2 Silent Exit | +4.03% | 2.01% | +3.63% | Survives |
+| M6 Volatile Barrel | +3.13% | 1.57% | +2.73% | Survives |
+| M1 Base | +3.09% | 1.54% | +2.69% | Survives |
+| M5 Bounce | +1.76% | 0.88% | +1.36% | Survives |
+| M3 Exhaustion | +0.68% | 0.34% | +0.28% | Marginal |
+| **M4 Dip-Buy** | **+0.19%** | **0.09%** | **-0.21%** | **DEAD on shitcoins** |
+
+**Model 4 (Dip-Buy) is not viable on shitcoin spreads (0.15-0.25%).** Break-even at 0.09% = only survives with maker orders on the most liquid pairs. Recommend removing from live trading or restricting to PEPE/ZEC only.
+
+**Model 7 (Continuation) is the most robust:** even with 5% round-trip cost it remains profitable. This is because avg win (+14.8%) dwarfs any realistic execution cost.
+
+---
+
+## 11. Open Questions
 
 1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed.
 2. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized.
