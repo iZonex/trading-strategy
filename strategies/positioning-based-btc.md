@@ -1539,3 +1539,19 @@ Our most significant altcoin finding emerged from studying how real traders oper
 
 This model was inspired by observing professional shitcoin traders in a live stream who described their approach as: *"You cannot break a level without money in it."* The methodology — identify structural levels, wait for volume-confirmed breakouts, enter on confirmation — proved to be the simplest and most universal altcoin edge discovered in this research program.
 
+
+### 14.8 Risk Assessment (April 2026)
+
+**Measured risks (negligible):**
+- Implied vs real price gap: mean absolute 0.096%, cumulative 0.2% over 98 trades
+- Funding cost: -13.5% total (-0.14%/trade, 0.45% of total PnL)
+- Flash crash SL gap: expected 5.6% total cost (0.19% of PnL). Worst single-bar drop: -8.1% (Dec 2024)
+- Statistical significance: z=4.65, p<0.0002%, Monte Carlo 0/10000
+
+**Unmeasured risks (material):**
+- **Extended bear market**: positioning data for 2022-2023 is unavailable. Model untested on -75% decline over 12 months. In sustained bear (avgLong >65 for months), PB14-L never fires, system becomes SHORT-only via PB12/PB2. PB12 risk: if top traders are "positioned not trapped" for months, WR may drop to ~46%.
+- **Black swan SL gap**: March 2020 (-50% in 24h) not in data. SL at -5% could fill at -20%+. One event can erase months of profit.
+- **Data dependency**: entire system relies on Binance positioning data API. Methodology changes, discontinuation, or delays = system failure.
+- **Strategy capacity**: estimated $1-10M before market impact degradation on ETH futures.
+- **Regime change**: if institutional participation structure changes (ETF composition, regulatory shifts), positioning dynamics may fundamentally alter.
+
