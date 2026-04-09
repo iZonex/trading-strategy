@@ -330,12 +330,12 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 | OI Change (1h) | N | WR | PF | Avg/trade |
 |----------------|---|----|----|-----------|
 | OI growing over +3% | 138 | **81%** | **13.0** | **+12.0%** |
-| OI growing 0--3% | 140 | 54% | 1.6 | +1.3% |
+| OI growing 0 to 3% | 140 | 54% | 1.6 | +1.3% |
 | OI dropping over 3% | 118 | **33%** | **0.56** | **-2.9%** |
 
 **This model connects directly to Model 3:** OI growing = stay in (Model 7). OI dying = exit/short (Model 3). They are two sides of the same coin.
 
-![Continuation OI](https://raw.githubusercontent.com/iZonex/trading-strategy/main/strategies/shitcoin-figures/fig8-continuation-oi.svg)
+<img src="shitcoin-figures/fig8-continuation-oi.svg" alt="Continuation OI" width="800">
 *Figure 8: Continuation model. OI growth rate during active pump determines outcome. Over +3%/h = strong JOIN (WR 81%). Dropping over 3%/h = EXIT immediately (WR 33%). Models 7 and 3 are mirror images.*
 
 **Results:** Best combo (OI growing over 3% + vol accelerating): N=85, **WR 81%, PF 13.8**, +12.9%/trade. Beats random P95.
