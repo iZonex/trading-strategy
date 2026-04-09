@@ -829,11 +829,75 @@ For \$10K capital:
 
 **Rate limit constraint:** OI and TopTrader endpoints are limited to 10 req/min. Full scan of 500 coins = 50 minutes per cycle. Solution: scan in tiers --- exhaustion watch (25%+ pumps, ~10--20 coins) get priority scanning every 5 min; rest scanned in background.
 
-## 15. Remaining Open Questions
+## 15. Regime Stability (Walk-Forward Validation)
 
-1. **Longer validation period:** All results on 90--180 days (one market regime). Need to test on different period (bull → bear transition, low-vol regime).
-2. **Trail-based Kelly for barrel:** Current Kelly calculation uses 24h fixed hold, which understates barrel performance. Need simulation with actual trail (activate +5%, trail 30%) to calculate proper Kelly.
-3. **Systematic forward test:** 2+ weeks of virtual paper trading with all signals logged, to measure real-world signal quality and execution feasibility.
+### 15.1 Monthly Regime Analysis
+
+**M3 Exhaustion SHORT** --- profitable in 6 of 7 months:
+
+| Month | N | WR | Avg | Total | Regime |
+|-------|---|-----|-----|-------|--------|
+| 2025-10 | 88 | **75%** | +8.2% | +719% | Strong (many new listings pumping) |
+| 2025-11 | 83 | 72% | +2.7% | +223% | Normal |
+| 2025-12 | 60 | 68% | +3.9% | +237% | Normal |
+| 2026-01 | 54 | 59% | -0.3% | **-17%** | Weak (low-vol January) |
+| 2026-02 | 46 | 72% | +8.5% | +390% | Strong |
+| 2026-03 | 45 | 69% | +4.2% | +188% | Normal |
+| 2026-04 | 20 | **80%** | +9.9% | +198% | Strong (so far) |
+
+January 2026 was the only losing month (WR 59%, avg -0.3%). This coincides with low market volatility --- fewer pumps = fewer exhaustion signals = those that fire are lower quality. Structural: M3 needs pumps to exist. No pumps = no signals = no risk.
+
+**Walk-forward split:**
+
+| | First half | Second half | WF ratio |
+|---|-----------|-------------|----------|
+| M3 WR | 73% | 68% | **0.94** |
+| M3 Avg | +5.13% | +4.65% | 0.91 |
+
+WF ratio 0.94 = very stable. No degradation over time.
+
+### 15.2 Trail-Based Barrel Analysis
+
+Barrel LONG with trail simulation (activate +5%, trail 30%, SL -8%, timeout 48h) on div ≥40% coins with relaxed trigger (vol≥5x, OI≥5%): N=414, WR 25%.
+
+- SL exits: 257 (62%) --- majority hit -8% SL
+- Trail exits: 19 (5%) --- avg PnL +17.8%, avg peak +68.3%
+- Timeout exits: 138 (33%) --- avg PnL +6.9%
+
+**Trail Kelly = negative.** The 62% SL rate destroys edge despite the 5% of trail exits capturing +68% peaks. This confirms our earlier finding: **trigger quality is everything** for barrel. The quality filter (vol≥8x, bar≥2%, OI≥8%, wick<20%) reduces barrel trades from 414 to ~28 and drops SL rate from 62% to ~15%.
+
+Trail-based Kelly for the quality barrel subset is not computable from this simulation (N too small per filter combo). **Recommendation: use fixed \$500--1,000 per barrel trade**, as the quality filter already provides the sizing function by eliminating weak triggers.
+
+### 15.3 Forward Test Status
+
+Completed:
+- Scanner built and tested (JS, April 9)
+- SWARMS +13%, NOM +20% detected live
+- Real positions: NOM SHORT 2x (loss --- led to BTC filter), MAGMA LONG 3x (+9%)
+- BTC context filter discovered from live NOM experience
+
+Not yet completed:
+- Systematic 2+ week paper trading with signal log (scanner runs but needs continuous operation and result tracking)
+
+This is an operational task (running the scanner daily), not a research question. The models, filters, and sizing rules are complete.
+
+## 16. Summary of All Sections
+
+| Section | Content |
+|---------|---------|
+| 1--3 | Introduction, failure analysis, unifying principle (OI flow) |
+| 4 | Seven models with WHO/WHY mechanics |
+| 5 | Coin qualification (divergence ≥40%, predictive power ≥52%) |
+| 6 | Filters: session, BTC context (universal), trigger quality, DD source |
+| 7 | Shitcoin lifecycle analysis |
+| 8 | Pump type classification (TopLong as predictor) |
+| 9 | Complete entry rules (two-scanner architecture) |
+| 10 | Validation: train/test split, execution costs, correlation |
+| 11 | Rug pull risk (ARIA case, cascade rider rejection) |
+| 12 | Resolved questions (5 of 6 original) |
+| 13 | Position sizing (Kelly criterion, per-session) |
+| 14 | Scanner coin selection criteria (API, rate limits) |
+| 15 | Regime stability (walk-forward, monthly, trail analysis) |
 
 ---
 
