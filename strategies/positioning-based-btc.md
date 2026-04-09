@@ -1195,6 +1195,32 @@ When BTC enters PB14-L zone (avgLong<48) with OI surge (>10%):
 
 **Mechanical explanation:** Alt needs its own positioning fuel to amplify a BTC squeeze. Without fuel, the alt follows BTC weakly or not at all. Cross-market confirmation (multiple assets oversold simultaneously) indicates a systemic squeeze rather than a BTC-specific event.
 
+### 14.7 Improved System V3 (April 2026 Audit)
+
+Following the audit, the improved system incorporates three mechanical changes:
+
+**1. Signal inversion exit** (no timer, no trailing %): exit when the opposite-direction positioning signal fires. Mechanical basis: regime has changed, positioning has moved to opposite extreme. Every signal-inversion exit is a winner (100% WR on 93 INV exits). No arbitrary parameters.
+
+**2. Dead zone model removal**: PEND-L and PEND-S removed. PEND-L produced WR 30%, net PnL -9% — a net-negative model. Dead zone (avgLong 50-65) positioning extremes are reactive noise, not structural fuel loading.
+
+**3. Skip reactive entries**: skip entry when retail speed >5pp/24h AND price trending against trade direction over 7 days. OOS validated: IS WR 68% → OOS WR 92% for good-combo trades.
+
+**V3 Results (BTC positioning signal → cross-asset execution):**
+
+| Execution | Trades | WR | PnL | PF | DD |
+|---|---|---|---|---|---|
+| BTC (kline) | 109 | 80% | +1,021% | 13.94 | -27% |
+| **ETH** | **98** | **73%** | **+2,972%** | **27.36** | **-21%** |
+| SOL | 90 | 62% | +1,015% | 7.61 | -25% |
+
+ETH is the optimal execution target: PF 27.36, DD -21%. At x2 leverage, DD ~-38%, survivable.
+
+**Exit system research findings:**
+
+The exit problem on multi-wave squeezes is structurally unsolvable with a single indicator. Everything oscillates during squeeze: positioning, OI, KER, price structure. Squeeze waves do not shrink (avg 27.7 waves per squeeze, first wave = last wave = 3.4%). No monotonic exhaustion signal exists. Signal inversion is the only approach based on regime change rather than exhaustion within the current regime.
+
+**Irreducible DD sources:** 10% of entries are killed by exogenous crypto-internal events (top trader positioning jumps of +4-7pp in single 4h bars). These are not macro-calendar driven (54% near macro vs 50% baseline = random). They represent the structural ceiling of positioning-based systems.
+
 ---
 
 ## 15. Shitcoin Market Mechanics: Mark-Index Spread Exploitation
