@@ -741,14 +741,20 @@ We also tested using validated LONG exit signals (OI dropping + vol dying + pric
 
 ---
 
-## 12. Open Questions
+## 12. Resolved Questions
 
-1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed. Entry execution is straightforward: trigger bars have 5-10x volume (thick book, ample liquidity), and order sizes of \$1-5K on coins with \$100M+ daily turnover have negligible market impact. Primary cost is spread (0.15-0.25%), already accounted for in break-even analysis.
-2. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized.
-3. **Execution costs:** Spreads 0.19--0.25% on mid-cap shitcoins not included in backtest. Need real orderbook analysis.
-4. **Multi-coin portfolio:** Correlation between shitcoin pumps (common BTC trigger?) unexplored.
-5. **Liq map improvement:** Real leverage bracket data (requires Binance auth) would improve Sliq2% accuracy.
-6. **OI concentration risk:** OI growing >50% in 24h = fragile leverage that cascades violently. Potential pre-filter for avoiding over-leveraged setups.
+1. **Forward test (partially resolved):** Scanner identified SWARMS (+13%) and NOM (+20%) on April 9. Real positions entered: NOM SHORT 2x (loss --- BTC pumped, leading to BTC context filter discovery), MAGMA LONG 3x (+9%). Forward testing confirmed signal generation works; systematic 2+ week virtual test still needed.
+2. **Execution costs (resolved):** Break-even analysis added per model. M7 Continuation survives 5.60% costs (indestructible). M4 Dip-Buy dead standalone (break-even 0.09%). M3 Quality survives at 1.43%. Trigger bars have 5--10x volume = thick book; \$1--5K orders on \$100M+ daily turnover = negligible impact. Spread 0.19--0.25% accounted for.
+3. **Multi-coin portfolio (resolved):** Average cross-coin correlation = 0.230 (low). PEPE-WIF r=0.85 (avoid simultaneous). Negative correlations exist (BULLA) = natural hedge. 3--5 diversified positions recommended.
+4. **Liq map (resolved --- replaced):** Replaced with OI Fuel Gauge (OI trend 2h + OI vs 7d average). Simpler, no leverage guessing, same predictive power on extreme cases.
+5. **OI concentration risk (resolved via ARIA study):** OI growing >50% in 24h = fragile leverage. ARIA case: OI +68% in 24h before -91% crash. Now documented in risk framework (Section 11).
+
+## 13. Remaining Open Questions
+
+1. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized. Critical for real capital deployment.
+2. **Longer validation period:** All results on 90--180 days (one market regime). Need to test on different period (bull → bear transition, low-vol regime).
+3. **Real-time scanner infrastructure:** Forward test scanner exists in JS. Production implementation (Rust bot or standalone) not started. User decision on when to implement.
+4. **Per-session position sizing:** Asia WR 79% PF 5.0 vs US WR 67% PF 1.9. Should position size vary by session? Not tested.
 
 ---
 
