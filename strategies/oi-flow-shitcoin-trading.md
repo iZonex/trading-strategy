@@ -379,7 +379,25 @@ We tested OI drop >5% as SHORT signal without silence requirement: N=2,486, WR 5
 
 ### 5.3 Liq Map: Works Live, Weak on Backtest
 
-Liquidation map (Sliq2%) correctly identified JOE pump exhaustion in real-time (Sliq2% shorts = \$22K ≈0 → pump dead). But backtest improvement was only 2--5pp WR. Cause: leverage distribution is estimated (15/25/30/20/10%), not real. **Liq map useful for extreme cases, not universal filter.**
+Liquidation map (Sliq2%) correctly identified JOE pump exhaustion in real-time (Sliq2% shorts = \$22K ≈0 → pump dead). But backtest improvement was only 2--5pp WR. Cause: leverage distribution is estimated (15/25/30/20/10%), not real.
+
+**Resolution: OI Fuel Gauge replaces liq map entirely.** Two simple metrics, no leverage guessing:
+
+| OI Metric | Winners | Losers | Use |
+|-----------|---------|--------|-----|
+| OI Trend 2h | +13.8% | +2.8% | Is fuel being added? |
+| OI vs 7d avg | 141% | 119% | Is market loaded? |
+
+Best combo: **OI above 7d avg (over 120%) + OI growing = WR 84%, PF 3.86** (N=37).
+
+| Filter | N | WR | PF | Total |
+|--------|---|----|----|-------|
+| OI accelerating (over 3%/2h) | 40 | 75% | 2.96 | +102% |
+| OI flat/dropping | 29 | **34%** | **0.43** | **-82%** |
+| OI above 7d avg + growing | 37 | **84%** | **3.86** | **+117%** |
+| OI below 7d avg | 14 | 43% | 0.44 | -29% |
+
+**If OI is not growing at trigger → skip (WR 34%).** This is what liq map was trying to detect (no fuel), but OI trend shows it directly and reliably.
 
 ### 5.4 The `topTraderLong` Data Fix
 
