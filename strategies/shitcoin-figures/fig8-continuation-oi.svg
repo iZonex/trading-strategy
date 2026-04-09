@@ -39,7 +39,7 @@
   <!-- Bar 4: OI dropping -->
   <rect x="600" y="200" width="100" height="25" fill="#ef4444" opacity="0.7" rx="4"/>
   <text x="650" y="240" text-anchor="middle" fill="#fca5a5" font-size="14" font-weight="600">-2.9%</text>
-  <text x="650" y="290" text-anchor="middle" fill="#e6edf3" font-size="11">OI < -3%/h</text>
+  <text x="650" y="290" text-anchor="middle" fill="#e6edf3" font-size="11">OI &lt; -3%/h</text>
   <text x="650" y="305" text-anchor="middle" fill="#ef4444" font-size="11">WR 33% PF 0.56</text>
   <text x="650" y="320" text-anchor="middle" fill="#6e7681" font-size="10">N = 118</text>
 
