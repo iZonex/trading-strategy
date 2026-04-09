@@ -98,7 +98,9 @@ where T_div ⊂ T is the set of divergent hours (where OI and price moved opposi
 
 **OI Elasticity:**
 
-$$\epsilon = \frac{1}{N}\sum_{h:\Delta P_h < -3\%} \frac{\Delta\text{OI}_h / \text{OI}_{h-1}}{\Delta P_h / P_{h-1}}$$
+$$\epsilon = \frac{1}{N}\sum \frac{\Delta OI_h \;/\; OI_{h-1}}{\Delta P_h \;/\; P_{h-1}}$$
+
+*(summed over all 1-hour windows where price dropped more than 3%)*
 
 When price drops >3%, how much does OI drop? Low elasticity (<0.5) = diamond hands. High (>0.8) = paper hands (instant liquidation).
 
