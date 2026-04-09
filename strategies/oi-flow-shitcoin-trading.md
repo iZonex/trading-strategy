@@ -335,7 +335,7 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 
 **This model connects directly to Model 3:** OI growing = stay in (Model 7). OI dying = exit/short (Model 3). They are two sides of the same coin.
 
-<img src="shitcoin-figures/fig8-continuation-oi.svg" alt="Continuation OI" width="800">
+![Continuation OI](shitcoin-figures/fig8-continuation-oi.svg)
 *Figure 8: Continuation model. OI growth rate during active pump determines outcome. Over +3%/h = strong JOIN (WR 81%). Dropping over 3%/h = EXIT immediately (WR 33%). Models 7 and 3 are mirror images.*
 
 **Results:** Best combo (OI growing over 3% + vol accelerating): N=85, **WR 81%, PF 13.8**, +12.9%/trade. Beats random P95.
