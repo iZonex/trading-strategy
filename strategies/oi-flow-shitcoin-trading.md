@@ -565,6 +565,30 @@ For each model: expected value per trade and break-even spread (above which mode
 
 ---
 
+### 10.3 Cross-Coin Correlation
+
+Daily return correlations across 10 Div ≥ 40% coins (45 pairs, 88-89 overlapping days):
+
+| Metric | Value |
+|--------|-------|
+| Average pairwise correlation | **0.230** (low) |
+| High correlation (r > 0.6) | 6/45 pairs (13%) |
+| Low correlation (r < 0.3) | 28/45 pairs (62%) |
+
+**Highest correlated pairs:** PEPE-WIF (r=0.85), ZEC-PEPE (0.70), RED-WIF (0.67). These move together --- do not enter both simultaneously.
+
+**Best diversifier:** BULLA has **negative** correlation with all coins (-0.12 to -0.31). Adding BULLA to a portfolio of other shitcoins reduces portfolio DD.
+
+**Signal clustering:** 75% of barrel signals arrive in clusters (2+ coins within 24h, avg 2.9 coins). But return correlation is low (0.23) --- coins trigger together but move independently afterward.
+
+**Portfolio rules:**
+- Max 3 simultaneous positions
+- Avoid PEPE + WIF together (r=0.85)
+- When 3+ signals cluster: enter top 2-3 by trigger quality, skip weakest
+- Always include BULLA if it triggers (natural hedge)
+
+---
+
 ## 11. Open Questions
 
 1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed.
