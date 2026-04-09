@@ -749,12 +749,91 @@ We also tested using validated LONG exit signals (OI dropping + vol dying + pric
 4. **Liq map (resolved --- replaced):** Replaced with OI Fuel Gauge (OI trend 2h + OI vs 7d average). Simpler, no leverage guessing, same predictive power on extreme cases.
 5. **OI concentration risk (resolved via ARIA study):** OI growing >50% in 24h = fragile leverage. ARIA case: OI +68% in 24h before -91% crash. Now documented in risk framework (Section 11).
 
-## 13. Remaining Open Questions
+## 13. Position Sizing (Kelly Criterion)
 
-1. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized. Critical for real capital deployment.
-2. **Longer validation period:** All results on 90--180 days (one market regime). Need to test on different period (bull → bear transition, low-vol regime).
-3. **Real-time scanner infrastructure:** Forward test scanner exists in JS. Production implementation (Rust bot or standalone) not started. User decision on when to implement.
-4. **Per-session position sizing:** Asia WR 79% PF 5.0 vs US WR 67% PF 1.9. Should position size vary by session? Not tested.
+### 13.1 M3 Exhaustion SHORT
+
+| Session | N | WR | Avg Win | Avg Loss | Kelly | Half Kelly |
+|---------|---|-----|---------|----------|-------|------------|
+| **ASIA (0--7 UTC)** | 113 | **72%** | +19.0% | -28.4% | **29.4%** | **14.7%** |
+| EU (8--13) | 81 | 73% | +14.8% | -26.5% | 24.3% | 12.2% |
+| US (14--20) | 145 | 64% | +16.9% | -27.0% | 7.0% | 3.5% |
+| LATE (21--23) | 62 | 63% | +17.9% | -16.5% | 28.7% | 14.4% |
+| **Overall** | 401 | **68%** | +17.2% | -25.4% | **20.4%** | **10.2%** |
+
+On \$10K capital, Half Kelly = \$1,020 per M3 trade. Asia session: \$1,470 (1.5x base). US session: \$350 (0.35x base).
+
+**Session effect is dramatic for M3:** Asia Kelly 29% vs US Kelly 7% --- a 4x difference. Pump exhaustion mechanics are cleaner at night (thin book, less noise).
+
+### 13.2 Barrel LONG
+
+Barrel is a trail model, not fixed-hold. 24h PnL understates performance (MFE +18.7% but 24h PnL captures only partial move due to retracement). Kelly calculation on 24h hold is not meaningful; trail-based Kelly requires simulation. **Recommended: fixed \$500--1,000 per barrel trade** until trail-based Kelly is calculated.
+
+### 13.3 Practical Sizing Rules
+
+For \$10K capital:
+
+| Model | Base Size | Asia Multiplier | US Multiplier | Max Loss |
+|-------|-----------|-----------------|---------------|----------|
+| M3 SHORT | \$1,000 | 1.5x (\$1,500) | 0.35x (\$350) | \$260 |
+| Barrel LONG | \$500 | 1.0x | 1.0x | \$40 (SL -8%) |
+| Max simultaneous | 3--5 positions | | | \$1,300 total |
+
+**Max portfolio risk per trade: 2.6%.** One rug pull with slippage (-20%) on max M3 position = -\$300 = 3% of capital. Acceptable.
+
+## 14. Scanner Coin Selection Criteria
+
+### 14.1 Scanner A: LONG Watchlist (M1, M2, M6, M7)
+
+**Qualification (run once per week, 7 days of 1h OI data from Binance API):**
+
+1. Get list of all Binance USDT-M perpetual futures (500+ pairs)
+2. For each pair, fetch 168h (7d) of OI + price via `/futures/data/openInterestHist?period=1h&limit=168`
+3. Calculate:
+   - **OI-Price Divergence:** count hours where OI direction ≠ price direction, divide by total hours. Need ≥40%.
+   - **OI Predictive Power:** when OI diverges from price, does price follow OI direction next hour? Need ≥52%.
+   - **OI Elasticity (optional):** avg(OI_change / price_change) on hours where price dropped >3%. Want <0.5.
+4. Filter: divergence ≥40% AND predictive power ≥52%
+5. Result: ~9--15 coins → watchlist
+
+**Monitoring (real-time on watchlist coins):**
+
+6. Stream 5m klines + OI for watchlist coins
+7. Detect barrel loading: silence (range <2% per hour for 6+ hours) + OI growing (>5% in 6h)
+8. Detect trigger: vol ≥8x avg + bar ≥2% green + top wick <20%
+9. Check BTC context: BTC 4h change <+2%
+10. Check session: prefer 0--13 UTC
+
+### 14.2 Scanner B: M3 Pump Scanner (all coins)
+
+**No pre-qualification needed.** Scan all 500+ pairs continuously:
+
+1. For each pair, maintain rolling 12h price change from 1h klines
+2. When price_12h > +25%: pair enters "exhaustion watch"
+3. Monitor OI (1h) and volume for exhaustion signal:
+   - OI dropping >2%/h
+   - Volume <80% of 12h peak
+4. Check BTC context: BTC 4h <+2%
+5. If all conditions met → M3 SHORT signal
+
+**Data requirements:** 1h klines + 1h OI for all pairs. Binance API rate limits: 2400 req/min. With 500 pairs, one full scan = ~1000 requests (klines + OI) = runs in 25 seconds.
+
+### 14.3 Data Sources (Binance Futures API)
+
+| Data | Endpoint | Rate | Update |
+|------|----------|------|--------|
+| 1h Klines | `/fapi/v1/klines?interval=1h` | 2400/min | Real-time |
+| OI History | `/futures/data/openInterestHist?period=1h` | 10/min | 5min delay |
+| Top Trader Ratio | `/futures/data/topLongShortPositionRatio` | 10/min | 5min delay |
+| BTC Price | `/fapi/v1/klines?symbol=BTCUSDT&interval=4h` | Shared | Real-time |
+
+**Rate limit constraint:** OI and TopTrader endpoints are limited to 10 req/min. Full scan of 500 coins = 50 minutes per cycle. Solution: scan in tiers --- exhaustion watch (25%+ pumps, ~10--20 coins) get priority scanning every 5 min; rest scanned in background.
+
+## 15. Remaining Open Questions
+
+1. **Longer validation period:** All results on 90--180 days (one market regime). Need to test on different period (bull → bear transition, low-vol regime).
+2. **Trail-based Kelly for barrel:** Current Kelly calculation uses 24h fixed hold, which understates barrel performance. Need simulation with actual trail (activate +5%, trail 30%) to calculate proper Kelly.
+3. **Systematic forward test:** 2+ weeks of virtual paper trading with all signals logged, to measure real-world signal quality and execution feasibility.
 
 ---
 
