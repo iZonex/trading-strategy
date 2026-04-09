@@ -656,7 +656,32 @@ ETH avgLong offset is +17pp (not +10pp as originally stated). SOL confirmed at +
 | PB14-S | SHORT | Dead ($56$-$68\%$) | Top sells while retail buys | Fuel 13pp + SL 5% | ~20 | 80% | +23% |
 | DIST | SHORT | Dead ($50$-$68\%$) | 3-day distribution divergence | Fuel 13pp + SL 5% | ~16 | 72% | +12% |
 | FLIQ-L | LONG | Any (OI-based) | OI flush $>3\%$ completing | 24h fixed hold | 23 | 78% | +47% |
-| **TOTAL** | | | | | **290** | **72%** | **+828%** |
+| **TOTAL (V1)** | | | | | **290** | **72%** | **+828%** |
+
+### 9.1b V3 Model Table (Revised April 2026)
+
+| Model | Direction | Zone | Entry | Exit | Status |
+|-------|-----------|------|-------|------|--------|
+| PB14-L | LONG | Bull ($<48\%$) | Low velocity, flat range, OI $\leq$\$10B | Signal inversion + SL 5% | **ACTIVE** |
+| PB12 | SHORT | Bear ($>65\%$) | div$<-5$, top$>60$, first weakness. Tenure filter: skip if top$>60$ for $>30$d + reducing | Signal inversion + SL 5% | **ACTIVE** (with tenure filter) |
+| PB2 | SHORT | Adaptive | Failed pump, div growing (adaptive threshold) | Signal inversion + SL 5% | **ACTIVE** |
+| PB14-S | SHORT | Dead ($56$-$68\%$) | Top sells while retail buys | Signal inversion + SL 5% | **ACTIVE** |
+| DIST | SHORT | Dead ($50$-$68\%$) | 3-day distribution divergence | Signal inversion + SL 5% | **ACTIVE** |
+| FLIQ-L | LONG | Any (OI-based) | OI flush $>3\%$, decelerating | 24h fixed hold | **ACTIVE** |
+| ~~PEND-S~~ | ~~SHORT~~ | ~~Dead ($<56\%$)~~ | ~~+6pp spike~~ | — | **REMOVED** from entry. Used for exit detection only. |
+| ~~PEND-L~~ | ~~LONG~~ | ~~Dead ($>56\%$)~~ | ~~-6pp spike~~ | — | **REMOVED**. WR 30%, net PnL -9%. Dead zone noise. |
+
+**V3 Exit: Signal Inversion.** Exit LONG when any SHORT signal fires. Exit SHORT when any LONG signal fires. No timer, no trailing %, no arbitrary parameters. 100% WR on all inverse exits. PEND signals used for exit detection (positioning overshoot = regime indicator) despite being removed from entry.
+
+**Additional V3 filters:** 72h wait after SL. Skip entry if retSpeed$>5$pp/24h AND price trending against direction over 7d.
+
+**V3 Results:**
+
+| Execution | Trades | WR | PnL | PF | DD |
+|-----------|--------|-----|------|------|------|
+| BTC (kline, 547d) | 109 | 80% | +1,021% | 13.94 | -27% |
+| ETH (kline, 547d) | 98 | 73% | +2,972% | 27.36 | -21% |
+| SOL (kline, 547d) | 90 | 62% | +1,015% | 7.61 | -25% |
 
 ### 9.2 Performance Summary
 
@@ -1312,13 +1337,26 @@ The deep asset studies in Section 12 introduce an important asymmetry in researc
 
 ### Future Work
 
-1. **News/sentiment integration** for bear-no-divergence event coverage.
-2. **ETH/SOL full validation** on the extended 547-day dataset using market-type-specific model architectures.
-3. **Cross-market early warning** (S&P 500 correlation, BTC exchange inflows).
-4. **Trail exit optimization** to improve the 52% capture rate on winning trades.
-5. **Real-time implementation** with position sizing adapted to fuel quality and OI levels.
-6. **Market type classification engine** to detect regime transitions across 90-day rolling windows, enabling dynamic allocation between positioning and OI flow signals.
-7. **SOL on-chain data integration**: pump.fun hourly new token launch data, Solana whale wallet tracking, DEX flow imbalance metrics, and social sentiment feeds are the most likely sources of the unexplained SOL variance. Incorporating these data streams is the prerequisite for building a viable SOL trading model comparable in coverage to the BTC system presented here.
+**Open research questions:**
+
+1. **Extended bear market validation.** Positioning data for 2022-2023 is unavailable via Binance S3. Model is untested on -75% decline over 12 months. If avgLong stays >65 permanently, PB14-L (primary model) never fires. PB12 in sustained bear may degrade to WR ~46% (positioned top traders, not trapped). This is the MOST IMPORTANT remaining validation gap.
+
+2. **PB12 mechanical improvement.** Top trader tenure (>30d) and velocity discriminators identified but not fully integrated. Top adding long (+2/7d) = WR 88% (trapped). Top reducing slowly = WR 46% (positioned). Needs IS/OOS validation.
+
+3. **Velocity filter direction.** For PB14-L: top going MORE short = WR 82% (fuel loading). Top going long fast = WR 65% (fuel leaking). Current velocity filter blocks BOTH directions — should be directional. Leverage-dependent: at x1 remove filter (+1171% PnL, DD -32%), at x3 keep filter for survival.
+
+4. **Calendar and structural awareness.** Type A kills (exogenous events) identified as China stimulus (Q-end), pre-election positioning, $100K psychology, ETF flows. Calendar effects (quarter-end, holidays) and round-number proximity are structurally detectable. Not yet implemented.
+
+5. **Cross-asset regime alignment integration.** SOL avgLong < 68 at BTC signal = WR 74%. SOL avgLong ≥ 68 = WR 0% (5/5 lost). ETH direction agreement 96% on >1% BTC moves. Regime alignment = cross-market confirmation, not yet used in entry decisions.
+
+6. **Live execution architecture.** Signal checks every 12h. Entry/exit as market orders. 24/7 monitoring needed. Strategy capacity estimated $1-10M before market impact.
+
+**Closed questions (resolved during audit):**
+- Exit system: signal inversion is the only mechanically valid exit for multi-wave squeezes
+- PEND models: removed from entry (dead zone noise), retained for exit detection (positioning overshoot)
+- SOL tradeable: BTC signal → SOL execution = +1015%, PF 7.61
+- ETH beta: 1.21x (not 1.73x), asymmetric (1.40x down, 1.17x up)
+- DD origin: mathematically irreducible at given WR/SL/leverage, not model defect
 
 ---
 
