@@ -269,7 +269,13 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 
 Quality filter (pump ≥ 25% + OI drop ≥ 5% + 12h hold): **N=99, WR 65%, PF 1.59, avg +2.87%, break-even 1.43%.**
 
-**Root cause of low avg win:** winners and losers have identical entry features (pump size, OI drop, vol ratio all same). Cannot filter better --- but holding longer captures more of the available move.
+**BTC filter (critical):** Skip M3 when BTC(4h) > +2%. In this regime (N=49), WR drops to 43%, PF 0.84 --- unprofitable. BTC pumping causes accidental short squeezes on shitcoins. Conversely, BTC dumping (-2%) is the best M3 regime (PF 3.32, avg +5.89%/24h). See Section 6.2 for full cross-model BTC analysis.
+
+**Root cause of low avg win:** winners and losers have identical entry features (pump size, OI drop, vol ratio all same). Cannot filter better --- but holding longer and applying the BTC filter captures more of the available move.
+
+**Coin-type agnostic (validated):** Unlike LONG models, M3 does not require coin qualification. Testing 1,203 trades across 150 coins grouped by OI elasticity shows identical performance: paper hands (>0.8) WR 69.2%, mixed (0.5--0.8) WR 66.4%, diamond hands (<0.5) WR 68.6%. Pump exhaustion is a mechanical process independent of participant composition. M3 thus requires a **pump scanner** (any coin with pump >25%/12h), not a coin watchlist.
+
+**Post-entry OI dynamics (informational, not actionable):** OI continuing to drop in the first 2 hours predicts WR 78% (avg +6.49%) while OI rebounding with price predicts WR 58% (avg -0.85%). However, adaptive exits based on 2h OI reduce total PnL because some reversals reverse back. The optimal strategy remains simple: enter, hold 24h, no early exit.
 
 ### 4.4 Model 4: Dip-Buy (LONG)
 
@@ -443,7 +449,26 @@ Shitcoins pump at night (Asia session) when volume is thin and one player can mo
 
 Counter-intuitive: barrel works BEST when BTC dumps. Money rotates: BTC down → traders seek alt gains → shitcoin pumps are real. When BTC pumps, everyone is in BTC---shitcoin triggers are noise.
 
-**Filter:** Skip barrel if BTC(4h) > +2%.
+**BTC context for SHORT models (M3 Exhaustion):**
+
+Live forward-testing confirmed that BTC context applies symmetrically to SHORT trades. A NOM SHORT entered during a BTC pump lost -14.86% on 2x leverage, prompting systematic study of 675 M3 trades with BTC data:
+
+| BTC 4h Change | N | WR | PF (24h) | Avg PnL |
+|---------------|---|----|----|---------|
+| Down < -2% | 30 | **63%** | **3.32** | +5.89% |
+| Flat ±0.5% | 189 | 60% | 1.22 | +0.34% |
+| Up > +2% | 49 | **43%** | **0.84** | -0.43% |
+
+M3 winners average BTC 4h: +0.03% (flat). Losers average: +0.29% (BTC rising). BTC pumping squeezes shitcoin shorts via accidental momentum transfer.
+
+**Universal BTC filter for all shitcoin directional trades:**
+
+| Direction | BTC Pumping (+2%) | BTC Flat | BTC Dumping (-2%) |
+|-----------|-------------------|----------|-------------------|
+| LONG barrel (M1/M6) | SKIP (PF 0.69) | OK (PF 2.85) | BEST (PF 33.8) |
+| SHORT exhaust (M3) | SKIP (PF 0.84) | OK (PF 1.22) | BEST (PF 3.32) |
+
+**Filter:** Skip ALL shitcoin directional trades if BTC(4h) > +2%.
 
 ### 6.3 Trigger Quality: Top Wick
 
@@ -549,29 +574,39 @@ This failure was expected: the models at the time lacked cycle position awarenes
 
 ## 9. Complete Entry Rules (V2)
 
-**Coin Qualification (7 days of data):**
+**Two scanner architectures** (discovered via ARIA elasticity study):
 
+**Scanner A --- LONG models (M1, M2, M4, M5, M6, M7): Coin Watchlist**
+
+Coin Qualification (7 days of data):
 1. OI-price divergence ≥40% (93% accuracy)
 2. OI Predictive Power ≥52% (kills false positives like FARTCOIN)
+3. Resulting watchlist: ~9 coins (SIREN, ZEC, SWARMS, RED, TAO, WIF, NOM, GLM, KERNEL)
 
-**Trigger Conditions (real-time):**
+Trigger Conditions (real-time):
+4. Model-specific entry (barrel, dip-buy, bounce, continuation, etc.)
+5. Trigger quality: vol ≥8x, bar ≥2%, top wick < 20%
+6. Session: prefer 0--13 UTC (Asia/EU). Skip US afternoon.
+7. BTC context: skip if BTC(4h) > +2%
 
-3. Model-specific entry (barrel, dip-buy, bounce, continuation, etc.)
-4. Trigger quality: vol ≥8x, bar ≥2%, top wick < 20%
-5. Session: prefer 0--13 UTC (Asia/EU). Skip US afternoon.
-6. BTC context: skip if BTC(4h) > +2%
+Exit:
+8. Trail: activate at +5% MFE, trail 30% of peak
+9. Hard SL: -8% (for HIGH vol coins: -15%)
+10. Timeout: 48h
 
-**Exit:**
-
-7. Trail: activate at +5% MFE, trail 30% of peak
-8. Hard SL: -8% (for HIGH vol coins: -15%)
-9. Timeout: 48h
-
-**Adaptation by pump type (TopLong during silence):**
-
+Adaptation by pump type (TopLong during silence):
 - <40%: Short squeeze → wider trail (activate +8%), hold longer
 - 40--55%: Balanced → standard trail
-- > 60%: Demand-driven → tight trail (+3%) or skip
+- \> 60%: Demand-driven → tight trail (+3%) or skip
+
+**Scanner B --- M3 Exhaustion SHORT: Pump Scanner (all coins)**
+
+No coin qualification needed --- M3 is coin-type-agnostic (WR 68% across all elasticity buckets, N=1,203):
+1. Scan ALL active pairs for pump >25%/12h
+2. OI dropping >2%/h + vol <80% of peak
+3. BTC context: skip if BTC(4h) > +2%
+4. Hold 24h, no early exit, no trail
+5. Expected: WR 69%, avg +4.16%/trade
 
 ---
 
@@ -663,14 +698,57 @@ M7 conditions met in 9% of barrel trades. When met: add-on profitable 63%, avg +
 
 ---
 
-## 11. Open Questions
+## 11. Rug Pull Risk: What We Cannot Predict
+
+### 11.1 Case Study: ARIA -91.6% in 30 Minutes (April 9, 2026)
+
+ARIA (div=13.6%, elast=1.07) crashed from \$0.75 to \$0.06 in 55 minutes. OI fell from \$32.4M to \$8.78M (-72.8%), liquidating \$23.6M of positions.
+
+**The pre-crash state had zero warning signs from futures data:**
+- OI was growing (+7.6% in the hour before crash)
+- Price was rising (0.7465 two hours before)
+- Volume was rising (normal pump behavior)
+- TopLong stable at 43--44% (not extreme)
+
+The only subtle hint: TopLong drifted from 48% to 43% over 8 days while price doubled --- top traders were shorting the entire pump. But this drift was too slow to be actionable.
+
+### 11.2 Cascade Rider Hypothesis --- Tested and Rejected
+
+We hypothesized that cascade starts could be detected in real-time (2+ consecutive 5m bars with >-2%, cumulative >-5%) and shorted.
+
+On known crashes (look-ahead): 50 detections, avg MFE +33.8%. On **all data** (no look-ahead): 2,289 signals, **WR 43%, avg -1.06% = unprofitable.** 98% of signals were normal dips that bounced. Every filter combination (volume acceleration, taker ratio, OI drop, body ratio) failed to distinguish real crashes from ordinary volatility.
+
+**Root cause:** On shitcoins, dips of 5%+ happen ~10x/day. The deadliest crashes start on normal volume then accelerate --- indistinguishable at inception.
+
+We also tested using validated LONG exit signals (OI dropping + vol dying + price fading) as SHORT entries post-pump. Result: N=587, WR 66.8%, avg +1.07% --- identical to M3 Exhaustion, which we already have. No additional edge.
+
+### 11.3 Risk Framework
+
+| Risk | Frequency | Impact | Mitigation |
+|------|-----------|--------|-----------|
+| Normal SL (trend reversal) | ~15% of trades (with quality filter) | -8% | Trigger quality + BTC context |
+| Slippage during crash | ~2% of trades | -12 to -20% | Limit SL with offset (trigger -8%, limit -10%) |
+| Rug pull (exogenous) | ~0.5% of trades | -20%+ (order book empties) | Coin qualification, position sizing |
+| Exchange halt/delist | Rare | -100% of position | Max 2% capital per coin |
+
+**Rug pull frequency:** 32 crashes >50% found across 240 coins in 6 months = ~1 per coin per year on the most volatile shitcoins. Our coin qualification filter (div ≥40%) selects coins with institutional-like holders, which have rug pulls less frequently --- ARIA's div=13.6% would have excluded it from our watchlist.
+
+**Critical rules:**
+- Hard SL -8% on every LONG, always active (limits rug pull damage to -8% plus slippage)
+- Max 2% capital per coin (one rug pull = -2% portfolio, not -8%)
+- Diversify across 3--5 uncorrelated positions (avg cross-coin r=0.230)
+- Accept that ~40% of big moves are unpredictable. The system must be profitable DESPITE occasional SL hits, not by avoiding them.
+
+---
+
+## 12. Open Questions
 
 1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed. Entry execution is straightforward: trigger bars have 5-10x volume (thick book, ample liquidity), and order sizes of \$1-5K on coins with \$100M+ daily turnover have negligible market impact. Primary cost is spread (0.15-0.25%), already accounted for in break-even analysis.
 2. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized.
 3. **Execution costs:** Spreads 0.19--0.25% on mid-cap shitcoins not included in backtest. Need real orderbook analysis.
 4. **Multi-coin portfolio:** Correlation between shitcoin pumps (common BTC trigger?) unexplored.
 5. **Liq map improvement:** Real leverage bracket data (requires Binance auth) would improve Sliq2% accuracy.
-6. **Cascade prediction:** 15% of moves (cascade dumps, chaotic) remain uncovered. Orderbook depth data might help.
+6. **OI concentration risk:** OI growing >50% in 24h = fragile leverage that cascades violently. Potential pre-filter for avoiding over-leveraged setups.
 
 ---
 
