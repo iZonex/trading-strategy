@@ -287,7 +287,26 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 
 **WHY:** After cascade, book refills, bargain hunters enter. Recovery is mechanical---price overshot fundamental value during cascade.
 
-**Results:** 42 signals where OI stabilized. 4h WR 62%, avg +0.7%. 12h avg +13.6%. Enhanced: longs exhausted + OI stable + shorts loaded: N=9, avg 12h +24%.
+**Results:** Expanded testing (N=200, dump >8%, OI growing after): 12h WR 51%, PF 1.37. Break-even spread 0.32%. Best variant only on 12h hold --- 4h = coin flip (WR 48%).
+
+**Critical finding:** "OI dropped during dump then reversed" = TRAP (PF 0.37). Large OI drop during dump = deep damage, and OI bounce after = dead cat, not reversal.
+
+**Status:** observational pattern, upgraded with bounce vs dead cat discriminator.
+
+**Bounce vs Dead Cat --- the key discriminator (N=223):**
+
+| Metric | Real Bounce | Dead Cat | Difference |
+|--------|-------------|----------|-----------|
+| OI drop during dump | **-1.4%** | **-9.2%** | 73% (strongest) |
+| Is new 7d low | 18% yes | 6% yes | 48% |
+| OI velocity post-bottom | +4.1%/h | +2.5%/h | 24% |
+
+When OI barely drops during price dump = positions survived = structure intact = bounce likely.
+When OI crashed = liquidation cascade destroyed structure = dead cat.
+
+**Improved filter:** dump >8% + OI stabilized + **OI dropped less than 5% during dump** (structure intact): N=83, WR 57%, PF 1.43.
+
+This replaces liq map for bounce detection: instead of "are liquidation prices reached?" ask "did OI survive the dump?" Simpler, more reliable, accessible from standard API data.
 
 ### 4.6 Model 6: Volatile Barrel (LONG)
 
@@ -559,7 +578,15 @@ For each model: expected value per trade and break-even spread (above which mode
 | M3 Exhaustion | +0.68% | 0.34% | +0.28% | Marginal |
 | **M4 Dip-Buy** | **+0.19%** | **0.09%** | **-0.21%** | **DEAD on shitcoins** |
 
-**Model 4 (Dip-Buy) is not viable on shitcoin spreads (0.15-0.25%).** Break-even at 0.09% = only survives with maker orders on the most liquid pairs. Recommend removing from live trading or restricting to PEPE/ZEC only.
+**Model 4 (Dip-Buy) is not viable as standalone on shitcoin spreads (0.15-0.25%).** Break-even at 0.09%. However, as a pullback entry within a barrel phase it becomes excellent:
+
+| Context | N | WR | PF | Avg/trade | Break-even |
+|---------|---|----|----|-----------|-----------|
+| M4 standalone | 416 | 65% | 2.06 | +3.44% | 1.72% |
+| **M4 after barrel (24h)** | **67** | **75%** | **7.41** | **+7.39%** | **3.70%** |
+| M4 no barrel context | 349 | 63% | 1.73 | +2.68% | 1.34% |
+
+**Recommendation:** do not trade M4 standalone. Use as pullback re-entry within 24h of a barrel trigger. The barrel provides context (smart money loading confirmed); the dip-buy provides timing (enter cheaper during pullback).
 
 **Model 7 (Continuation) is the most robust:** even with 5% round-trip cost it remains profitable. This is because avg win (+14.8%) dwarfs any realistic execution cost.
 
@@ -586,6 +613,21 @@ Daily return correlations across 10 Div ≥ 40% coins (45 pairs, 88-89 overlappi
 - Avoid PEPE + WIF together (r=0.85)
 - When 3+ signals cluster: enter top 2-3 by trigger quality, skip weakest
 - Always include BULLA if it triggers (natural hedge)
+
+---
+
+### 10.4 Position Management: M1 to M7 Transition
+
+After barrel entry (M1), check at +2h: if price above entry AND OI growing over +3%/h → add 50% to position (M7 logic).
+
+| Strategy | WR | PF | Total |
+|----------|----|----|-------|
+| M1 base only | 63% | 1.29 | +65% |
+| **M1 + M7 add** | 63% | **1.35** | **+78%** |
+
+M7 conditions met in 9% of barrel trades. When met: add-on profitable 63%, avg +3.1%. Overall +19% improvement.
+
+**Rule:** 2h after barrel entry, if OI still growing over +3%/h and price is positive → add 50% with SL -6% on the add-on. Max total position = 1.5x base.
 
 ---
 
