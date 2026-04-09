@@ -665,7 +665,7 @@ M7 conditions met in 9% of barrel trades. When met: add-on profitable 63%, avg +
 
 ## 11. Open Questions
 
-1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed.
+1. **Forward test:** The scanner identified SWARMS and NOM correctly on April 9. Systematic forward testing over 2+ weeks with virtual trades is needed. Entry execution is straightforward: trigger bars have 5-10x volume (thick book, ample liquidity), and order sizes of \$1-5K on coins with \$100M+ daily turnover have negligible market impact. Primary cost is spread (0.15-0.25%), already accounted for in break-even analysis.
 2. **Position sizing:** DD ranges from 12% (quality filter) to 63% (base). Kelly criterion or fixed-fractional sizing remains to be optimized.
 3. **Execution costs:** Spreads 0.19--0.25% on mid-cap shitcoins not included in backtest. Need real orderbook analysis.
 4. **Multi-coin portfolio:** Correlation between shitcoin pumps (common BTC trigger?) unexplored.
