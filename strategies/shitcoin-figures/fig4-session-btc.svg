@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="800" height="350" fill="#0d1117" rx="8"/>
+
+  <text x="400" y="28" text-anchor="middle" fill="#e6edf3" font-size="16" font-weight="600">When to Trade: Session + BTC Context</text>
+
+  <!-- LEFT: Session Effect -->
+  <text x="200" y="55" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600">Session Effect (UTC)</text>
+
+  <!-- Bars -->
+  <rect x="60" y="80" width="280" height="30" fill="#0f2818" rx="3" stroke="#34d399" stroke-width="1"/>
+  <rect x="60" y="80" width="221" height="30" fill="#34d399" opacity="0.4" rx="3"/>
+  <text x="70" y="100" fill="#e6edf3" font-size="11" font-weight="600">ASIA 0-7 UTC</text>
+  <text x="330" y="100" fill="#34d399" font-size="11" font-weight="600" text-anchor="end">WR 79% PF 5.0</text>
+
+  <rect x="60" y="118" width="280" height="30" fill="#0f2818" rx="3" stroke="#60a5fa" stroke-width="1"/>
+  <rect x="60" y="118" width="191" height="30" fill="#60a5fa" opacity="0.3" rx="3"/>
+  <text x="70" y="138" fill="#e6edf3" font-size="11" font-weight="600">EU 7-13 UTC</text>
+  <text x="330" y="138" fill="#60a5fa" font-size="11" font-weight="600" text-anchor="end">WR 74% PF 2.7</text>
+
+  <rect x="60" y="156" width="280" height="30" fill="#0f2818" rx="3" stroke="#f87171" stroke-width="1"/>
+  <rect x="60" y="156" width="134" height="30" fill="#f87171" opacity="0.3" rx="3"/>
+  <text x="70" y="176" fill="#e6edf3" font-size="11" font-weight="600">US 13-21 UTC</text>
+  <text x="330" y="176" fill="#f87171" font-size="11" font-weight="600" text-anchor="end">WR 67% PF 1.9</text>
+
+  <text x="200" y="210" text-anchor="middle" fill="#6e7681" font-size="10">Best window: 0-4 UTC (WR 86%)</text>
+  <text x="200" y="225" text-anchor="middle" fill="#6e7681" font-size="10">Worst: 16-20 UTC (WR 58%)</text>
+  <text x="200" y="250" text-anchor="middle" fill="#8b949e" font-size="10">WHY: thin book at night =</text>
+  <text x="200" y="265" text-anchor="middle" fill="#8b949e" font-size="10">one player can trigger cascade</text>
+
+  <!-- RIGHT: BTC Context -->
+  <text x="600" y="55" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="600">BTC 4h Context at Trigger</text>
+
+  <rect x="460" y="80" width="280" height="30" fill="#0f2818" rx="3" stroke="#34d399" stroke-width="1"/>
+  <rect x="460" y="80" width="270" height="30" fill="#34d399" opacity="0.4" rx="3"/>
+  <text x="470" y="100" fill="#e6edf3" font-size="11" font-weight="600">BTC down >2%</text>
+  <text x="730" y="100" fill="#34d399" font-size="11" font-weight="600" text-anchor="end">WR 88% PF 33.8</text>
+
+  <rect x="460" y="118" width="280" height="30" fill="#0f2818" rx="3" stroke="#60a5fa" stroke-width="1"/>
+  <rect x="460" y="118" width="180" height="30" fill="#60a5fa" opacity="0.3" rx="3"/>
+  <text x="470" y="138" fill="#e6edf3" font-size="11" font-weight="600">BTC flat +/-0.5%</text>
+  <text x="730" y="138" fill="#60a5fa" font-size="11" font-weight="600" text-anchor="end">WR 76% PF 2.9</text>
+
+  <rect x="460" y="156" width="280" height="30" fill="#0f2818" rx="3" stroke="#f87171" stroke-width="1"/>
+  <rect x="460" y="156" width="60" height="30" fill="#f87171" opacity="0.3" rx="3"/>
+  <text x="470" y="176" fill="#e6edf3" font-size="11" font-weight="600">BTC up >2%</text>
+  <text x="730" y="176" fill="#f87171" font-size="11" font-weight="600" text-anchor="end">WR 42% PF 0.69</text>
+
+  <text x="600" y="210" text-anchor="middle" fill="#6e7681" font-size="10">Counter-intuitive: shitcoins pump</text>
+  <text x="600" y="225" text-anchor="middle" fill="#6e7681" font-size="10">when BTC DUMPS</text>
+  <text x="600" y="250" text-anchor="middle" fill="#8b949e" font-size="10">WHY: money rotates from BTC</text>
+  <text x="600" y="265" text-anchor="middle" fill="#8b949e" font-size="10">to alts seeking higher returns</text>
+
+  <!-- Bottom rule -->
+  <rect x="60" y="290" width="680" height="40" fill="#161b22" rx="4"/>
+  <text x="400" y="314" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="600">RULE: Trade Asia/EU session (0-13 UTC). Skip if BTC 4h > +2%.</text>
+</svg>

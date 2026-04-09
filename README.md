@@ -27,6 +27,25 @@ Key findings:
 - Drawdown is mathematically irreducible at given WR/SL/leverage — practical limit **x2 leverage**
 - Cross-asset execution requires **regime alignment** (alt must also be in corresponding positioning zone)
 
+### [OI-Flow Shitcoin Trading](strategies/oi-flow-shitcoin-trading.md)
+
+**246-coin empirical study** on shitcoin perpetual futures using open interest flow as the unifying signal.
+
+- **7 models** (barrel LONG, silent exit SHORT, pump exhaustion SHORT, dip-buy LONG, bounce LONG, volatile barrel LONG, continuation LONG)
+- **324 barrel trades** (silent + volatile combined), **+1,185% cumulative PnL**
+- **OI-price divergence** as universal coin filter — 93% accuracy from 7 days of data
+- Forward validation: scanner called **SWARMS +13%** and **NOM +20%** in real-time
+- Tested on **6,400+ trades** across 246 coins; model works on 14 coins with divergence ≥40%
+
+Key findings:
+- **OI flow direction = the single unifying principle.** All 7 models reduce to: follow where smart money puts capital
+- **OI-price divergence ≥40%** separates smart-money coins from retail noise. Below 40% = -1,232% on same signals
+- **Shitcoins pump in Asia session** (0-7 UTC): WR 79% PF 5.0 vs US WR 67% PF 1.9
+- **Shitcoins pump when BTC dumps.** BTC 4h down >2% → barrel PF 33.8. BTC up >2% → PF 0.69
+- **SHORT barrel doesn't exist.** Dumps are either unpredictable (silent death) or pump aftermath (exhaustion)
+- **TopLong 40-50% = sweet spot** for barrel. Balanced crowd → genuine breakout (PF 4.2)
+- **Trigger quality matters more than coin selection.** DD comes from weak triggers on good coins, not bad coins
+
 ## Data Sources
 
 All research data sourced from **Binance Futures** (API + S3 public archive). No Bybit data in research.

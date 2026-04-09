@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="smartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="noiseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="greyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0d1117" rx="8"/>
+
+  <text x="400" y="35" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">OI-Price Divergence: The Master Coin Filter</text>
+  <text x="400" y="55" text-anchor="middle" fill="#8b949e" font-size="12">6,400 trades across 246 coins -- divergence rate determines ALL model outcomes</text>
+
+  <!-- Axis -->
+  <line x1="80" y1="350" x2="750" y2="350" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="80" y1="80" x2="80" y2="350" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Y axis labels -->
+  <text x="25" y="92" fill="#8b949e" font-size="11" text-anchor="middle">+1000%</text>
+  <text x="25" y="160" fill="#8b949e" font-size="11" text-anchor="middle">+500%</text>
+  <text x="25" y="228" fill="#8b949e" font-size="11" text-anchor="middle">0%</text>
+  <text x="25" y="296" fill="#8b949e" font-size="11" text-anchor="middle">-500%</text>
+  <text x="25" y="356" fill="#8b949e" font-size="11" text-anchor="middle">-1000%</text>
+  <text x="15" y="220" fill="#8b949e" font-size="10" text-anchor="middle" transform="rotate(-90 15 220)">Cumulative PnL</text>
+
+  <!-- X axis labels -->
+  <text x="130" y="375" fill="#8b949e" font-size="11" text-anchor="middle">20%</text>
+  <text x="280" y="375" fill="#8b949e" font-size="11" text-anchor="middle">30%</text>
+  <text x="430" y="375" fill="#8b949e" font-size="11" text-anchor="middle">40%</text>
+  <text x="580" y="375" fill="#8b949e" font-size="11" text-anchor="middle">50%</text>
+  <text x="720" y="375" fill="#8b949e" font-size="11" text-anchor="middle">60%</text>
+  <text x="415" y="400" fill="#8b949e" font-size="12" text-anchor="middle">OI-Price Divergence Rate (%)</text>
+
+  <!-- Zones -->
+  <rect x="80" y="80" width="350" height="270" fill="url(#noiseGrad)" rx="0"/>
+  <rect x="430" y="80" width="320" height="270" fill="url(#smartGrad)" rx="0"/>
+
+  <!-- Threshold line at 40% -->
+  <line x1="430" y1="75" x2="430" y2="355" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="435" y="72" fill="#fbbf24" font-size="12" font-weight="600">40% THRESHOLD</text>
+
+  <!-- Data points: losers (div < 40%) -->
+  <circle cx="130" cy="310" r="6" fill="#ef4444" opacity="0.7"/>
+  <text x="130" y="330" text-anchor="middle" fill="#f87171" font-size="9">BEAT 20%</text>
+  <circle cx="155" cy="320" r="5" fill="#ef4444" opacity="0.7"/>
+  <text x="155" y="340" text-anchor="middle" fill="#f87171" font-size="9">4U 18%</text>
+  <circle cx="190" cy="305" r="5" fill="#ef4444" opacity="0.7"/>
+  <text x="190" y="325" text-anchor="middle" fill="#f87171" font-size="9">POWER 21%</text>
+  <circle cx="230" cy="295" r="5" fill="#ef4444" opacity="0.7"/>
+  <text x="230" y="315" text-anchor="middle" fill="#f87171" font-size="9">ACE 24%</text>
+  <circle cx="310" cy="270" r="5" fill="#ef4444" opacity="0.7"/>
+  <text x="310" y="290" text-anchor="middle" fill="#f87171" font-size="9">RIVER 32%</text>
+
+  <!-- Data points: winners (div >= 40%) -->
+  <circle cx="480" cy="120" r="8" fill="#34d399" opacity="0.8"/>
+  <text x="480" y="110" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">SIREN 52%</text>
+  <circle cx="530" cy="118" r="8" fill="#34d399" opacity="0.8"/>
+  <text x="530" y="108" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">ZEC 52%</text>
+  <circle cx="560" cy="130" r="7" fill="#34d399" opacity="0.8"/>
+  <text x="570" y="148" text-anchor="middle" fill="#6ee7b7" font-size="10">SWARMS 50%</text>
+  <circle cx="500" cy="105" r="9" fill="#34d399" opacity="0.8"/>
+  <text x="510" y="95" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">BULLA 51%</text>
+  <circle cx="620" cy="140" r="6" fill="#34d399" opacity="0.8"/>
+  <text x="620" y="160" text-anchor="middle" fill="#6ee7b7" font-size="10">KERNEL 51%</text>
+
+  <!-- FARTCOIN in grey zone -->
+  <circle cx="455" cy="240" r="6" fill="#fbbf24" opacity="0.7"/>
+  <text x="455" y="260" text-anchor="middle" fill="#fcd34d" font-size="9">FARTCOIN 53%*</text>
+
+  <!-- Summary boxes -->
+  <rect x="90" y="85" width="160" height="55" fill="#1c1c1c" rx="4" stroke="#ef4444" stroke-width="1" opacity="0.9"/>
+  <text x="170" y="103" text-anchor="middle" fill="#f87171" font-size="13" font-weight="600">SKIP (Div &lt; 40%)</text>
+  <text x="170" y="120" text-anchor="middle" fill="#8b949e" font-size="11">N=6140 PF=0.93</text>
+  <text x="170" y="134" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="600">Total: -1,232%</text>
+
+  <rect x="550" y="85" width="180" height="55" fill="#1c1c1c" rx="4" stroke="#34d399" stroke-width="1" opacity="0.9"/>
+  <text x="640" y="103" text-anchor="middle" fill="#6ee7b7" font-size="13" font-weight="600">TRADE (Div >= 40%)</text>
+  <text x="640" y="120" text-anchor="middle" fill="#8b949e" font-size="11">N=260 PF=3.03</text>
+  <text x="640" y="134" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Total: +832%</text>
+
+  <!-- Footnote -->
+  <text x="400" y="430" text-anchor="middle" fill="#6e7681" font-size="10">*FARTCOIN: high divergence (53%) but OI Predictive Power = 49% (coin flip). False positive eliminated by secondary filter.</text>
+</svg>

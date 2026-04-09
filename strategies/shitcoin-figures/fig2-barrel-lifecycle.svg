@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="900" height="400" fill="#0d1117" rx="8"/>
+
+  <text x="450" y="30" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">Barrel Loading Lifecycle: Silence -> Loading -> Trigger -> Pump</text>
+
+  <!-- Timeline arrow -->
+  <line x1="40" y1="200" x2="870" y2="200" stroke="#30363d" stroke-width="2"/>
+  <polygon points="870,195 880,200 870,205" fill="#30363d"/>
+
+  <!-- Phase 1: Silence -->
+  <rect x="50" y="90" width="180" height="200" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,4" rx="6"/>
+  <text x="140" y="115" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="600">PHASE 1</text>
+  <text x="140" y="135" text-anchor="middle" fill="#93c5fd" font-size="12">SILENCE</text>
+  <text x="140" y="165" text-anchor="middle" fill="#8b949e" font-size="10">Range &lt; 4%/h</text>
+  <text x="140" y="180" text-anchor="middle" fill="#8b949e" font-size="10">Volume dead</text>
+  <text x="140" y="195" text-anchor="middle" fill="#8b949e" font-size="10">12+ hours</text>
+  <line x1="80" y1="220" x2="200" y2="220" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <!-- Flat price line -->
+  <polyline points="60,225 80,227 100,224 120,226 140,225 160,228 180,224 200,226 220,225" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Phase 2: Loading -->
+  <rect x="250" y="90" width="180" height="200" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,4" rx="6"/>
+  <text x="340" y="115" text-anchor="middle" fill="#c084fc" font-size="14" font-weight="600">PHASE 2</text>
+  <text x="340" y="135" text-anchor="middle" fill="#d8b4fe" font-size="12">OI LOADING</text>
+  <text x="340" y="165" text-anchor="middle" fill="#8b949e" font-size="10">OI grows +10-30%</text>
+  <text x="340" y="180" text-anchor="middle" fill="#8b949e" font-size="10">TopLong shifts</text>
+  <text x="340" y="195" text-anchor="middle" fill="#8b949e" font-size="10">Smart money enters</text>
+  <!-- OI line going up -->
+  <polyline points="260,265 280,260 300,252 320,245 340,237 360,230 380,222 400,215 420,210" fill="none" stroke="#a855f7" stroke-width="2"/>
+  <text x="420" y="208" fill="#c084fc" font-size="9">OI +20%</text>
+
+  <!-- Phase 3: Trigger -->
+  <rect x="450" y="90" width="160" height="200" fill="none" stroke="#f59e0b" stroke-width="2" rx="6"/>
+  <text x="530" y="115" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="600">PHASE 3</text>
+  <text x="530" y="135" text-anchor="middle" fill="#fcd34d" font-size="12">TRIGGER</text>
+  <text x="530" y="165" text-anchor="middle" fill="#e6edf3" font-size="11" font-weight="600">Vol >= 8x</text>
+  <text x="530" y="180" text-anchor="middle" fill="#e6edf3" font-size="11" font-weight="600">Bar >= 2% GREEN</text>
+  <text x="530" y="195" text-anchor="middle" fill="#8b949e" font-size="10">Top wick &lt; 20%</text>
+  <!-- Price spike -->
+  <polyline points="460,225 480,225 500,215 520,190 540,175" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+  <text x="530" y="260" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">ENTRY HERE</text>
+  <line x1="530" y1="248" x2="530" y2="178" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Phase 4: Pump -->
+  <rect x="630" y="90" width="230" height="200" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4,4" rx="6"/>
+  <text x="745" y="115" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="600">PHASE 4</text>
+  <text x="745" y="135" text-anchor="middle" fill="#a7f3d0" font-size="12">PUMP (12-48h)</text>
+  <text x="745" y="165" text-anchor="middle" fill="#8b949e" font-size="10">Gradual continuation</text>
+  <text x="745" y="180" text-anchor="middle" fill="#8b949e" font-size="10">Trigger = 3-15% of move</text>
+  <text x="745" y="195" text-anchor="middle" fill="#8b949e" font-size="10">Peak at ~26h avg</text>
+  <!-- Price continuing up -->
+  <polyline points="640,175 670,160 700,150 730,135 760,125 790,118 820,115 850,120" fill="none" stroke="#34d399" stroke-width="2"/>
+  <text x="850" y="112" fill="#6ee7b7" font-size="9">PEAK</text>
+  <!-- Trail exit arrow -->
+  <polyline points="850,120 855,128 860,135" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="860" y="150" fill="#f87171" font-size="9">Trail exit</text>
+
+  <!-- Time labels -->
+  <text x="140" y="310" text-anchor="middle" fill="#6e7681" font-size="10">-24h to -12h</text>
+  <text x="340" y="310" text-anchor="middle" fill="#6e7681" font-size="10">-12h to 0h</text>
+  <text x="530" y="310" text-anchor="middle" fill="#6e7681" font-size="10">t = 0 (entry)</text>
+  <text x="745" y="310" text-anchor="middle" fill="#6e7681" font-size="10">+1h to +48h</text>
+
+  <!-- Bottom stats -->
+  <rect x="50" y="330" width="810" height="50" fill="#161b22" rx="4"/>
+  <text x="160" y="352" text-anchor="middle" fill="#8b949e" font-size="11">Silent Barrel: N=188</text>
+  <text x="160" y="368" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">WR 73% PF 3.1</text>
+  <text x="400" y="352" text-anchor="middle" fill="#8b949e" font-size="11">Quality Filter (vol>=8x, bar>=2%):</text>
+  <text x="400" y="368" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">N=28 PF 14.2 DD 22%</text>
+  <text x="680" y="352" text-anchor="middle" fill="#8b949e" font-size="11">Silent + Volatile combined:</text>
+  <text x="680" y="368" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">N=324 Total +1,185%</text>
+</svg>

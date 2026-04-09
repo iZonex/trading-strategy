@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="900" height="500" fill="#0d1117" rx="8"/>
+
+  <text x="450" y="30" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="600">Seven Models Unified by OI Flow Direction</text>
+  <text x="450" y="50" text-anchor="middle" fill="#8b949e" font-size="12">Every model = reading where smart money puts its capital</text>
+
+  <!-- Central OI Flow concept -->
+  <circle cx="450" cy="250" r="60" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+  <text x="450" y="243" text-anchor="middle" fill="#c084fc" font-size="14" font-weight="700">OI FLOW</text>
+  <text x="450" y="260" text-anchor="middle" fill="#d8b4fe" font-size="11">= Everything</text>
+
+  <!-- LONG models (top) -->
+  <text x="450" y="85" text-anchor="middle" fill="#34d399" font-size="14" font-weight="700">LONG (OI loading / growing)</text>
+
+  <!-- Model 1 -->
+  <rect x="30" y="100" width="160" height="70" fill="#0f2818" rx="6" stroke="#34d399" stroke-width="1"/>
+  <text x="110" y="120" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="600">M1: Silent Barrel</text>
+  <text x="110" y="137" text-anchor="middle" fill="#8b949e" font-size="9">Silence + OI loading</text>
+  <text x="110" y="152" text-anchor="middle" fill="#34d399" font-size="10">WR 73% PF 3.1</text>
+  <text x="110" y="165" text-anchor="middle" fill="#6e7681" font-size="8">N=188 +663%</text>
+
+  <!-- Model 6 -->
+  <rect x="210" y="100" width="160" height="70" fill="#0f2818" rx="6" stroke="#34d399" stroke-width="1"/>
+  <text x="290" y="120" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="600">M6: Volatile Barrel</text>
+  <text x="290" y="137" text-anchor="middle" fill="#8b949e" font-size="9">Volatile + OI loading</text>
+  <text x="290" y="152" text-anchor="middle" fill="#34d399" font-size="10">WR 72% PF 3.0</text>
+  <text x="290" y="165" text-anchor="middle" fill="#6e7681" font-size="8">N=136 +522%</text>
+
+  <!-- Model 7 -->
+  <rect x="540" y="100" width="160" height="70" fill="#0f2818" rx="6" stroke="#34d399" stroke-width="1"/>
+  <text x="620" y="120" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="600">M7: Continuation</text>
+  <text x="620" y="137" text-anchor="middle" fill="#8b949e" font-size="9">Pump + OI growing >3%/h</text>
+  <text x="620" y="152" text-anchor="middle" fill="#34d399" font-size="10">WR 81% PF 13.0</text>
+  <text x="620" y="165" text-anchor="middle" fill="#6e7681" font-size="8">N=138 +12%/trade</text>
+
+  <!-- Model 4 -->
+  <rect x="720" y="100" width="160" height="70" fill="#0f2818" rx="6" stroke="#34d399" stroke-width="1"/>
+  <text x="800" y="120" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="600">M4: Dip-Buy</text>
+  <text x="800" y="137" text-anchor="middle" fill="#8b949e" font-size="9">Price dip + OI growing</text>
+  <text x="800" y="152" text-anchor="middle" fill="#34d399" font-size="10">WR 49% PF 1.18</text>
+  <text x="800" y="165" text-anchor="middle" fill="#6e7681" font-size="8">N=3604 +1899%</text>
+
+  <!-- Model 5 -->
+  <rect x="390" y="100" width="130" height="70" fill="#0f2818" rx="6" stroke="#34d399" stroke-width="1"/>
+  <text x="455" y="120" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="600">M5: Bounce</text>
+  <text x="455" y="137" text-anchor="middle" fill="#8b949e" font-size="9">Dump + OI stabilized</text>
+  <text x="455" y="152" text-anchor="middle" fill="#34d399" font-size="10">WR 62%</text>
+  <text x="455" y="165" text-anchor="middle" fill="#6e7681" font-size="8">avg +13.6%/12h</text>
+
+  <!-- Lines from models to center -->
+  <line x1="110" y1="170" x2="400" y2="230" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+  <line x1="290" y1="170" x2="420" y2="230" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+  <line x1="455" y1="170" x2="450" y2="190" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+  <line x1="620" y1="170" x2="480" y2="230" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+  <line x1="800" y1="170" x2="500" y2="230" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+
+  <!-- SHORT models (bottom) -->
+  <text x="450" y="340" text-anchor="middle" fill="#ef4444" font-size="14" font-weight="700">SHORT (OI dropping / exhausted)</text>
+
+  <!-- Model 2 -->
+  <rect x="200" y="355" width="180" height="70" fill="#1a0808" rx="6" stroke="#ef4444" stroke-width="1"/>
+  <text x="290" y="375" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">M2: Silent OI Exit</text>
+  <text x="290" y="392" text-anchor="middle" fill="#8b949e" font-size="9">Silence + OI drops + confirm</text>
+  <text x="290" y="407" text-anchor="middle" fill="#ef4444" font-size="10">WR 87% PF 21.3</text>
+  <text x="290" y="420" text-anchor="middle" fill="#6e7681" font-size="8">N=46 DD 4.6%</text>
+
+  <!-- Model 3 -->
+  <rect x="520" y="355" width="180" height="70" fill="#1a0808" rx="6" stroke="#ef4444" stroke-width="1"/>
+  <text x="610" y="375" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">M3: Pump Exhaustion</text>
+  <text x="610" y="392" text-anchor="middle" fill="#8b949e" font-size="9">OI dying + vol dying after pump</text>
+  <text x="610" y="407" text-anchor="middle" fill="#ef4444" font-size="10">WR 58-65% PF 1.2</text>
+  <text x="610" y="420" text-anchor="middle" fill="#6e7681" font-size="8">N=1423 +1885%/24h</text>
+
+  <!-- Lines from center to SHORT models -->
+  <line x1="420" y1="270" x2="290" y2="355" stroke="#ef4444" stroke-width="1" opacity="0.4"/>
+  <line x1="480" y1="270" x2="610" y2="355" stroke="#ef4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Connection line M7 <-> M3 -->
+  <line x1="620" y1="170" x2="610" y2="355" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <text x="650" y="265" fill="#fbbf24" font-size="9" transform="rotate(78 650 265)">OI grows=stay / OI dies=exit</text>
+
+  <!-- Bottom label -->
+  <rect x="200" y="455" width="500" height="30" fill="#161b22" rx="4"/>
+  <text x="450" y="475" text-anchor="middle" fill="#8b949e" font-size="11">Filter: OI-Price Divergence >= 40% | 7 days data | 93% classification accuracy</text>
+</svg>
