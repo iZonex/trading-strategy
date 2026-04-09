@@ -188,12 +188,12 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 
 **Conditions:**
 
-$$\begin{cases}
-\text{silence} \geq 12\text{h (range} < 4\%/\text{h, 50\%+ hours quiet)} \\
-\Delta\text{OI}_{\text{silence}} \geq +5\% \\
-\text{trigger: vol} \geq 5\times \text{avg AND bar} \geq +2\% \text{ (green close)} \\
-\text{top wick} < 20\% \text{ of bar range}
-\end{cases}$$
+
+- silence ≥ 12h (range < 4%/h, 50%+ hours quiet)
+- ΔOI_silence ≥ +5%
+- trigger: vol ≥ 5× avg AND bar ≥ +2%  (green close)
+- top wick < 20%  of bar range
+
 
 **WHO:** Smart money loads positions during silence. The loading is visible only in OI growth---price stays flat, volume dead.
 
@@ -221,12 +221,12 @@ $$\begin{cases}
 
 **Conditions:**
 
-$$\begin{cases}
-\text{silence} \geq 6\text{h (50\%+ hours quiet)} \\
-\Delta\text{OI}_{\text{bar}} < -3\% \text{ in single 5m bar} \\
-\text{vol} < 10\times \text{avg (quiet exit, not panic)} \\
-\text{wait 1h: } \Delta\text{OI}_{\text{next hour}} < -1\% \text{ (confirmed)}
-\end{cases}$$
+
+- silence ≥ 6h (50%+ hours quiet)
+- ΔOI_bar < -3%  in single 5m bar
+- vol < 10× avg (quiet exit, not panic)
+- wait 1h:  ΔOI_next hour < -1%  (confirmed)
+
 
 **WHO:** A whale or large fund exits quietly. OI drops suddenly during silence---but volume stays low, meaning no panic selling. The position was closed via OTC or dark pool.
 
@@ -244,12 +244,12 @@ $$\begin{cases}
 
 **Conditions:**
 
-$$\begin{cases}
-\Delta P_{12\text{h}} > +15\% \text{ (pump happened)} \\
-P(t) > 0.9 \times \max P_{12\text{h}} \text{ (still near peak)} \\
-\Delta\text{OI}_{2\text{h}} < -2\% \text{ (money leaving)} \\
-\text{vol}_{2\text{h}} < 0.8 \times \text{vol}_{\text{peak}} \text{ (volume dying)}
-\end{cases}$$
+
+- Δ P_12h > +15%  (pump happened)
+- P(t) > 0.9 × max P_12h  (still near peak)
+- ΔOI_2h < -2%  (money leaving)
+- vol_2h < 0.8 × vol_peak  (volume dying)
+
 
 **WHO:** Smart money and early longs exit, taking profit. OI drops as positions close. Volume dying = no new buyers.
 
@@ -261,10 +261,10 @@ P(t) > 0.9 \times \max P_{12\text{h}} \text{ (still near peak)} \\
 
 **Conditions:**
 
-$$\begin{cases}
-\Delta P_{1\text{h}} < -3\% \text{ (price dropped)} \\
-\Delta\text{OI}_{1\text{h}} > +2\% \text{ (someone buying the dip)}
-\end{cases}$$
+
+- Δ P_1h < -3%  (price dropped)
+- ΔOI_1h > +2%  (someone buying the dip)
+
 
 **WHO:** Smart money buying through the dip. Counter-intuitively, when *shorts* enter (TopLong drops) during the dip, the LONG outcome is best (+1,128%). The shorts become squeeze fuel.
 
@@ -276,10 +276,10 @@ $$\begin{cases}
 
 **Conditions:**
 
-$$\begin{cases}
-\Delta P_{4\text{h}} < -10\% \text{ (dump happened)} \\
-\Delta\text{OI}_{1\text{h}} > -1\% \text{ (OI stabilized---cascade over)}
-\end{cases}$$
+
+- Δ P_4h < -10%  (dump happened)
+- ΔOI_1h > -1%  (OI stabilized---cascade over)
+
 
 **WHO:** Cascade has finished. Forced sellers are done. OI stops dropping = no more liquidations.
 
@@ -291,11 +291,11 @@ $$\begin{cases}
 
 **Conditions:**
 
-$$\begin{cases}
-\text{volatile} \geq 6\text{h (50\%+ hours with range} > 3\%\text{)} \\
-\Delta\text{OI}_{\text{volatile period}} \geq +5\% \\
-\text{trigger: green bar} \geq +2\% \text{, vol} \geq 3\times
-\end{cases}$$
+
+- volatile ≥ 6h (50%+ hours with range > 3%)
+- ΔOI_volatile period ≥ +5%
+- trigger: green bar ≥ +2% , vol ≥ 3×
+
 
 **WHO:** Smart money loads during volatility---masked by noise. On extreme-volatility coins (BULLA, SIREN), silence rarely happens. This model catches what silent barrel misses.
 
@@ -313,11 +313,11 @@ $$\begin{cases}
 
 **Conditions:**
 
-$$\begin{cases}
-\Delta P_{4\text{h}} > +5\% \text{ (pump already running)} \\
-\Delta\text{OI}_{1\text{h}} > +3\% \text{ (smart money STILL adding)} \\
-\text{vol} \geq 0.8 \times \text{vol}_{\text{prior}} \text{ (volume not dying)}
-\end{cases}$$
+
+- Δ P_4h > +5%  (pump already running)
+- ΔOI_1h > +3%  (smart money STILL adding)
+- vol ≥ 0.8 × vol_prior  (volume not dying)
+
 
 **WHO:** Smart money continues to add positions during an active pump. OI +3%/h is aggressive new money, not retail trickle.
 
