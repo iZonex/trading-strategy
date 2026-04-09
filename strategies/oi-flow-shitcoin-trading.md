@@ -54,6 +54,9 @@ Concretely:
 
 This is not parameter optimization. This is market mechanics: when participants put money in (OI grows), the direction of that money relative to price tells you where price will go next.
 
+![OI Flow Principle](shitcoin-figures/fig5-oi-flow-principle.svg)
+*Figure 5: All seven models mapped to the OI flow direction. Top half: OI growing = LONG models. Bottom half: OI dropping = SHORT models. The central question is always the same: where is smart money putting capital?*
+
 ### 1.4 Contributions
 
 1. A universal coin qualification metric (OI-price divergence) that identifies tradeable coins with 93% accuracy from 7 days of data.
@@ -95,7 +98,7 @@ where T_div ⊂ T is the set of divergent hours (where OI and price moved opposi
 
 **OI Elasticity:**
 
-$$\epsilon = \mathbb{E}\left[\frac{\Delta \text{OI}_h / \text{OI}_{h-1}}{\Delta P_h / P_{h-1}} \;\middle|\; \Delta P_h < -3\%\right]$$
+$$\epsilon = \mathbb{E}\!\left[\frac{\Delta \text{OI}_h \,/\, \text{OI}_{h-1}}{\Delta P_h \,/\, P_{h-1}} \ \bigg|\ \Delta P_h < {-3\%}\right]$$
 
 When price drops >3%, how much does OI drop? Low elasticity (<0.5) = diamond hands. High (>0.8) = paper hands (instant liquidation).
 
@@ -146,6 +149,9 @@ The divergence rate, combined with OI elasticity, creates a taxonomy of coin par
 | >0.8 | >0.8 | Pure retail on high leverage | BEAT (20%), 4U (18%), POWER (21%) |
 
 **The filter also distinguishes shitcoins from real projects.** Tokenized stocks (TSLA, COIN, HOOD) naturally have high divergence because institutional holders behave counter-cyclically.
+
+![Participant Fingerprint](shitcoin-figures/fig6-participant-fingerprint.svg)
+*Figure 6: Participant fingerprint scatter. Smart money coins (green, top-left) have high divergence and low elasticity. Retail noise coins (red, bottom-right) have low divergence and high elasticity. FARTCOIN (yellow) is a false positive caught by the OI Predictive Power filter.*
 
 ### 3.4 Window Stability
 
@@ -327,6 +333,9 @@ $$\begin{cases}
 
 **This model connects directly to Model 3:** OI growing = stay in (Model 7). OI dying = exit/short (Model 3). They are two sides of the same coin.
 
+![Continuation OI](shitcoin-figures/fig8-continuation-oi.svg)
+*Figure 8: Continuation model. OI growth rate during active pump determines outcome. >+3%/h = strong JOIN (WR 81%). Dropping >3%/h = EXIT immediately (WR 33%). Models 7 and 3 are mirror images.*
+
 **Results:** Best combo (OI↑>3% + vol accelerating): N=85, **WR 81%, PF 13.8**, +12.9%/trade. Beats random P95.
 
 ---
@@ -458,6 +467,9 @@ TopLong during silence predicts not just *whether* a pump happens, but *what kin
 | 60--70% | FOMO Demand | 55% | 1.0 | +11% |
 
 **Sweet spot: TopLong 40--50%.** Balanced crowd → trigger = genuine breakout, not squeeze or FOMO. PF 4.2.
+
+![Pump Types by TopLong](shitcoin-figures/fig7-pump-types.svg)
+*Figure 7: TopLong during silence determines pump type and MFE. Squeeze (<30%) = massive MFE +73% but rare. Balanced (40-50%) = best PF 4.2. FOMO (60-70%) = PF 1.0, skip or tight trail.*
 
 ---
 

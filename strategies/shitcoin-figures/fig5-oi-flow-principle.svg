@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="800" height="500" fill="#0d1117" rx="8"/>
+
+  <text x="400" y="30" text-anchor="middle" fill="#e6edf3" font-size="17" font-weight="600">The Unifying Principle: OI Flow Direction = Price Direction</text>
+  <text x="400" y="50" text-anchor="middle" fill="#8b949e" font-size="11">All 7 models reduce to one question: where is smart money putting capital?</text>
+
+  <!-- Central axis -->
+  <line x1="400" y1="75" x2="400" y2="470" stroke="#30363d" stroke-width="2"/>
+  <text x="390" y="72" fill="#a855f7" font-size="12" font-weight="700" text-anchor="end">OI GROWING</text>
+  <text x="410" y="72" fill="#a855f7" font-size="12" font-weight="700">→ LONG</text>
+  <text x="390" y="485" fill="#ef4444" font-size="12" font-weight="700" text-anchor="end">OI DROPPING</text>
+  <text x="410" y="485" fill="#ef4444" font-size="12" font-weight="700">→ SHORT</text>
+
+  <!-- Left side: Market conditions -->
+  <text x="200" y="90" text-anchor="middle" fill="#8b949e" font-size="13" font-weight="600">Market Condition</text>
+  <!-- Right side: Model -->
+  <text x="620" y="90" text-anchor="middle" fill="#8b949e" font-size="13" font-weight="600">Model &amp; Result</text>
+
+  <!-- OI Growing models (top half) -->
+  <!-- M1: Silence + OI loading -->
+  <rect x="40" y="110" width="280" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="50" y="128" fill="#8b949e" font-size="10">SILENCE</text>
+  <text x="120" y="128" fill="#e6edf3" font-size="11">+ OI loading +5-30%</text>
+  <text x="50" y="145" fill="#6e7681" font-size="9">12h+ quiet, vol dead, OI grows</text>
+  <line x1="320" y1="131" x2="450" y2="131" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <rect x="460" y="110" width="300" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="470" y="128" fill="#6ee7b7" font-size="12" font-weight="600">M1: Silent Barrel LONG</text>
+  <text x="470" y="145" fill="#34d399" font-size="10">N=188 WR 73% PF 3.1 +663%</text>
+
+  <!-- M6: Volatile + OI loading -->
+  <rect x="40" y="162" width="280" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="50" y="180" fill="#8b949e" font-size="10">VOLATILE</text>
+  <text x="120" y="180" fill="#e6edf3" font-size="11">+ OI loading +5-30%</text>
+  <text x="50" y="197" fill="#6e7681" font-size="9">Range >3%/h but OI still grows</text>
+  <line x1="320" y1="183" x2="450" y2="183" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="460" y="162" width="300" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="470" y="180" fill="#6ee7b7" font-size="12" font-weight="600">M6: Volatile Barrel LONG</text>
+  <text x="470" y="197" fill="#34d399" font-size="10">N=136 WR 72% PF 3.0 +522%</text>
+
+  <!-- M7: Pump + OI growing -->
+  <rect x="40" y="214" width="280" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="50" y="232" fill="#8b949e" font-size="10">PUMP ACTIVE</text>
+  <text x="140" y="232" fill="#e6edf3" font-size="11">+ OI growing >3%/h</text>
+  <text x="50" y="249" fill="#6e7681" font-size="9">Price already up, smart money adding</text>
+  <line x1="320" y1="235" x2="450" y2="235" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="460" y="214" width="300" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="470" y="232" fill="#6ee7b7" font-size="12" font-weight="600">M7: Continuation LONG</text>
+  <text x="470" y="249" fill="#34d399" font-size="10">N=138 WR 81% PF 13.0 +12%/trade</text>
+
+  <!-- M4: Dip + OI growing -->
+  <rect x="40" y="266" width="280" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="50" y="284" fill="#8b949e" font-size="10">PRICE DIP >-3%</text>
+  <text x="155" y="284" fill="#e6edf3" font-size="11">+ OI growing >2%</text>
+  <text x="50" y="301" fill="#6e7681" font-size="9">Someone buying the dip (absorption)</text>
+  <line x1="320" y1="287" x2="450" y2="287" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="460" y="266" width="300" height="42" fill="#0f2818" rx="5" stroke="#34d399" stroke-width="1"/>
+  <text x="470" y="284" fill="#6ee7b7" font-size="12" font-weight="600">M4: Dip-Buy LONG</text>
+  <text x="470" y="301" fill="#34d399" font-size="10">N=3604 WR 49% PF 1.18 +1899%</text>
+
+  <!-- M5: Post-dump + OI stabilized -->
+  <rect x="40" y="318" width="280" height="42" fill="#0f2818" rx="5" stroke="#22d3ee" stroke-width="1"/>
+  <text x="50" y="336" fill="#8b949e" font-size="10">POST-DUMP</text>
+  <text x="130" y="336" fill="#e6edf3" font-size="11">+ OI STABILIZED</text>
+  <text x="50" y="353" fill="#6e7681" font-size="9">OI stopped dropping = cascade over</text>
+  <line x1="320" y1="339" x2="450" y2="339" stroke="#22d3ee" stroke-width="1.5"/>
+  <rect x="460" y="318" width="300" height="42" fill="#0d2233" rx="5" stroke="#22d3ee" stroke-width="1"/>
+  <text x="470" y="336" fill="#67e8f9" font-size="12" font-weight="600">M5: Bounce LONG</text>
+  <text x="470" y="353" fill="#22d3ee" font-size="10">WR 62% avg +13.6%/12h</text>
+
+  <!-- OI Dropping models (bottom half) -->
+  <!-- M2: Silence + OI dropping -->
+  <rect x="40" y="380" width="280" height="42" fill="#1a0808" rx="5" stroke="#ef4444" stroke-width="1"/>
+  <text x="50" y="398" fill="#8b949e" font-size="10">SILENCE</text>
+  <text x="120" y="398" fill="#e6edf3" font-size="11">+ OI drops >3% (quiet)</text>
+  <text x="50" y="415" fill="#6e7681" font-size="9">Whale exits quietly, vol still low</text>
+  <line x1="320" y1="401" x2="450" y2="401" stroke="#ef4444" stroke-width="1.5"/>
+  <rect x="460" y="380" width="300" height="42" fill="#1a0808" rx="5" stroke="#ef4444" stroke-width="1"/>
+  <text x="470" y="398" fill="#f87171" font-size="12" font-weight="600">M2: Silent Exit SHORT</text>
+  <text x="470" y="415" fill="#ef4444" font-size="10">N=46 WR 87% PF 21.3 DD 4.6%</text>
+
+  <!-- M3: Post-pump + OI dying -->
+  <rect x="40" y="432" width="280" height="42" fill="#1a0808" rx="5" stroke="#ef4444" stroke-width="1"/>
+  <text x="50" y="450" fill="#8b949e" font-size="10">POST-PUMP</text>
+  <text x="130" y="450" fill="#e6edf3" font-size="11">+ OI dying + vol dying</text>
+  <text x="50" y="467" fill="#6e7681" font-size="9">Fuel exhausted, smart money left</text>
+  <line x1="320" y1="453" x2="450" y2="453" stroke="#ef4444" stroke-width="1.5"/>
+  <rect x="460" y="432" width="300" height="42" fill="#1a0808" rx="5" stroke="#ef4444" stroke-width="1"/>
+  <text x="470" y="450" fill="#f87171" font-size="12" font-weight="600">M3: Pump Exhaustion SHORT</text>
+  <text x="470" y="467" fill="#ef4444" font-size="10">N=1423 WR 58-65% PF 1.2 +1885%</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
+    </marker>
+  </defs>
+</svg>
