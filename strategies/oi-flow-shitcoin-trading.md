@@ -257,7 +257,19 @@ When OI diverges from price on KERNEL, the next hour's price moves in OI's direc
 
 **WHY:** The pump has exhausted its fuel. The key pre-signal: OI drops 12.5% in the 2 hours *before* the price peak (vs +3.2% when price holds). OI leads price by 2 hours.
 
-**Results:** 1,423 trades, 215 coins. 4h WR 58%, PF 1.20, +710%. 24h WR 65%, PF 1.22, +1,885%. Beats random P95.
+**Results:** 1,423 trades, 215 coins. 4h WR 58%, PF 1.20. Avg MFE +12.4% but 4h exit captures only 42%.
+
+**Fix: hold 24h, not 4h.** Dumps continue longer than pumps.
+
+| Hold | WR | PF | Avg | Break-even |
+|------|----|----|-----|-----------|
+| 4h | 58% | 1.20 | +0.50% | 0.25% (marginal) |
+| 12h | 62% | 1.18 | +0.76% | 0.38% |
+| 24h | **65%** | **1.22** | **+1.32%** | **0.66%** (survives) |
+
+Quality filter (pump ≥ 25% + OI drop ≥ 5% + 12h hold): **N=99, WR 65%, PF 1.59, avg +2.87%, break-even 1.43%.**
+
+**Root cause of low avg win:** winners and losers have identical entry features (pump size, OI drop, vol ratio all same). Cannot filter better --- but holding longer captures more of the available move.
 
 ### 4.4 Model 4: Dip-Buy (LONG)
 
@@ -593,7 +605,9 @@ For each model: expected value per trade and break-even spread (above which mode
 | M6 Volatile Barrel | +3.13% | 1.57% | +2.73% | Survives |
 | M1 Base | +3.09% | 1.54% | +2.69% | Survives |
 | M5 Bounce | +1.76% | 0.88% | +1.36% | Survives |
-| M3 Exhaustion | +0.68% | 0.34% | +0.28% | Marginal |
+| M3 Exhaustion (4h) | +0.68% | 0.34% | +0.28% | Marginal at 4h |
+| M3 Exhaustion (24h) | +1.32% | 0.66% | +0.92% | Survives |
+| M3 Quality (pump≥25%+OI≥5%, 12h) | +2.87% | 1.43% | +2.47% | Comfortable |
 | **M4 Dip-Buy** | **+0.19%** | **0.09%** | **-0.21%** | **DEAD on shitcoins** |
 
 **Model 4 (Dip-Buy) is not viable as standalone on shitcoin spreads (0.15-0.25%).** Break-even at 0.09%. However, as a pullback entry within a barrel phase it becomes excellent:
