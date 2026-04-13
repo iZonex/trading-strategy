@@ -6,6 +6,14 @@ originSessionId: 7d61dbca-abfc-4309-b083-80479d4b4259
 ---
 # Operator Cluster Hypothesis — 2026-04-13 ~19:00 UTC
 
+> **SUPERSEDED shortly after writing.** See §12 "Superseded by constraint-
+> space framing" at the end. Kept for the record because the observation
+> that prompted it (RAVE/DEEP/WAL co-listing) is still interesting, but
+> the interpretation ("operator cluster rotation") was replaced the same
+> session by a better framing: the framework describes the *constraint
+> space* of what operators can mechanically do, not a catalog of specific
+> operators. Actor-based framings are inferior to mechanics-based framings.
+
 ## Origin
 
 User observation: RaveDAO (RAVE), DeepBook (DEEP), and Walrus (WAL) were
@@ -146,3 +154,40 @@ attention is about to shift. This is speculative and high-risk.
   sister coins — not collected yet.
 - The hypothesis is compatible with but does not require the FR taxonomy.
   Could coexist as a meta-filter or replace the taxonomy's "type" concept.
+
+---
+
+## §12 Superseded by constraint-space framing (2026-04-13 same session)
+
+After writing the hypothesis above, the user observed that **mapping
+specific operators is not the right abstraction**. The market's mechanics
+are fundamentally constrained:
+
+- OI either grows or shrinks
+- FR is positive, negative, or baseline
+- One side of leverage is over-loaded (cannot be neither)
+- Prices move up, down, or range
+
+These axes exhaustively enumerate the possible playbooks: squeeze, FOMO,
+cascade, hybrid, micro-fakeout. No operator can invent a "supernatural"
+variation because they are bounded by the physics of the perpetual contract.
+
+**Implication:** The 7-type FR taxonomy is not a catalog of operator
+behaviors. It is **the enumeration of mechanically possible playbooks**.
+That is why forward validation works cleanly — we are not identifying
+specific adversaries but the small finite set of what anyone could do.
+
+**Practical consequence:** micro-fakeouts and traps only affect participants
+who have taken leverage. If you size at 1x (spot-size) and enter only
+AFTER the cascade mechanic is visible, the tricks dissolve into price
+noise that cannot forcibly exit your position. The cascade-trigger-protocol
+already embodies this defense: 1x leverage, entry on the actual trigger,
+3% SL, 5% TP — we participate in a cascade that has already destroyed
+someone else's leverage.
+
+**Status of this document:** the RAVE/DEEP/WAL co-listing observation
+stands (same-history coins may show similar mechanical signatures because
+they were launched together and have similar liquidity profiles), but the
+INTERPRETATION as "operator cluster rotation" is replaced by "same
+constraint space, independently explored." Do not use operator identity
+as a trading input. Use mechanics.
