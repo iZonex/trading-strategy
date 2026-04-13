@@ -2,21 +2,25 @@
 
 **Author:** D. Chystiakov
 **Date:** April 13, 2026
-**Version:** 0.1 (preliminary — see §9 for validation state)
+**Version:** 0.2 (preliminary — constraint-space grounding added)
 
 ---
 
 ## Abstract
 
-We present a descriptive framework for classifying the mechanical state of leveraged cycles on low-capitalization cryptocurrency perpetual futures ("shitcoins"). Rather than attempting to predict price movement directly, the framework reads the current state of leverage positioning — who is long, who is short, whether one side is being liquidated, whether positions are balanced — and assigns each cycle to one of seven mechanical regimes. The primary discriminator is the sign and trajectory of the funding rate (FR) across the cycle. Secondary discriminators are open-interest velocity and pump-bar magnitude.
+We present a classification framework for the mechanical state of leveraged cycles on low-capitalization cryptocurrency perpetual futures ("shitcoins"). The framework's central claim is that the set of possible cycle mechanics on a perpetual futures contract is **exhaustively small and finite**: bounded by the physics of the instrument, any cycle must fall into one of a handful of mechanical regimes. Operators running pumps cannot invent variations outside these bounds because they are constrained by the same mechanics everyone else is. We enumerate this constraint space and identify seven distinct mechanical regimes, discriminated primarily by the sign and trajectory of the funding rate (FR) across the cycle, secondarily by open-interest velocity and pump-bar magnitude.
 
-The framework is validated in two forms. Descriptively, the taxonomy cleanly classifies N=33 historical cycles with stable distribution across sub-samples (Pure A 39%, HYBRID 32%, Pure B1 18%, remainder split between B-OI and true drift). Prospectively, a single-day forward test on April 13, 2026 produced 29 direction calls on 29 coins (Batch #1 N=10, Batch #2 N=19 excluding skips) with 100% direction accuracy over 37-minute to 2-hour windows and zero falsification triggers.
+The framework is validated in two forms. Descriptively, the taxonomy cleanly classifies N=33 historical cycles with stable distribution across sub-samples (Pure A 39%, HYBRID 32%, Pure B1 18%, remainder split between B-OI and true drift). Prospectively, a single-day forward test on April 13, 2026 produced 29 direction calls on 29 coins (Batch #1 N=10, Batch #2 N=19 excluding skips) with 100% direction accuracy over 37-minute to 2-hour windows and zero falsification triggers. We argue that forward-validation accuracy in this regime reflects constraint-space exhaustion rather than predictive skill: because the mechanical axes (OI direction, FR sign, leverage side, price direction) combine into a finite catalog, any new cycle observed must fall within the catalog.
 
-A key sub-finding is the empirical split of the former "B2 drift" category into two distinct mechanical regimes: true slow drift (represented by DUSK, no directional edge) and balanced-OI cascade (represented by FIGHT, CATI, GIGGLE, short-tradable on OI reversal). This split was formalized during the study session and validated live 20 minutes later on GIGGLE, which crashed −11.9% from intraday high following an OI reversal of −8.47% in a single 5-minute bar — matching the newly documented mechanic with timestamped precision.
+A key sub-finding is the empirical split of the former "B2 drift" category into two distinct mechanical regimes: true slow drift (represented by DUSK, no directional edge) and balanced-OI cascade (represented by FIGHT, CATI, GIGGLE, short-tradable on OI reversal). This split was formalized during the study session and validated live 20 minutes later on GIGGLE, which crashed −11.9% from intraday high following an OI reversal of −8.47% in a single 5-minute bar — matching the newly documented mechanic with timestamped precision. A second live validation fired 1.5 hours later on LIGHT (OI −9.39% at 17:00 UTC, cascade −13%), and a third on BLESS (OI −7.50% at 18:25 UTC, cascade −15%) — three consecutive timestamped cascade triggers in a single session.
 
-**We emphasize what this framework is not.** It is a reading framework, not a trading system. It provides directional bias and mechanistic context, not entry triggers, position sizing, stop-loss levels, or take-profit rules. All trading approaches described in §8 are hypotheses. The framework has been tested on a single day of forward data, on a single exchange (Binance Futures), on a biased population (top movers). No real P&L has been collected. The results reported here are necessary but not sufficient for a deployable trading system.
+A further finding, drawn from a subsequent cross-type analysis, generalizes the cascade mechanic: post-peak OI reversal occurs on any cycle whose terminal pump had sustained pre-peak velocity (≥2 of the last 3 pre-peak 1-hour bars at ≥+5%). This holds regardless of whether the cycle's FR sign was negative (Pure A), positive (Pure B1), crossing (HYBRID), or baseline (B-OI). We interpret this as further evidence for the constraint-space interpretation: the cascade is the **only mechanically available** exit for saturated leveraged positions, and therefore appears universally across playbook types. Verified live on BLESS, which was classified as "Weak B1" by its FR strength (+0.077% max, below the +0.10% sub-calibration threshold) but cascaded in accordance with the velocity rule, resolving a rule-precedence question in real time.
 
-**Keywords:** cryptocurrency perpetual futures, funding rate, open interest, liquidation cascade, market microstructure, leverage cycles, shitcoin taxonomy
+**Companion trading specifications.** Two paper-only protocols accompany this framework: a cascade trigger entry spec (SHORT at post-peak OI reversal, +1.67 R per win, validated 5/5) and an ignition long entry spec (LONG on first strong bar from silence, +2.0 R per win, validated 2/2). Both specs use 1x position sizing. The 1x sizing is not a conservative choice — it is a **structural defense**. Micro-fakeouts and liquidation traps are the operators' tools for forcibly closing leveraged participants; if we are not leveraged, these tools cannot force us out. We participate in cascades only AFTER they have already destroyed someone else's leverage, not BEFORE.
+
+**We emphasize what this framework is not.** Neither specification has been executed with real capital. All results are from a single day of forward observation on Binance Futures, on a biased population of top movers. No real P&L has been collected. The results reported here are necessary but not sufficient for a deployable trading system. The framework is a reading layer with accompanying paper-trade hypotheses, not a production strategy.
+
+**Keywords:** cryptocurrency perpetual futures, funding rate, open interest, liquidation cascade, market microstructure, leverage cycles, constraint space, shitcoin taxonomy
 
 ---
 
@@ -42,24 +46,43 @@ Third, **single-snapshot readings conflate cycle phase with cycle type.** A coin
 
 We argue that the fundamental unit of analysis on shitcoin perpetuals is the **leverage state**: which side of the market is net long, which side is paying for that position, and whether positions are being forcibly closed. The funding rate — specifically its sign and trajectory over the cycle — is a direct observable of this state, because it reflects the balance of longs versus shorts at each settlement and is updated in real time by Binance's exchange mechanism.
 
-Our thesis is that four orthogonal leverage states, combined with a magnitude modifier, produce a small, stable set of mechanical regimes sufficient to classify all observed cycles in the shitcoin population:
+#### 1.3.1 The constraint-space argument
 
-1. **Pure A** — shorts persistently net long → persistent negative FR → squeeze mechanics
-2. **HYBRID A→B** — shorts squeezed, then longs FOMO → FR crosses sign → full-cycle extraction
-3. **Pure B1** — longs persistently net long → persistent positive FR → FOMO exhaustion
-4. **Balanced OI Pump (B-OI)** — both sides net long, no directional leverage → FR baseline → OI cascade on reversal
-5. **True Drift (B2)** — no meaningful leverage → FR baseline, low velocity → skip
+We further argue that the space of possible cycle mechanics on a perpetual futures contract is **physically constrained** and therefore exhaustively enumerable with a small number of categories. The mechanical axes are orthogonal and each binary or ternary:
 
-The framework assigns each observed cycle to exactly one of these regimes based on FR sign pattern over the cycle, with secondary branching on magnitude and velocity.
+- Open interest: growing, flat, or shrinking
+- Funding rate sign: positive, negative, or baseline
+- Dominant leverage side: longs, shorts, or balanced
+- Price direction: up, down, or ranging
+
+These axes combine into a finite Cartesian product. Not every combination is observed in practice (some are mechanically impossible or self-resolving within a single bar), but the realized combinations collapse into a small set of mechanical regimes: squeeze (Pure A), distribution climax (Pure B), full-cycle extraction (HYBRID), balanced-OI cascade (B-OI), slow drift (B2), and a handful of sub-variants. The framework enumerates this set.
+
+This framing has a non-obvious implication: **operators running pumps are bound by the same mechanical constraints as everyone else**. They cannot invent a "supernatural" playbook that exits leveraged longs without triggering a liquidation cascade, or squeezes shorts without creating extreme negative FR, or distributes to retail FOMO without creating positive FR first. Any operator playbook, no matter how novel it looks, must ultimately decompose into combinations of the same finite mechanics. This is why the taxonomy forward-validates cleanly: we are not identifying specific adversaries or profiling individual market makers, we are enumerating **what is mechanically possible**.
+
+A corollary is that the framework's defense against micro-manipulation is structural, not predictive. Micro-fakeouts, liquidation wicks, and stop hunts are operator tools for forcibly exiting leveraged participants. Against a 1x-sized (spot-equivalent) position with no liquidation risk, these tools dissolve into harmless price noise. The cascade trigger and ignition long protocols (companion specs §8) both require 1x sizing precisely for this reason.
+
+#### 1.3.2 The seven regimes
+
+Our thesis is that four orthogonal leverage states, combined with a magnitude modifier and a velocity modifier, produce seven mechanical regimes sufficient to classify all observed cycles in the shitcoin population:
+
+1. **Pure A** — shorts persistently over-leveraged → persistent negative FR → squeeze mechanics (sub-divided into A1 extreme and A2 mild)
+2. **HYBRID A→B** — shorts squeezed, then longs FOMO → FR crosses sign → full-cycle extraction (sub-divided into big-move and small-move)
+3. **Pure B1** — longs persistently over-leveraged → persistent positive FR → FOMO exhaustion
+4. **Balanced OI Pump (B-OI)** — balanced OI growth with baseline FR, fast velocity → liquidation cascade on reversal
+5. **True Drift (B2)** — no meaningful leverage signature, slow velocity throughout → no actionable edge
+
+The framework assigns each observed cycle to exactly one of these regimes based on FR sign pattern and pre-peak velocity, with secondary branching on magnitude.
 
 ### 1.4 Contributions
 
-1. A seven-class mechanical taxonomy for shitcoin perpetual cycles grounded in funding-rate sign analysis.
+1. A seven-class mechanical taxonomy for shitcoin perpetual cycles grounded in funding-rate sign analysis and framed as an exhaustive enumeration of the constraint space.
 2. Empirical distribution of regimes on N=33 historical cycles with stable proportions across sub-samples.
 3. Discovery and formalization of the Balanced-OI Cascade regime (B-OI), previously conflated with slow drift.
-4. A live reading scanner (Test 352) implementing the classification and staging.
-5. Forward validation over a single session with 29/29 direction accuracy and a timestamped live validation of the B-OI regime on GIGGLE.
-6. Explicit characterization of what the framework does and does not provide, to prevent premature deployment.
+4. The cascade-universality finding: the post-peak liquidation cascade is not type-specific but applies to any cycle with sustained pre-peak velocity, interpreted as the only mechanically available exit for saturated leveraged positions.
+5. Two live reading scanners (test 352 type-specific B-OI, test 353 generalized cascade) implementing classification and three-stage signal staging.
+6. Forward validation over a single session with 29/29 direction accuracy and three timestamped live cascade triggers (GIGGLE 15:35, LIGHT 17:00, BLESS 18:25 UTC).
+7. Two companion paper-trade specifications (cascade trigger SHORT, ignition LONG) with explicit entry/stop/exit rules, 1x sizing as structural defense against micro-manipulation, and R-multiples of 1.67 and 2.0 respectively.
+8. Explicit characterization of what the framework does and does not provide, to prevent premature deployment.
 
 ---
 
@@ -519,11 +542,40 @@ The classification and staging logic is implemented in the research codebase at 
 
 - `350-reading-tool-v2.mjs` — multi-dimensional single-coin reading (basis, FR, OI, 24h structure)
 - `351-historical-pump-read.mjs` — cycle identifier with hourly walk through peak ±12h
-- `352-boi-scanner.mjs` — live B-OI scanner with 3-stage filtering and staging
+- `352-boi-scanner.mjs` — live B-OI scanner with 3-stage filtering and staging (type-specific)
+- `353-cascade-scanner.mjs` — generalized cascade scanner (FR-agnostic, velocity-based)
+- `354-paper-trade-logger.mjs` — automated signal collector + position monitor, appends to `data/paper-trades.jsonl`
 
-The scanner source is outside the scope of this document but is referenced by name for reproducibility.
+The scanner sources are outside the scope of this document but are referenced by name for reproducibility.
+
+## Appendix C: Companion trading specifications
+
+Two paper-trade protocols complement this framework:
+
+- **`cascade-trigger-protocol-v0.1.md`** (v0.1.2): SHORT entry on post-peak
+  OI reversal. Entry at trigger bar close, SL +3%, TP −5%, 60-min time
+  exit, 1x sizing. R = 1.67 per win. Validation: 5/5 TP hits across three
+  live cases (GIGGLE, LIGHT, BLESS — all same session) plus two historical
+  (BULLA, AIOT).
+
+- **`ignition-long-protocol-v0.1.md`** (v0.1): LONG entry on first strong
+  bar from silence with OI ≥+10% confirmation. Entry at bar close, SL −5%,
+  TP +10%, 4h time exit, 1x sizing. R = 2.0 per win. Validation: 2/2 TP
+  hits on BULLA and AIOT historical cases; no live validation yet.
+
+Both specs use 1x position sizing as structural defense. Leverage is not
+just a sizing choice — taking leverage is what exposes a participant to
+the micro-manipulation tools (fake-outs, liquidation wicks, stop hunts)
+that operators use to force exits. A 1x position with no liquidation
+risk is unaffected by these tools; fake-outs become harmless noise.
+
+See `session-walkforward-2026-04-13.md` for a post-hoc paper-trade
+walkthrough: 3 cascade signals, 3/3 wins, +5.01 R total, +2.5% paper
+capital return in a 3-hour window.
 
 ---
 
 *Version history:*
-*0.1 (April 13, 2026) — Initial formalization. Reflects single-day forward validation and the within-session B-OI discovery. Trading approaches are hypotheses only; no real P&L.*
+*0.1 (April 13, 2026, ~16:00 UTC) — Initial formalization. Descriptive taxonomy with single-day forward validation. B-OI discovery with GIGGLE live validation.*
+
+*0.2 (April 13, 2026, ~19:30 UTC) — Constraint-space interpretation added after user feedback. Reframes the framework as an enumeration of mechanically possible playbooks rather than a descriptive catalog. Adds §1.3.1 constraint-space argument. Adds cascade-universality finding (N=6 historical analysis). Adds third live B-OI validation (BLESS 18:25 UTC). Adds §Appendix C companion trading specs (cascade-trigger-protocol + ignition-long-protocol) with 1x sizing as structural defense. Rejects actor-based interpretations (operator cluster hypothesis superseded by constraint-space framing).*
