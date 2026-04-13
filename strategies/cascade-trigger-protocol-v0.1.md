@@ -144,10 +144,22 @@ theoretical larger captures until sample size grows.
 |------|---------|--------------|-------|----|----|---------|------------|
 | GIGGLE | 2026-04-13 live 5m | 15:35 UTC | $40.85 | $42.07 | $38.81 | TP hit 16:00 | +1.67 R |
 | LIGHT | 2026-04-13 live 5m | 17:00 UTC | $0.1836 | $0.1891 | $0.1744 | TP hit 17:30 | +1.67 R |
+| **BLESS** | **2026-04-13 live 5m** | **18:25 UTC** | **$0.01774** | **$0.01827** | **$0.01685** | **TP hit 18:35** | **+1.67 R** |
 | BULLA | 2026-04-09 hist 1h | 07:00 UTC | $0.0219 | $0.02257 | $0.0208 | TP hit 08:00 | +1.67 R |
 | AIOT | 2026-04-12 hist 1h | 04:00 UTC | $0.0754 | $0.0777 | $0.0716 | TP hit 05:00 | +1.67 R |
 
-**Verified: 4/4 TP hits, 0/4 SL hits, 0/4 time exits. +6.68 R total.**
+**Verified: 5/5 TP hits, 0/5 SL hits, 0/5 time exits. +8.35 R total.**
+
+**BLESS is notable** because it resolved a rule-precedence question in real
+time. BLESS had FR max +0.077%, which the B1 sub-calibration (in
+`shitcoin-leverage-mechanics.md` §4.3) would classify as "Weak B1 → slow
+fade, low edge." But the velocity filter (2 of 3 pre-peak 1h bars ≥+5%)
+indicated cascade-prone. The two rules conflicted.
+
+Live outcome resolved it: BLESS cascaded −15.1% in 15 minutes with a clean
+5m trigger bar (OI −7.50%). **Velocity dominates FR strength when both are
+evaluated.** The B1 sub-calibration applies only in the absence of strong
+velocity — it is a fallback, not a precedence override.
 
 ### Correctly skipped cases (rule does NOT fire — good)
 
@@ -235,3 +247,8 @@ Target after 10 paper cases:
   trigger rule) after CLO counter-example test. Expanded validation to N=9
   cases: 4 verified wins, 3 correct skips, 2 out-of-resolution. Added resolution
   note: 1h data misses fast HYBRID cascades; 5m data required.
+- **v0.1.2** (2026-04-13 ~18:45 UTC): Added BLESS as third live validation
+  case (trigger 18:25 UTC, OI −7.50%, TP hit 18:35, +1.67R). Clarified rule
+  precedence: velocity filter overrides FR-strength B1 sub-calibration.
+  BLESS was Weak B1 by FR (+0.077%) but cascade by velocity — cascade won.
+  Now 5/5 TP hits in the full validation sample (3 live + 2 historical).
