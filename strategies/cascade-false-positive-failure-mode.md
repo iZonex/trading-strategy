@@ -6,6 +6,18 @@ originSessionId: 7d61dbca-abfc-4309-b083-80479d4b4259
 ---
 # Cascade Trigger False Positive Failure Mode — 2026-04-14 ~12:00 UTC
 
+> **UPDATE 12:30 UTC:** The v0.1.3 cooldown fix proposed below was a
+> band-aid. After user pushed on "why didn't things get better," a deeper
+> root-cause analysis revealed that the 15% freshness filter was the real
+> problem. v0.1.4 replaces the cooldown with a tighter 8% freshness filter
+> plus FR-based direction discrimination (SHORT vs LONG path). This
+> addresses the root cause (valid cascades fire within 5-8% of peak, not
+> 15%) and also catches a direction the spec was missing (LONG short-cover
+> trigger). See spec_cascade_trigger_protocol_v0_1.md v0.1.4.
+>
+> This document is preserved as the discovery narrative but the recommended
+> fix (Option B cooldown) was **superseded**.
+
 ## Summary
 
 The cascade trigger spec (v0.1.2) has an identified failure mode:
