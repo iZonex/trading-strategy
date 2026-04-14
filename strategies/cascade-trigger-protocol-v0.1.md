@@ -4,7 +4,7 @@ description: OI-reversal cascade trigger with symmetric SHORT/LONG paths. v0.1.4
 type: project
 originSessionId: 7d61dbca-abfc-4309-b083-80479d4b4259
 ---
-# Cascade Trigger Entry Protocol — v0.1.4 (paper only)
+# Cascade Trigger Entry Protocol — v0.1.5 (paper only)
 
 **Status:** Preliminary spec. v0.1.4 re-validated against full BLESS cycle
 1+2 data window with principled root-cause fixes. Paper trading only
@@ -98,9 +98,11 @@ just starting" and excludes "cascade already done" and "mid-cycle pullback."
 
 ## LONG path — short-cover cascade trigger
 
-**Additional filter (LONG):**
+**Additional filters (LONG):**
 - **Low freshness**: current price within **8% of the recent 6-hour low**
 - **FR confirmation**: latest FR ≤ −0.20% (extreme negative, shorts are paying)
+- **Reversal confirmation (added v0.1.5)**: trigger bar close ≥ prior bar close
+  (the reversal must be visible on the trigger bar itself, not prospective)
 
 Rationale: short-cover cascades happen when extreme negative FR has
 attracted heavy short positioning. The trigger bar shows OI dropping
@@ -124,15 +126,17 @@ cycles from 2026-04-13, and ARIA 2026-04-14 10:00-11:45.
 
 ### All triggers in scanning window
 
-| Case | OI drop | FR latest | Path | Price check | Result |
-|------|---------|-----------|------|-------------|--------|
-| GIGGLE 15:35 | −8.47% | +0.005% | SHORT | −6.9% from peak ✓ | **ENTER**, TP hit, +1.67R |
-| LIGHT 17:00 | −9.39% | +0.023% | SHORT | −7.7% from peak ✓ | **ENTER**, TP hit, +1.67R |
-| BLESS 18:25 (cycle 1) | −7.50% | +0.054% | SHORT | −5.4% from peak ✓ | **ENTER**, TP hit, +1.67R |
-| BLESS 20:35 (cycle 2 FP) | −12.6% | +0.054% | SHORT | −12.7% from peak ✗ | **SKIP** (freshness excludes) |
-| BLESS 21:15 (cycle 2 FP) | −5.7% | +0.054% | SHORT | −15.0% from peak ✗ | **SKIP** (freshness excludes) |
-| ARIA 10:40 | −7.4% | −0.6433% | **LONG** | +2.7% from 6h low ✓ | **ENTER** LONG, TP hit, +1.67R |
-| RAVE 04-13 20:00 (internal cascade) | (1h data) | −1.396% | LONG? | −34% from peak | **SKIP for SHORT** (freshness); SKIP for LONG (not near low — was still at leg 5 area) |
+| Case | OI drop | FR latest | Path | Price check | Reversal | Result |
+|------|---------|-----------|------|-------------|----------|--------|
+| GIGGLE 15:35 | −8.47% | +0.005% | SHORT | −6.9% from peak ✓ | n/a | **ENTER**, TP hit, +1.67R |
+| LIGHT 17:00 | −9.39% | +0.023% | SHORT | −7.7% from peak ✓ | n/a | **ENTER**, TP hit, +1.67R |
+| BLESS 18:25 (cycle 1) | −7.50% | +0.054% | SHORT | −5.4% from peak ✓ | n/a | **ENTER**, TP hit, +1.67R |
+| BLESS 20:35 (cycle 2 FP) | −12.6% | +0.054% | SHORT | −12.7% ✗ | n/a | **SKIP** (freshness excludes) |
+| BLESS 21:15 (cycle 2 FP) | −5.7% | +0.054% | SHORT | −15.0% ✗ | n/a | **SKIP** (freshness excludes) |
+| ARIA 10:40 | −7.4% | −0.6433% | **LONG** | +2.7% from 6h low ✓ | +2.70% rising ✓ | **ENTER** LONG, TP hit, +1.67R |
+| **ENJ 08:45** | **−5.5%** | **−0.221%** | **LONG** | +2.1% from 6h low ✓ | **−0.17% flat/falling ✗** | **SKIP (v0.1.5 reversal rule)** — without this rule, would be SL hit |
+| RAVE 04-13 20:00 (internal cascade) | (1h data) | −1.396% | LONG? | −34% from peak | — | **SKIP for SHORT** (freshness); SKIP for LONG (not near low — mid-cycle profit-taking, not cycle end) |
+| NOM post-peak (04-12) | — at 5m | −0.344% | — | — | — | **NO TRIGGER at 5m** (1h aggregation artifact) |
 
 ### Score
 
@@ -196,3 +200,13 @@ false positives.
   grounded). 4h cooldown removed — no longer needed. Root-cause analysis
   documented. Validation protocol specified: scan all trigger bars in
   test window, not just wins.
+- **v0.1.5** (2026-04-14 ~13:00 UTC): Added **reversal confirmation** to
+  LONG path after ENJ 08:45 UTC false positive discovered at 5m resolution
+  (trigger bar close $0.0483 < prior bar close $0.0484, OI −5.5%, FR
+  −0.221%, LONG would have entered but price continued declining to SL
+  hit ~10:20 UTC). New rule: LONG path requires trigger bar close ≥ prior
+  bar close — reversal must be visible on the trigger bar itself, not
+  just prospective based on FR state. SHORT path unchanged (cascade has
+  intrinsic momentum, doesn't need reversal confirmation). NOM post-peak
+  was investigated and found not to trigger at 5m resolution at all (1h
+  aggregated −5% was a resolution artifact).
