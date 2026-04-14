@@ -92,6 +92,26 @@ Would capture larger cascades (BULLA −24%, AIOT −38% in historical sample).
 Deferred because the consistency of 5% hit across 4 cases is worth more than
 theoretical larger captures until sample size grows.
 
+## Per-coin cooldown rule (added v0.1.3)
+
+**After any trigger closes on a coin (TP, SL, or time exit), do not open
+a new position on that coin for 4 hours.**
+
+**Rationale:** The trigger can false-positive during intra-cycle pullbacks
+on multi-cycle coins. Specifically, BLESS 2026-04-13 had two false
+positive triggers at 20:35 and 21:15 UTC (both SL hits) inside the
+accumulation phase between cycle 1 (peaked 18:00) and cycle 2 (peaked
+04-14 00:00). A 4-hour cooldown after cycle 1 exit (18:35) correctly
+skips both FPs while still allowing the genuine cycle 2 cascade at
+04-14 01:00 (6h later).
+
+**Cost:** On genuinely-multi-cycle coins where the second cycle cascades
+within 4h of the first, we miss the second trade. Observed multi-cycle
+gaps so far are all >4h between real cascade exits and next real cycle
+cascades, so this is acceptable with current evidence.
+
+See `research_cascade_false_positive_failure_mode.md` for full analysis.
+
 ## Time-based exit
 
 - **Max hold**: 60 minutes from trigger bar
@@ -252,3 +272,14 @@ Target after 10 paper cases:
   precedence: velocity filter overrides FR-strength B1 sub-calibration.
   BLESS was Weak B1 by FR (+0.077%) but cascade by velocity — cascade won.
   Now 5/5 TP hits in the full validation sample (3 live + 2 historical).
+- **v0.1.3** (2026-04-14 ~12:00 UTC): FAILURE MODE discovered and fixed.
+  BLESS cycle 2 retrospective scan revealed 2 false positive triggers
+  (20:35 and 21:15 UTC) that would have produced SL hits during cycle 2
+  accumulation. Prior "5/5 TP hits" claim was selection bias — only
+  validated on winning triggers, not all triggers in window. True
+  validation at v0.1.2: 5/7 = 71% WR, +6.35R. **Added per-coin 4-hour
+  cooldown rule**: after any trigger closes (TP/SL/time), no new trigger
+  on same coin for 4 hours. This eliminates both BLESS FPs without
+  losing any valid wins (cycle 2 real cascade at 04-14 01:00 UTC was
+  6h past the cycle 1 exit, still allowed). Also added validation
+  discipline note: scan ALL trigger bars in test windows, not just wins.
