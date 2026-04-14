@@ -4,7 +4,7 @@ description: OI-reversal cascade trigger with symmetric SHORT/LONG paths. v0.1.4
 type: project
 originSessionId: 7d61dbca-abfc-4309-b083-80479d4b4259
 ---
-# Cascade Trigger Entry Protocol — v0.1.5 (paper only)
+# Cascade Trigger Entry Protocol — v0.1.6 (paper only)
 
 **Status:** Preliminary spec. v0.1.4 re-validated against full BLESS cycle
 1+2 data window with principled root-cause fixes. Paper trading only
@@ -65,26 +65,43 @@ All trigger candidates must satisfy these base conditions:
 
 If any base condition fails, no trigger fires regardless of direction.
 
-## Direction discrimination by funding rate
+## Direction discrimination by price position (v0.1.6)
 
-After base conditions are satisfied, the spec determines direction from
-the most recent funding rate settlement:
+**Changed in v0.1.6:** direction is determined by price position relative
+to recent extremes, not by funding rate alone. FR state is now a
+secondary confirmation for the LONG path only.
 
-| FR latest | Direction path | Mechanic |
-|-----------|----------------|----------|
-| ≥ −0.10% | **SHORT path** (long cascade) | Longs paying (or balanced) → longs liquidating on drop |
-| ≤ −0.20% | **LONG path** (short cover) | Shorts paying heavily → shorts covering on rally |
-| −0.20% < FR < −0.10% | **SKIP** (ambiguous) | Neither side dominates |
+| Price position | Direction path | Mechanic |
+|----------------|----------------|----------|
+| Within 8% of 12h peak | **SHORT path** (long cascade) | Longs (late entries) being liquidated as price rolls over from cycle top |
+| Within 8% of 6h low + FR ≤ −0.20% | **LONG path** (short cover) | Shorts covering as price reverses from short-trap base |
+| Neither | **SKIP** | Mid-cycle pullback, profit-taking, or accumulation |
 
-The FR boundary is where the mechanical interpretation changes. In the
-SHORT path, the OI drop is caused by longs being forcibly closed. In the
-LONG path, the OI drop is caused by shorts being forcibly covered
-(liquidated or voluntarily closed due to heavy funding cost).
+**Why price position, not FR:** Pure A1 multi-leg cycles stay at extreme
+negative FR throughout their entire run. The FR does not distinguish
+"squeeze phase" from "cycle end". When the cycle ends and longs who
+bought the top get liquidated, FR is still extreme negative but the
+trade direction is SHORT. This was observed live on RAVE 2026-04-14
+12:05 UTC (FR −0.887%, price at −6.4% from 12h peak $14.79, OI −6.6%
+in 5m bar, cascade to $12.90 for +1.67R).
+
+Previous v0.1.5 rule used FR ≥ −0.10% / ≤ −0.20% as direction
+discriminator, which would have SKIPPED RAVE 12:05 (LONG path failed
+because price was not near recent low). v0.1.6 fixes this by using
+price position.
+
+**FR role in v0.1.6:** The LONG path still requires FR ≤ −0.20% because
+the mechanic of short-cover cascades requires extreme negative FR (heavy
+short positioning being squeezed out). Without this FR, a price-near-low
+OI drop is ambiguous (could be just drift or bottom-forming without
+forced covering).
 
 ## SHORT path — long-cascade cascade trigger
 
-**Additional filter (SHORT):**
+**Qualifies when:**
 - **Freshness**: current price within **8%** of the 12-hour peak (was 15% in v0.1.2)
+- **FR state**: any (v0.1.6 removed FR ≥ −0.10% constraint after RAVE 12:05
+  case showed Pure A1 cycle-end can have extreme negative FR while cascading)
 
 Rationale: observed valid SHORT triggers (GIGGLE, LIGHT, BLESS cycle 1)
 all fired within 5-8% of the peak. The 8% threshold captures "cascade
@@ -137,6 +154,7 @@ cycles from 2026-04-13, and ARIA 2026-04-14 10:00-11:45.
 | **ENJ 08:45** | **−5.5%** | **−0.221%** | **LONG** | +2.1% from 6h low ✓ | **−0.17% flat/falling ✗** | **SKIP (v0.1.5 reversal rule)** — without this rule, would be SL hit |
 | RAVE 04-13 20:00 (internal cascade) | (1h data) | −1.396% | LONG? | −34% from peak | — | **SKIP for SHORT** (freshness); SKIP for LONG (not near low — mid-cycle profit-taking, not cycle end) |
 | NOM post-peak (04-12) | — at 5m | −0.344% | — | — | — | **NO TRIGGER at 5m** (1h aggregation artifact) |
+| **RAVE 2026-04-14 12:05** | **−6.6%** | **−0.887%** | **SHORT** | −6.4% from 12h peak $14.79 ✓ | n/a | **ENTER SHORT** @ $13.8459, TP $13.15 hit at 12:15-12:20 as cascade to $12.90, **+1.67R** |
 
 ### Score
 
@@ -210,3 +228,16 @@ false positives.
   intrinsic momentum, doesn't need reversal confirmation). NOM post-peak
   was investigated and found not to trigger at 5m resolution at all (1h
   aggregated −5% was a resolution artifact).
+- **v0.1.6** (2026-04-14 ~13:30 UTC): **Direction discriminator changed from
+  FR state to price position.** RAVE 2026-04-14 12:05 UTC fired a clean 5m
+  cascade trigger (OI −6.6%, price $13.85 at −6.4% from 12h peak $14.79,
+  FR −0.887%). Under v0.1.5 rules, FR ≤ −0.20% would route to LONG path,
+  but LONG path would fail because price was near HIGH, not near LOW. So
+  v0.1.5 would SKIP this trade, missing a clean +1.67R SHORT opportunity
+  (price cascaded to $12.90 by 12:20 UTC, hitting TP). Root cause: FR is
+  not a reliable direction discriminator during Pure A1 multi-leg end —
+  FR stays extreme negative throughout the cycle, including when late
+  longs liquidate at the top. v0.1.6 uses price position instead: SHORT
+  path fires when within 8% of 12h peak (any FR); LONG path fires when
+  within 8% of 6h low AND FR ≤ −0.20% AND trigger bar rising (FR kept
+  only as secondary confirmation for LONG mechanic).
